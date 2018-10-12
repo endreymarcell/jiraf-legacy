@@ -22,7 +22,7 @@ const get = url => {
 const put = (url, data) => {
     const JIRA_URL_BASE = getFromConfig("jira_url_base");
     return axios({
-        method: 'put',
+        method: "put",
         url: `${JIRA_URL_BASE}${JIRA_RESTAPI_URL}${url}`,
         data: data,
         auth: {

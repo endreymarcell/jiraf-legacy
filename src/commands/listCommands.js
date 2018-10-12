@@ -1,4 +1,4 @@
-const {rightPad, getShortUsername} = require("../utils/utils");
+const {rightPad, getShortUsername, getStatusForSlug} = require("../utils/utils");
 const {JIRA_CARD_URL, JIRA_SEARCH_URL} = require("../const");
 const {getActiveCardKey, getActiveProjectKey, getStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
@@ -15,7 +15,7 @@ const listCardsCommand = options => {
         JIRA_SEARCH_URL +
         "?fields=summary,status,issuetype,priority,assignee" +
         `&jql=project = ${getActiveProjectKey()} AND Sprint in openSprints()`;
-    const filtersUrl = generateFiltersUrl(options.status, options.assignee);
+    const filtersUrl = generateFiltersUrl(options.statusSlug, options.assignee);
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response).map(card => console.log(card)))
         .catch(error => console.log(error));
@@ -36,10 +36,11 @@ const parseCardResponse = response => {
     };
 };
 
-const generateFiltersUrl = (status, assignee) => {
+const generateFiltersUrl = (statusSlug, assignee) => {
     let filterStrings = [""];
-    if (status) {
-        filterStrings.push(`status = ${status}`);
+    if (statusSlug) {
+        const status = getStatusForSlug(statusSlug);
+        filterStrings.push(`status = "${status}"`);
     }
     if (assignee === null) {
         // null means the --assignee flag was set but no name was specified

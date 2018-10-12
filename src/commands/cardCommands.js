@@ -5,7 +5,7 @@ const {put} = require("../utils/jiraApi");
 
 const sendAssignRequest = assignee => {
     put(`${JIRA_CARD_URL}${getActiveCardKey()}/assignee`, {name: assignee});
-}
+};
 
 const assignCardCommand = assignee => {
     sendAssignRequest(assignee ? assignee : getShortUsername());
@@ -13,9 +13,13 @@ const assignCardCommand = assignee => {
 
 const unassignCardCommand = () => {
     sendAssignRequest(null);
-}
+};
+
+const move = statusSlug => {
+    // pass
+};
 
 module.exports = {
     assignCardCommand,
     unassignCardCommand,
-}
+};

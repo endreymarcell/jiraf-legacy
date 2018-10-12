@@ -24,4 +24,4 @@ const webCommand = target => {
 
 module.exports = {
     webCommand,
-}
+};

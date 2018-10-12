@@ -32,7 +32,7 @@ const getActiveCardKey = () => {
 
 const getStatuses = () => {
     return getFromConfig("statuses");
-}
+};
 
 module.exports = {
     getFromConfig,
