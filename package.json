@@ -1,0 +1,24 @@
+{
+  "name": "jiraf",
+  "version": "0.1.0",
+  "description": "Command-line helper for Jira-GitHub workflow",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write src/**/*.js"
+  },
+  "author": "Marcell Endrey <endrey.marcell@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "0.18.0",
+    "command-line-args": "5.0.2",
+    "opn": "5.4.0"
+  },
+  "devDependencies": {
+    "prettier": "1.14.3"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "trailingComma": "es5",
+    "bracketSpacing": false
+  }
+}
