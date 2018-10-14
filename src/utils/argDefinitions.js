@@ -7,6 +7,10 @@ const listCardsDefinitions = [
     {name: "assignee", alias: "a", type: String},
 ];
 const assignDefinitions = [{name: "assignee", type: String}];
+const branchDefinitions = [
+    {name: "prefix-with-card-key", alias: "p", type: Boolean, defaultValue: false},
+    {name: "branchName", defaultOption: true, type: String},
+];
 const webDefinitions = [{name: "target", defaultOption: true, type: String}];
 
 module.exports = {
@@ -15,5 +19,6 @@ module.exports = {
     setDefinitions,
     listCardsDefinitions,
     assignDefinitions,
+    branchDefinitions,
     webDefinitions,
 };

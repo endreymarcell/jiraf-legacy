@@ -1,7 +1,8 @@
 const commandLineArgs = require("command-line-args");
+const {branchCommand} = require("./commands/branchCommand");
 const {assignCardCommand, unassignCardCommand}= require("./commands/cardCommands");
 
-const {mainDefinitions, setProjectDefinitions, setDefinitions, webDefinitions, listCardsDefinitions, assignDefinitions} = require("./utils/argDefinitions");
+const {mainDefinitions, setProjectDefinitions, setDefinitions, webDefinitions, listCardsDefinitions, assignDefinitions, branchDefinitions} = require("./utils/argDefinitions");
 const {listCardsCommand, currentCardCommand} = require("./commands/listCommands");
 const {setProjectCommand, unsetProjectCommand, setCardCommand, unsetCardCommand} = require("./commands/sessionCommands");
 const {webCommand} = require("./commands/webCommand");
@@ -46,6 +47,10 @@ try {
             break;
         case "unassign":
             unassignCardCommand();
+            break;
+        case "branch":
+            const branchOptions = commandLineArgs(branchDefinitions, {argv});
+            branchCommand(branchOptions);
             break;
         case "web":
             const webOptions = commandLineArgs(webDefinitions, {argv});
