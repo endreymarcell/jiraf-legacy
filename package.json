@@ -8,6 +8,10 @@
   },
   "author": "Marcell Endrey <endrey.marcell@gmail.com>",
   "license": "ISC",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/endreymarcell/jiraf.git"
+  },
   "dependencies": {
     "axios": "0.18.0",
     "command-line-args": "5.0.2",
