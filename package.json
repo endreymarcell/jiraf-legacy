@@ -18,6 +18,7 @@
     "opn": "5.4.0"
   },
   "devDependencies": {
+    "express": "4.16.4",
     "prettier": "1.14.3"
   },
   "prettier": {
