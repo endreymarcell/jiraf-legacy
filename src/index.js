@@ -2,22 +2,22 @@ const commandLineArgs = require("command-line-args");
 const {branchCommand} = require("./commands/branchCommand");
 const {assignCardCommand, unassignCardCommand}= require("./commands/cardCommands");
 
-const {mainDefinitions, setProjectDefinitions, setDefinitions, webDefinitions, listCardsDefinitions, assignDefinitions, branchDefinitions} = require("./utils/argDefinitions");
+const defs = require("./utils/argDefinitions");
 const {listCardsCommand, currentCardCommand} = require("./commands/listCommands");
 const {setProjectCommand, unsetProjectCommand, setCardCommand, unsetCardCommand} = require("./commands/sessionCommands");
 const {webCommand} = require("./commands/webCommand");
 
-const mainOptions = commandLineArgs(mainDefinitions, {stopAtFirstUnknown: true});
+const mainOptions = commandLineArgs(defs.mainDefinitions, {stopAtFirstUnknown: true});
 const argv = mainOptions._unknown || [];
 
 try {
     switch (mainOptions.command) {
         case "ls":
-            const listCardsOptions = commandLineArgs(listCardsDefinitions, {argv});
+            const listCardsOptions = commandLineArgs(defs.listCardsDefinitions, {argv});
             listCardsCommand(listCardsOptions);
             break;
         case "setproject":
-            const setProjectOptions = commandLineArgs(setProjectDefinitions, {argv});
+            const setProjectOptions = commandLineArgs(defs.setProjectDefinitions, {argv});
             if (setProjectOptions.project) {
                 setProjectCommand(setProjectOptions.project);
             } else {
@@ -28,7 +28,7 @@ try {
             unsetProjectCommand();
             break;
         case "set":
-            const setOptions = commandLineArgs(setDefinitions, {argv});
+            const setOptions = commandLineArgs(defs.setDefinitions, {argv});
             if (setOptions.card) {
                 setCardCommand(setOptions.card);
             } else {
@@ -42,18 +42,18 @@ try {
             currentCardCommand();
             break;
         case "assign":
-            const assignOptions = commandLineArgs(assignDefinitions, {argv});
+            const assignOptions = commandLineArgs(defs.assignDefinitions, {argv});
             assignCardCommand(assignOptions.assignee);
             break;
         case "unassign":
             unassignCardCommand();
             break;
         case "branch":
-            const branchOptions = commandLineArgs(branchDefinitions, {argv});
+            const branchOptions = commandLineArgs(defs.branchDefinitions, {argv});
             branchCommand(branchOptions);
             break;
         case "web":
-            const webOptions = commandLineArgs(webDefinitions, {argv});
+            const webOptions = commandLineArgs(defs.webDefinitions, {argv});
             webCommand(webOptions.target);
             break;
         default:
