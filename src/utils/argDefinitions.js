@@ -11,6 +11,7 @@ const branchDefinitions = [
     {name: "prefix-with-card-key", alias: "p", type: Boolean, defaultValue: false},
     {name: "branchName", defaultOption: true, type: String},
 ];
+const moveDefinitions = [{name: "status", defaultOption: true, type: String}];
 const webDefinitions = [{name: "target", defaultOption: true, type: String}];
 
 module.exports = {
@@ -20,5 +21,6 @@ module.exports = {
     listCardsDefinitions,
     assignDefinitions,
     branchDefinitions,
+    moveDefinitions,
     webDefinitions,
 };

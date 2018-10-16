@@ -5,6 +5,7 @@ const {assignCardCommand, unassignCardCommand}= require("./commands/cardCommands
 const defs = require("./utils/argDefinitions");
 const {listCardsCommand, currentCardCommand} = require("./commands/listCommands");
 const {setProjectCommand, unsetProjectCommand, setCardCommand, unsetCardCommand} = require("./commands/sessionCommands");
+const {moveCommand} = require("./commands/moveCommand");
 const {webCommand} = require("./commands/webCommand");
 
 const mainOptions = commandLineArgs(defs.mainDefinitions, {stopAtFirstUnknown: true});
@@ -51,6 +52,10 @@ try {
         case "branch":
             const branchOptions = commandLineArgs(defs.branchDefinitions, {argv});
             branchCommand(branchOptions);
+            break;
+        case "move":
+            const moveOptions = commandLineArgs(defs.moveDefinitions, {argv});
+            moveCommand(moveOptions.status);
             break;
         case "web":
             const webOptions = commandLineArgs(defs.webDefinitions, {argv});

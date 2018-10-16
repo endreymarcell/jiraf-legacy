@@ -31,4 +31,5 @@ module.exports = {
     rightPad,
     getShortUsername,
     getStatusForSlug,
+    getSlugForStatus,
 };
