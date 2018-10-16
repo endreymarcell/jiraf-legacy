@@ -8,31 +8,41 @@ if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
     process.exit(1);
 }
 
-const get = url => {
+const makeRequest = (url, options) => {
     const JIRA_URL_BASE = getFromConfig("jira_url_base");
-    return axios({
+    const baseOptions = {
         url: `${JIRA_URL_BASE}${JIRA_RESTAPI_URL}${url}`,
+        method: "get",
         auth: {
             username: ATLASSIAN_USERNAME,
             password: ATLASSIAN_API_TOKEN,
         },
-    });
+    };
+    return axios({...baseOptions, ...options});
+};
+
+const get = url => {
+    return makeRequest(url);
 };
 
 const put = (url, data) => {
-    const JIRA_URL_BASE = getFromConfig("jira_url_base");
-    return axios({
+    const options = {
         method: "put",
-        url: `${JIRA_URL_BASE}${JIRA_RESTAPI_URL}${url}`,
         data: data,
-        auth: {
-            username: ATLASSIAN_USERNAME,
-            password: ATLASSIAN_API_TOKEN,
-        },
-    });
+    };
+    makeRequest(url, options);
+};
+
+const post = (url, data) => {
+    const options = {
+        method: "post",
+        data: data,
+    };
+    makeRequest(url, options);
 };
 
 module.exports = {
     get,
+    post,
     put,
 };
