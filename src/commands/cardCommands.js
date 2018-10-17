@@ -4,21 +4,17 @@ const {getActiveCardKey} = require("../utils/storageHandler");
 const {get, post, put} = require("../utils/jiraApi");
 const {getSlugForStatus} = require("../utils/utils");
 
-
 const sendAssignRequest = assignee => {
     put(`${JIRA_CARD_URL}${getActiveCardKey()}/assignee`, {name: assignee});
 };
-
 
 const assignCardCommand = ({assignee: assignee}) => {
     sendAssignRequest(assignee ? assignee : getShortUsername());
 };
 
-
 const unassignCardCommand = () => {
     sendAssignRequest(null);
 };
-
 
 const moveCommand = ({status: newStatus}) => {
     const cardKey = getActiveCardKey();
@@ -37,7 +33,6 @@ const moveCommand = ({status: newStatus}) => {
         .catch(error => console.error(error));
 };
 
-
 const parseTransitions = transitions => {
     let statusSlugsToIds = {};
     transitions.forEach(transition => {
@@ -45,7 +40,6 @@ const parseTransitions = transitions => {
     });
     return statusSlugsToIds;
 };
-
 
 module.exports = {
     moveCommand,

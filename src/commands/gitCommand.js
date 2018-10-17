@@ -3,7 +3,6 @@ const {exec} = require("child_process");
 
 const {getActiveCardKey} = require("../utils/storageHandler");
 
-
 const branchCommand = branchOptions => {
     const prefix = branchOptions["prefix-with-card-key"] ? `${getActiveCardKey()}-` : "";
     exec(`git checkout -b ${prefix}${branchOptions.branchName}`, (error, stdout, stderr) => {
@@ -16,10 +15,9 @@ const branchCommand = branchOptions => {
     });
 };
 
-
 const checkCommand = () => {
     // /rest/dev-status/1.0/issue/detail?issueId=141163&applicationType=github&dataType=pullrequest
-}
+};
 
 const prCommand = () => {
     const {GITHUB_USERNAME, GITHUB_API_TOKEN} = process.env;
@@ -50,10 +48,10 @@ const prCommand = () => {
             });
         });
     });
-}
+};
 
 module.exports = {
     branchCommand,
     checkCommand,
     prCommand,
-}
+};
