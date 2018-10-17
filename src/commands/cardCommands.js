@@ -7,7 +7,7 @@ const sendAssignRequest = assignee => {
     put(`${JIRA_CARD_URL}${getActiveCardKey()}/assignee`, {name: assignee});
 };
 
-const assignCardCommand = assignee => {
+const assignCardCommand = ({assignee: assignee}) => {
     sendAssignRequest(assignee ? assignee : getShortUsername());
 };
 

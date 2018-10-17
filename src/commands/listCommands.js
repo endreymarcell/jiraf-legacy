@@ -7,15 +7,12 @@ const currentCardCommand = () => {
     getCard(getActiveCardKey());
 };
 
-const listCardsCommand = options => {
-    if (options.long) {
-        throw "unimplemented";
-    }
+const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
     const baseSearchUrl =
         JIRA_SEARCH_URL +
         "?fields=summary,status,issuetype,priority,assignee" +
         `&jql=project = ${getActiveProjectKey()} AND Sprint in openSprints()`;
-    const filtersUrl = generateFiltersUrl(options.statusSlug, options.assignee);
+    const filtersUrl = generateFiltersUrl(statusSlug, assignee);
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response).map(card => console.log(card)))
         .catch(error => console.log(error));

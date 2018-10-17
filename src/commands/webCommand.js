@@ -1,7 +1,7 @@
 const opn = require("opn");
 const {getActiveCardKey, getFromConfig} = require("../utils/storageHandler");
 
-const webCommand = target => {
+const webCommand = ({target}) => {
     const jira_url_base = getFromConfig("jira_url_base");
     let url;
     switch (target) {

@@ -3,7 +3,7 @@ const {get, post} = require("../utils/jiraApi");
 const {getActiveCardKey} = require("../utils/storageHandler");
 const {getSlugForStatus} = require("../utils/utils");
 
-const moveCommand = newStatus => {
+const moveCommand = ({status: newStatus}) => {
     const cardKey = getActiveCardKey();
     const transitionsUrl = `${JIRA_CARD_URL}${cardKey}/${JIRA_TRANSITIONS_URL}`;
     get(transitionsUrl)
