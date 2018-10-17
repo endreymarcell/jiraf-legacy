@@ -19,31 +19,29 @@ Jiraf maintains the key and the summary of the active card in `~/.jiraf/session.
 ### Base commands
 
 #### Picking a card  
+`jiraf setproject <project_key>` - specify the project by its key so that you can list cards on the board.  
+`jiraf unsetproject` - unset the project.  
 `jiraf ls` - list the cards on the board in the current sprint (key, status, summary, assignee).  
-    `-l|--long`: list all card details  
-    `-s|--status <status>`: filter for status  
-    `-a|--assignee [<username>]`: filter for assignee (default is yourself)  
-`jiraf set [<card>]` - set `<card>` as the active card. If no card is specified, an interactive card picker starts.  
+&nbsp;&nbsp;&nbsp;&nbsp;`-s|--status <status>`: filter for status  
+&nbsp;&nbsp;&nbsp;&nbsp;`-a|--assignee [<username>]`: filter for assignee (default is yourself)  
+`jiraf set <card>` - set `<card>` as the active card.  
 `jiraf current` - print all details of the active card.  
-    `-l|--long`: list all card details  
 `jiraf unset` - unset the currently active card.  
 
 #### Updating a card  
 `jiraf move <status>` - update the active card to <status> (one of: blocked, todo, inprogress, review, validation, done).  
 `jiraf assign [<username>]` - assign the active card to <username>, default is assigning to yourself.  
 `jiraf unassign` - remove assignee from the card.  
-`jiraf comment [<message>]` - comment on the active card. If the <message> is empty, a text editor is opened.  
 
 #### git and GitHub
 `jiraf branch <branchname>` - does `git checkout -b {active-cards-key}-<branchname>`.  
 `jiraf pr` - opens a text editor for you to specify the PR title and contents, based on a template and pre-filled with card details; then opens a PR when the editor is closed.  
-`jiraf check` - if there's already a PR for your card, it opens it in the browser.  
 `jiraf web [<target>]` - opens Jira views in the browser, target is one of: board (default), card, backlog.  
 Note: if you call `jiraf` without arguments, `jiraf web` (and consequently `jiraf web board`) is executed.  
 
 ### Compound commands (shortcuts)
 The following shortcuts are defined for a smoother workflow:  
-`start [<card>]` == `set <card>` + `assign` + `move inprogress`  
+`start <card>` == `set <card>` + `assign` + `move inprogress`  
 `review` == `move review` + `pr`  
 `qa` == `move validation` + `assign YOUR_QA_PERSON`  
 You could get through the entire workflow of choosing, picking up, and delivering a card with only these three.
