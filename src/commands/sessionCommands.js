@@ -23,7 +23,7 @@ const setCardCommand = options => {
 };
 
 const unsetCardCommand = () => {
-    updateInSession([["active_card_key", ""], ["active_card_summary", ""]]);
+    updateInSession([["active_card_key", ""]]);
 };
 
 module.exports = {
