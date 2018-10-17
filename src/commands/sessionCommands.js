@@ -14,7 +14,7 @@ const setCardCommand = options => {
     let fullKey;
     if (key.indexOf("-") !== -1) {
         const cardProject = key.split("-")[0];
-        setProjectCommand(cardProject);
+        setProjectCommand({project: cardProject});
         fullKey = key;
     } else {
         fullKey = getActiveProjectKey() + "-" + key;

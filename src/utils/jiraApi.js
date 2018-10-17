@@ -4,7 +4,7 @@ const {getFromConfig} = require("./storageHandler");
 
 const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
 if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
-    console.error("missing credentials");
+    console.error("missing Atlassian credentials");
     process.exit(1);
 }
 
