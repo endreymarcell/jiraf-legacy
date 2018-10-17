@@ -10,7 +10,7 @@ const unsetProjectCommand = () => {
 };
 
 const setCardCommand = options => {
-    const key = options.card;
+    const key = options.card.split(" ")[0];
     let fullKey;
     if (key.indexOf("-") !== -1) {
         const cardProject = key.split("-")[0];
