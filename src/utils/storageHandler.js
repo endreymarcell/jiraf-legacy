@@ -19,7 +19,7 @@ const updateInSession = keyValuePairs => {
     for (let [key, value] of keyValuePairs) {
         session[key] = value;
     }
-    fs.writeFileSync(JIRAF_SESSION_FILE, JSON.stringify(session));
+    fs.writeFileSync(JIRAF_SESSION_FILE, JSON.stringify(session, null, "   "));
 };
 
 const getActiveProjectKey = () => {
