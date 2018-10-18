@@ -22,9 +22,9 @@ Jiraf maintains the key and the summary of the active card in `~/.jiraf/session.
 `jiraf setproject <project_key>` - specify the project by its key so that you can list cards on the board.  
 `jiraf unsetproject` - unset the project.  
 `jiraf ls` - list the cards on the board in the current sprint (key, status, summary, assignee).  
-&nbsp;&nbsp;&nbsp;&nbsp;`-s|--status <status>`: filter for status  
+&nbsp;&nbsp;&nbsp;&nbsp;`-s|--status <status>`: filter for status (lowercase, one word, like: "todo" or "inprogress")  
 &nbsp;&nbsp;&nbsp;&nbsp;`-a|--assignee [<username>]`: filter for assignee (default is yourself)  
-`jiraf set <card>` - set `<card>` as the active card.  
+`jiraf set <card>` - set `<card>` as the active card (you can pass the full key, eg. PROJ-123, which then also calls `setproject` with "PROJ", or only pass 123, in which case the currently active project is used)  
 `jiraf current` - print all details of the active card.  
 `jiraf unset` - unset the currently active card.  
 
