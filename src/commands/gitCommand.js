@@ -16,6 +16,7 @@ const branchCommand = branchOptions => {
 };
 
 const checkCommand = () => {
+    // TODO
     // /rest/dev-status/1.0/issue/detail?issueId=141163&applicationType=github&dataType=pullrequest
 };
 

@@ -74,6 +74,7 @@ const formatSingleCardSummary = card => {
 };
 
 const getIndexForStatus = status => {
+    // TODO properly read the statuses and columns and sort accordingly, not based on config
     // https://prezidoc.atlassian.net/rest/agile/1.0/board/271/configuration
     return getStatuses().indexOf(status);
 };
