@@ -15,7 +15,7 @@ const getShortUsername = () => {
 const getStatusForSlug = slug => {
     const statuses = getStatuses();
     for (let status of statuses) {
-        if (getSlugForStatus(status) === slug) {
+        if (getSlugForStatus(status).startsWith(slug)) {
             return status;
         }
     }
