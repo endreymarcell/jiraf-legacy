@@ -1,5 +1,5 @@
-var os = require("os");
-var path = require("path");
+const os = require("os");
+const path = require("path");
 
 const JIRAF_CONFIG_FILE = path.join(os.homedir(), ".jiraf/config.json");
 const JIRAF_SESSION_FILE = path.join(os.homedir(), ".jiraf/session.json");
