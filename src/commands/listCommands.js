@@ -14,14 +14,16 @@ const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
         `&jql=project = ${getActiveProjectKey()} AND Sprint in openSprints()`;
     const filtersUrl = generateFiltersUrl(statusSlug, assignee);
     return get(baseSearchUrl + filtersUrl)
-        .then(response => parseBoardResponse(response).map(card => console.log(card)))
-        .catch(error => console.log(error));
+        .then(response => parseBoardResponse(response))
+        .then(parsedResponse => printCards(parsedResponse))
+        .catch(error => console.error(error));
 };
 
 const getCard = key => {
     return get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee`)
-        .then(response => console.log(formatSingleCardSummary(parseCardResponse(response.data))))
-        .catch(error => console.log(error));
+        .then(response => parseCardResponse(response.data))
+        .then(parsedResponse => printSingleCard(parsedResponse))
+        .catch(error => console.error(error));
 };
 
 const parseCardResponse = response => {
@@ -51,8 +53,15 @@ const generateFiltersUrl = (statusSlug, assignee) => {
 const parseBoardResponse = response => {
     return response.data.issues
         .map(card => parseCardResponse(card))
-        .sort((a, b) => (getIndexForStatus(a.status) < getIndexForStatus(b.status) ? -1 : 1))
-        .map(card => formatSingleCardSummary(card));
+        .sort((a, b) => (getIndexForStatus(a.status) < getIndexForStatus(b.status) ? -1 : 1));
+};
+
+const printCards = cards => {
+    cards.forEach(card => printSingleCard(card));
+};
+
+const printSingleCard = card => {
+    console.log(formatSingleCardSummary(card));
 };
 
 const formatSingleCardSummary = card => {
@@ -65,6 +74,7 @@ const formatSingleCardSummary = card => {
 };
 
 const getIndexForStatus = status => {
+    // https://prezidoc.atlassian.net/rest/agile/1.0/board/271/configuration
     return getStatuses().indexOf(status);
 };
 
