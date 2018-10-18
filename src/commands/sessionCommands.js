@@ -2,11 +2,11 @@ const {updateInSession, getActiveProjectKey} = require("../utils/storageHandler"
 
 const setProjectCommand = options => {
     const key = options.project;
-    updateInSession([["active_project_key", key]]);
+    updateInSession("active_project_key", key);
 };
 
 const unsetProjectCommand = () => {
-    updateInSession([["active_project_key", ""]]);
+    updateInSession("active_project_key", "");
 };
 
 const setCardCommand = options => {
@@ -19,11 +19,11 @@ const setCardCommand = options => {
     } else {
         fullKey = getActiveProjectKey() + "-" + key;
     }
-    updateInSession([["active_card_key", fullKey]]);
+    updateInSession("active_card_key", fullKey);
 };
 
 const unsetCardCommand = () => {
-    updateInSession([["active_card_key", ""]]);
+    updateInSession("active_card_key", "");
 };
 
 module.exports = {

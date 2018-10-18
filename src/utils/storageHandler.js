@@ -14,7 +14,13 @@ const getFromSession = key => {
     return getFromFile(JIRAF_SESSION_FILE, key);
 };
 
-const updateInSession = keyValuePairs => {
+const updateInSession = (key, value) => {
+    let session = JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE));
+    session[key] = value;
+    fs.writeFileSync(JIRAF_SESSION_FILE, JSON.stringify(session, null, "   "));
+}
+
+const updateMultipleInSession = keyValuePairs => {
     let session = JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE));
     for (let [key, value] of keyValuePairs) {
         session[key] = value;
@@ -36,8 +42,8 @@ const getStatuses = () => {
 
 module.exports = {
     getFromConfig,
-    getFromSession,
     updateInSession,
+    updateMultipleInSession,
     getActiveProjectKey,
     getActiveCardKey,
     getStatuses,
