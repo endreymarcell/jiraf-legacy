@@ -16,11 +16,12 @@ const branchCommand = branchOptions => {
 };
 
 const checkCommand = () => {
-    // TODO
+    // TODO implement check command
     // /rest/dev-status/1.0/issue/detail?issueId=141163&applicationType=github&dataType=pullrequest
 };
 
 const prCommand = () => {
+    // TODO implement the PR command
     const {GITHUB_USERNAME, GITHUB_API_TOKEN} = process.env;
     if (!GITHUB_USERNAME || !GITHUB_API_TOKEN) {
         console.error("missing github credentials");

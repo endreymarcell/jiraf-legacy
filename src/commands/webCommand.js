@@ -6,12 +6,12 @@ const webCommand = ({target}) => {
     let url;
     switch (target) {
         case "board":
-            // TODO
+            // TODO implement web board command
             // query JIRA_BASE_URL/rest/api/latest/dashboard
             // filter for one that has an item in its sharePermissions whose project's key matches
             break;
         case "backlog":
-            // TODO
+            // TODO implement web backlog command
             // same
             url = "";
             break;
