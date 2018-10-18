@@ -1,7 +1,7 @@
 const commandLineArgs = require("command-line-args");
 
 const defs = require("./utils/argDefinitions");
-const {branchCommand, checkCommand, prCommand} = require("./commands/gitCommand");
+const {branchCommand, checkCommand, prCommand} = require("./commands/gitCommands");
 const {listCardsCommand, currentCardCommand} = require("./commands/listCommands");
 const {setProjectCommand, unsetProjectCommand, setCardCommand, unsetCardCommand} = require("./commands/sessionCommands");
 const {assignCardCommand, unassignCardCommand, moveCommand}= require("./commands/cardCommands");
