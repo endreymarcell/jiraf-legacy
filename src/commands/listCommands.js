@@ -4,7 +4,12 @@ const {getActiveCardKey, getActiveProjectKey, getStatuses} = require("../utils/s
 const {get} = require("../utils/jiraApi");
 
 const currentCardCommand = () => {
-    getCard(getActiveCardKey());
+    const key = getActiveCardKey();
+    if (key) {
+        getCard(key);
+    } else {
+        console.warn("jiraf WARNING: no card set");
+    }
 };
 
 const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
@@ -16,14 +21,14 @@ const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response))
         .then(parsedResponse => printCards(parsedResponse))
-        .catch(error => console.error(error));
+        .catch(error => console.error(`jiraf ERROR: ${error.message}`));
 };
 
 const getCard = key => {
     return get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee`)
         .then(response => parseCardResponse(response.data))
         .then(parsedResponse => printSingleCard(parsedResponse))
-        .catch(error => console.error(error));
+        .catch(error => console.error(`jiraf ERROR: ${error.message}`));
 };
 
 const parseCardResponse = response => {
@@ -41,8 +46,8 @@ const generateFiltersUrl = (statusSlug, assignee) => {
         const status = getStatusForSlug(statusSlug);
         filterStrings.push(`status = "${status}"`);
     }
-    if (assignee === null) {
-        // null means the --assignee flag was set but no name was specified
+    const isAssigneeSwitchSetButNoAssigneeSpecified = assignee === null;
+    if (isAssigneeSwitchSetButNoAssigneeSpecified) {
         filterStrings.push(`assignee = ${getShortUsername()}`);
     } else if (assignee) {
         filterStrings.push(`assignee = ${assignee}`);
