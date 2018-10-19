@@ -8,10 +8,10 @@ const mainOptions = commandLineArgs(defs.mainDefinitions, {stopAtFirstUnknown: t
 const command = mainOptions.command;
 const args = mainOptions._unknown || [];
 
-if (isKnownCommand(command)) {
-    executeKnownCommand(command, args);
-} else if (isShortcut(command)) {
+if (isShortcut(command)) {
     executeShortcut(command, args);
+} else if (isKnownCommand(command)) {
+    executeKnownCommand(command, args);
 } else {
     console.error(`jiraf went tits up: unkonwn command '${command}'`);
 }

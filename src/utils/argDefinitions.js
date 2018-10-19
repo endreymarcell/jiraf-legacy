@@ -18,7 +18,7 @@ const branchDefinitions = [
 
 const moveDefinitions = [{name: "status", defaultOption: true, type: String}];
 
-const webDefinitions = [{name: "target", defaultOption: true, defaultValue: "board", type: String}];
+const webDefinitions = [{name: "target", defaultOption: true, type: String}];
 
 module.exports = {
     mainDefinitions,

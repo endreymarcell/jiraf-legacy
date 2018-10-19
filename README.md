@@ -43,7 +43,8 @@ Note: if you call `jiraf` without arguments, `jiraf web` (and consequently `jira
 The following shortcuts are defined for a smoother workflow:  
 `start <card>` == `set <card>` + `assign` + `move inprogress`  
 `review` == `move review` + `pr`  
-`qa` == `move validation` + `assign YOUR_QA_PERSON`  
+`qa` == `move validation` + `assign YOUR_QA_PERSON`
+`web` == `web board`  
 You could get through the entire workflow of choosing, picking up, and delivering a card with only these three.
 
 You can specify more shortcuts in your `~/.jiraconfig.json` file.  
