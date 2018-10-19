@@ -53,6 +53,10 @@ const commandMap = {
         argDefinitions: null,
         commandFunction: prCommand,
     },
+    check: {
+        argDefinitions: null,
+        commandFunction: checkCommand,
+    },
     web: {
         argDefinitions: defs.webDefinitions,
         commandFunction: webCommand,

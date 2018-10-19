@@ -1,7 +1,15 @@
 const axios = require("axios");
 const {exec} = require("child_process");
 
-const {getActiveCardKey} = require("../utils/storageHandler");
+const {JIRA_CARD_URL} = require("../const");
+const {get} = require("../utils/jiraApi");
+const {getActiveCardKey, getFromConfig} = require("../utils/storageHandler");
+
+const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
+if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
+    console.error("missing Atlassian credentials");
+    process.exit(1);
+}
 
 const branchCommand = branchOptions => {
     const prefix = branchOptions["prefix-with-card-key"] ? `${getActiveCardKey()}-` : "";
@@ -16,8 +24,29 @@ const branchCommand = branchOptions => {
 };
 
 const checkCommand = () => {
-    // TODO implement check command
-    // /rest/dev-status/1.0/issue/detail?issueId=141163&applicationType=github&dataType=pullrequest
+    const JIRA_URL_BASE = getFromConfig("jira_url_base");
+    get(`${JIRA_CARD_URL}${getActiveCardKey()}?fields=''`).then(response => {
+        const issueId = response.data.id;
+        const url =
+            JIRA_URL_BASE +
+            "/rest/dev-status/1.0/issue/detail?applicationType=github&dataType=pullrequest" +
+            `&issueId=${issueId}`;
+        // newsflash, there's not only an 'api' endpoint but also a 'dev-status'
+        // TODO extend the jiraApi to handle dev-status URLs as well, don't use axios directly here
+        axios({
+            url: url,
+            method: "get",
+            auth: {
+                username: ATLASSIAN_USERNAME,
+                password: ATLASSIAN_API_TOKEN,
+            },
+        }).then(response => {
+            const pullRequests = response.data.detail[0].pullRequests;
+            if (pullRequests.length > 0) {
+                pullRequests.forEach(pullRequest => console.log(pullRequest.url));
+            }
+        });
+    });
 };
 
 const prCommand = () => {
