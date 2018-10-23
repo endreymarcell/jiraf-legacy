@@ -57,14 +57,13 @@ const prCommand = () => {
         process.exit(1);
     }
     exec("git ls-remote --get-url origin", (error, stdout, stderr) => {
-        const repoUrl = stdout;
+        const [owner, repo] = getRepoCoordinates(stdout);
         exec("git rev-parse --abbrev-ref HEAD", (error, stdout, stderr) => {
-            const branchName = stdout;
-
-            exec(`git push origin ${branchName}`, (error, stdout, stderr) => {
+            const branchName = stdout.trim();
+            exec(`git push --set-upstream origin ${branchName}`, (error, stdout, stderr) => {
                 axios({
                     method: "post",
-                    url: `https://github.com/`,
+                    url: `https://api.github.com/repos/${owner}/${repo}/pulls`,
                     auth: {
                         username: GITHUB_USERNAME,
                         password: GITHUB_API_TOKEN,
@@ -75,10 +74,21 @@ const prCommand = () => {
                         base: "master",
                         body: "PR contents",
                     },
-                });
+                })
+                    .then(response => console.log(response.data.url))
+                    .catch(error => console.log(error.response));
             });
         });
     });
+};
+
+const getRepoCoordinates = remote => {
+    return remote
+        .trim()
+        .replace("https://github.com/", "")
+        .replace("git@github.com:", "")
+        .replace(".git", "")
+        .split("/");
 };
 
 module.exports = {
