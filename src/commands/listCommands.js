@@ -41,7 +41,7 @@ const parseCardResponse = response => {
 };
 
 const generateFiltersUrl = (statusSlug, assignee) => {
-    let filterStrings = [""];
+    const filterStrings = [""];
     if (statusSlug) {
         const status = getStatusForSlug(statusSlug);
         filterStrings.push(`status = "${status}"`);

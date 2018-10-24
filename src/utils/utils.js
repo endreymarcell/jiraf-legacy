@@ -14,12 +14,12 @@ const getShortUsername = () => {
 
 const getStatusForSlug = slug => {
     const statuses = getStatuses();
-    for (let status of statuses) {
+    for (const status of statuses) {
         if (getSlugForStatus(status).startsWith(slug)) {
             return status;
         }
     }
-    throw "unknown status slug";
+    throw Error("unknown status slug");
 };
 
 const getSlugForStatus = status => {

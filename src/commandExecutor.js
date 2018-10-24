@@ -95,7 +95,7 @@ const getSubstitutedShortcutArgs = (shortcutArgs, args) => {
         substitutedArgs = [
             ...shortcutArgs.slice(0, placeholderPosition),
             ...args,
-            ...shortcutArgs.slice(placeholderPosition + 1)
+            ...shortcutArgs.slice(placeholderPosition + 1),
         ];
     } else {
         substitutedArgs = shortcutArgs;

@@ -1,6 +1,6 @@
 const commandLineArgs = require("command-line-args");
 
-const {commandMap, isKnownCommand, executeKnownCommand, isShortcut, executeShortcut} = require("./commandExecutor");
+const {isKnownCommand, executeKnownCommand, isShortcut, executeShortcut} = require("./commandExecutor");
 const defs = require("./utils/argDefinitions");
 
 

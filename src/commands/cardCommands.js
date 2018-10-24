@@ -23,10 +23,10 @@ const moveCommand = ({status: newStatus}) => {
         .then(transitions => parseTransitions(transitions.data.transitions))
         .then(transitions => {
             const statusId = transitions[newStatus];
-            if (statusId == undefined) {
+            if (statusId === undefined) {
                 const possibleStatuses = Object.keys(transitions).join(", ");
                 console.error(`Unknown status '${newStatus}', please choose from: ${possibleStatuses}.`);
-                throw "unknown status";
+                throw Error("unknown status");
             }
             post(transitionsUrl, {transition: {id: statusId}});
         })
@@ -34,7 +34,7 @@ const moveCommand = ({status: newStatus}) => {
 };
 
 const parseTransitions = transitions => {
-    let statusSlugsToIds = {};
+    const statusSlugsToIds = {};
     transitions.forEach(transition => {
         statusSlugsToIds[getSlugForStatus(transition.name)] = transition.id;
     });

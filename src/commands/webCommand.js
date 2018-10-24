@@ -2,7 +2,7 @@ const opn = require("opn");
 const {getActiveCardKey, getFromConfig} = require("../utils/storageHandler");
 
 const webCommand = ({target}) => {
-    const jira_url_base = getFromConfig("jira_url_base");
+    const jiraUrlBase = getFromConfig("jira_url_base");
     let url;
     switch (target) {
         case "board":
@@ -16,10 +16,10 @@ const webCommand = ({target}) => {
             url = "";
             break;
         case "card":
-            url = `${jira_url_base}/browse/${getActiveCardKey()}`;
+            url = `${jiraUrlBase}/browse/${getActiveCardKey()}`;
             break;
         default:
-            throw "unknown web target";
+            throw Error("unknown web target");
     }
     opn(url, {wait: false});
 };

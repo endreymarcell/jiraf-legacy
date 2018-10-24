@@ -15,4 +15,4 @@ jobs:
         paths:
         - node_modules
         key: v1-dependencies-{{ checksum "package-lock.json" }}
-    - run: npm test
+    - run: npm run lint && npm test

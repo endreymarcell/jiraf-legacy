@@ -7,8 +7,7 @@ const {getActiveCardKey, getFromConfig} = require("../utils/storageHandler");
 
 const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
 if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
-    console.error("missing Atlassian credentials");
-    process.exit(1);
+    throw Error("missing Atlassian credentials");
 }
 
 const branchCommand = branchOptions => {
@@ -53,14 +52,13 @@ const prCommand = () => {
     // TODO implement the PR command
     const {GITHUB_USERNAME, GITHUB_API_TOKEN} = process.env;
     if (!GITHUB_USERNAME || !GITHUB_API_TOKEN) {
-        console.error("missing github credentials");
-        process.exit(1);
+        throw Error("missing github credentials");
     }
-    exec("git ls-remote --get-url origin", (error, stdout, stderr) => {
+    exec("git ls-remote --get-url origin", (error, stdout) => {
         const [owner, repo] = getRepoCoordinates(stdout);
-        exec("git rev-parse --abbrev-ref HEAD", (error, stdout, stderr) => {
+        exec("git rev-parse --abbrev-ref HEAD", (error, stdout) => {
             const branchName = stdout.trim();
-            exec(`git push --set-upstream origin ${branchName}`, (error, stdout, stderr) => {
+            exec(`git push --set-upstream origin ${branchName}`, () => {
                 axios({
                     method: "post",
                     url: `https://api.github.com/repos/${owner}/${repo}/pulls`,
