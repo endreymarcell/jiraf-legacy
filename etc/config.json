@@ -1,5 +1,5 @@
 {
-    "jira_url_base": "YOUR_JIRA_URL_BASE",
+    "jiraUrlBase": "YOUR_JIRA_URL_BASE",
     "statuses": ["Blocked", "To Do", "In Progress", "Code Review", "Validation", "Done", "Duplicate", "Won't Fix", "Cannot Reproduce"],
     "shortcuts": {
         "start": ["set {}", "assign me", "move inprogress"],

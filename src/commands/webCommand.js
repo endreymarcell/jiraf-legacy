@@ -2,7 +2,7 @@ const opn = require("opn");
 const {readActiveCardKey, readFromConfig} = require("../utils/storageHandler");
 
 const webCommand = ({target}) => {
-    const jiraUrlBase = readFromConfig("jira_url_base");
+    const jiraUrlBase = readFromConfig("jiraUrlBase");
     let url;
     switch (target) {
         case "board":

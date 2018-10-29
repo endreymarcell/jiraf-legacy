@@ -8,7 +8,7 @@ if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
 }
 
 const makeRequest = (url, options) => {
-    const JIRA_URL_BASE = readFromConfig("jira_url_base");
+    const JIRA_URL_BASE = readFromConfig("jiraUrlBase");
     // console.log(`${JIRA_URL_BASE}${JIRA_RESTAPI_URL}${url}`);
     const baseOptions = {
         url: `${JIRA_URL_BASE}${JIRA_RESTAPI_URL}${url}`,
