@@ -21,13 +21,17 @@ const getStatus = (activeCardDetails, pattern) => {
 const refreshCardCommand = () => {
     const key = readActiveCardKey();
     if (key) {
-        loadCard(key);
+        loadSingleCard(key);
     } else {
         console.warn("jiraf WARNING: no card set");
     }
 };
 
-const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
+const listCardsCommand = ({statusSlug, assignee}) => {
+    loadCardsOnBoard({statusSlug, assignee}).then(parsedResponse => printCards(parsedResponse));
+};
+
+const loadCardsOnBoard = ({statusSlug, assignee}) => {
     const baseSearchUrl =
         JIRA_SEARCH_URL +
         "?fields=summary,status,issuetype,priority,assignee" +
@@ -35,14 +39,12 @@ const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
     const filtersUrl = generateFiltersUrl(statusSlug, assignee);
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response))
-        .then(parsedResponse => printCards(parsedResponse))
         .catch(error => console.error(`jiraf ERROR: ${error.message}`));
 };
 
-const loadCard = key => {
+const loadSingleCard = key => {
     return get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee`)
         .then(response => parseCardResponse(response.data))
-        .then(parsedResponse => printSingleCard(parsedResponse))
         .catch(error => console.error(`jiraf ERROR: ${error.message}`));
 };
 
