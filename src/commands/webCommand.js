@@ -1,27 +1,36 @@
 const opn = require("opn");
-const {readActiveCardKey, readFromConfig} = require("../utils/storageHandler");
+
+const {JIRA_BOARD_URL, JIRA_BOARD_HTML_URL, JIRA_BACKLOG_URL} = require("../const");
+const {readActiveCardKey, readActiveProjectKey, readFromConfig} = require("../utils/storageHandler");
+const {get} = require("../utils/jiraApi");
 
 const webCommand = ({target}) => {
     const jiraUrlBase = readFromConfig("jiraUrlBase");
     let url;
     switch (target) {
+        case undefined:
         case "board":
-            // TODO implement web board command
-            // query JIRA_BASE_URL/rest/api/latest/dashboard
-            // filter for one that has an item in its sharePermissions whose project's key matches
+            get(`${JIRA_BOARD_URL}${readActiveProjectKey()}`).then(response => {
+                const boardId = response.data.values[0].id;
+                url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}`;
+                opn(url, {wait: false});
+            });
             break;
         case "backlog":
-            // TODO implement web backlog command
-            // same
+            get(`${JIRA_BOARD_URL}${readActiveProjectKey()}`).then(response => {
+                const boardId = response.data.values[0].id;
+                url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}${JIRA_BACKLOG_URL}`;
+                opn(url, {wait: false});
+            });
             url = "";
             break;
         case "card":
             url = `${jiraUrlBase}/browse/${readActiveCardKey()}`;
+            opn(url, {wait: false});
             break;
         default:
             throw Error("unknown web target");
     }
-    opn(url, {wait: false});
 };
 
 module.exports = {
