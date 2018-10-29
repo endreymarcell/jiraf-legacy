@@ -1,4 +1,5 @@
 const {readStatuses} = require("./storageHandler");
+
 const rightPad = (str, fullLength) => {
     let paddedStr = str;
     while (paddedStr.length < fullLength) {
