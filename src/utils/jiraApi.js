@@ -1,5 +1,4 @@
 const axios = require("axios");
-const {JIRA_RESTAPI_URL} = require("../const");
 const {readFromConfig} = require("./storageHandler");
 
 const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
@@ -9,9 +8,8 @@ if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
 
 const makeRequest = (url, options) => {
     const JIRA_URL_BASE = readFromConfig("jiraUrlBase");
-    // console.log(`${JIRA_URL_BASE}${JIRA_RESTAPI_URL}${url}`);
     const baseOptions = {
-        url: `${JIRA_URL_BASE}${JIRA_RESTAPI_URL}${url}`,
+        url: `${JIRA_URL_BASE}${url}`,
         method: "get",
         auth: {
             username: ATLASSIAN_USERNAME,
