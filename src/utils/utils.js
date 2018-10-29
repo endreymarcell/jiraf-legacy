@@ -29,7 +29,7 @@ const getSlugForStatus = status => {
 
 const interpolate = (template, dictionary) => {
     let result = template;
-    for (let key in dictionary) {
+    for (const key in dictionary) {
         result = result.replace(new RegExp(`{{\\s?${key}\\s?}}`, "g"), String(dictionary[key]));
     }
     return result;
