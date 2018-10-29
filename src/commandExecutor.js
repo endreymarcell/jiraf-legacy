@@ -6,7 +6,7 @@ const {listCardsCommand, statusCommand, refreshCardCommand} = require("./command
 const {setProjectCommand, unsetProjectCommand, setCardCommand, unsetCardCommand} = require("./commands/sessionCommands");
 const {assignCardCommand, unassignCardCommand, moveCommand}= require("./commands/cardCommands");
 const {webCommand} = require("./commands/webCommand");
-const {getFromConfig} = require("./utils/storageHandler");
+const {readFromConfig} = require("./utils/storageHandler");
 
 const commandMap = {
     ls: {
@@ -78,12 +78,12 @@ const executeKnownCommand = (commandName, args) => {
 }
 
 const isShortcut = commandName => {
-    const shortcuts = getFromConfig("shortcuts");
+    const shortcuts = readFromConfig("shortcuts");
     return Object.keys(shortcuts).indexOf(commandName) !== -1;
 }
 
 const executeShortcut = (shortcut, args) => {
-    const shortcuts = getFromConfig("shortcuts");
+    const shortcuts = readFromConfig("shortcuts");
     const shortcutCommandsAndArgs = shortcuts[shortcut];
     shortcutCommandsAndArgs.forEach(commandAndArgs => {
         const [command, ...shortcutArgs] = commandAndArgs.split(" ");

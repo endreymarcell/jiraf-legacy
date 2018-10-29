@@ -1,17 +1,17 @@
 const fs = require("fs");
 const {JIRAF_SESSION_FILE, JIRAF_CONFIG_FILE} = require("../const");
 
-const getFromFile = (file, key) => {
+const readFromFile = (file, key) => {
     const contents = JSON.parse(fs.readFileSync(file));
     return contents[key];
 };
 
-const getFromConfig = key => {
-    return getFromFile(JIRAF_CONFIG_FILE, key);
+const readFromConfig = key => {
+    return readFromFile(JIRAF_CONFIG_FILE, key);
 };
 
-const getFromSession = key => {
-    return getFromFile(JIRAF_SESSION_FILE, key);
+const readFromSession = key => {
+    return readFromFile(JIRAF_SESSION_FILE, key);
 };
 
 const updateInSession = (key, value) => {
@@ -28,28 +28,28 @@ const updateMultipleInSession = keyValuePairs => {
     fs.writeFileSync(JIRAF_SESSION_FILE, JSON.stringify(session, null, "   "));
 };
 
-const getActiveProjectKey = () => {
-    return getFromSession("activeProjectKey");
+const readActiveProjectKey = () => {
+    return readFromSession("activeProjectKey");
 };
 
-const getActiveCardKey = () => {
-    return getFromSession("activeCardKey");
+const readActiveCardKey = () => {
+    return readFromSession("activeCardKey");
 };
 
-const getActiveCardDetails = () => {
-    return getFromSession("activeCardDetails");
+const readActiveCardDetails = () => {
+    return readFromSession("activeCardDetails");
 };
 
-const getStatuses = () => {
-    return getFromConfig("statuses");
+const readStatuses = () => {
+    return readFromConfig("statuses");
 };
 
 module.exports = {
-    getFromConfig,
+    readFromConfig,
     updateInSession,
     updateMultipleInSession,
-    getActiveProjectKey,
-    getActiveCardKey,
-    getActiveCardDetails,
-    getStatuses,
+    readActiveProjectKey,
+    readActiveCardKey,
+    readActiveCardDetails,
+    readStatuses,
 };

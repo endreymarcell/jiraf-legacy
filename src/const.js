@@ -8,6 +8,8 @@ const JIRA_CARD_URL = "issue/";
 const JIRA_SEARCH_URL = "search";
 const JIRA_TRANSITIONS_URL = "transitions/";
 
+const DEFAULT_STATUS_PATTERN = "{{key}} [{{status}}] {{title}} ({{assignee}})";
+
 module.exports = {
     JIRAF_CONFIG_FILE,
     JIRAF_SESSION_FILE,
@@ -15,4 +17,5 @@ module.exports = {
     JIRA_CARD_URL,
     JIRA_SEARCH_URL,
     JIRA_TRANSITIONS_URL,
+    DEFAULT_STATUS_PATTERN,
 };

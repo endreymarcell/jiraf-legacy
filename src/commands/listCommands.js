@@ -1,13 +1,12 @@
-const {getActiveCardDetails} = require("../utils/storageHandler");
+const {readActiveCardDetails} = require("../utils/storageHandler");
 const {rightPad, getShortUsername, getStatusForSlug} = require("../utils/utils");
-const {JIRA_CARD_URL, JIRA_SEARCH_URL} = require("../const");
-const {getActiveCardKey, getActiveProjectKey, getStatuses} = require("../utils/storageHandler");
+const {JIRA_CARD_URL, JIRA_SEARCH_URL, DEFAULT_STATUS_PATTERN} = require("../const");
+const {readActiveCardKey, readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
 
 const statusCommand = ({pattern}) => {
-    const activeCardDetails = getActiveCardDetails();
-    const defaultPattern = "({{key}}) [{{status}}] {{title}} ({{assignee}})";
-    const status = getStatus(activeCardDetails, pattern || defaultPattern);
+    const activeCardDetails = readActiveCardDetails();
+    const status = getStatus(activeCardDetails, pattern || DEFAULT_STATUS_PATTERN);
     console.log(status || "");
 };
 
@@ -20,9 +19,9 @@ const getStatus = (activeCardDetails, pattern) => {
 };
 
 const refreshCardCommand = () => {
-    const key = getActiveCardKey();
+    const key = readActiveCardKey();
     if (key) {
-        getCard(key);
+        loadCard(key);
     } else {
         console.warn("jiraf WARNING: no card set");
     }
@@ -32,7 +31,7 @@ const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
     const baseSearchUrl =
         JIRA_SEARCH_URL +
         "?fields=summary,status,issuetype,priority,assignee" +
-        `&jql=project = ${getActiveProjectKey()} AND Sprint in openSprints()`;
+        `&jql=project = ${readActiveProjectKey()} AND Sprint in openSprints()`;
     const filtersUrl = generateFiltersUrl(statusSlug, assignee);
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response))
@@ -40,7 +39,7 @@ const listCardsCommand = ({statusSlug: statusSlug, assignee: assignee}) => {
         .catch(error => console.error(`jiraf ERROR: ${error.message}`));
 };
 
-const getCard = key => {
+const loadCard = key => {
     return get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee`)
         .then(response => parseCardResponse(response.data))
         .then(parsedResponse => printSingleCard(parsedResponse))
@@ -97,7 +96,7 @@ const formatSingleCardSummary = card => {
 const getIndexForStatus = status => {
     // TODO properly read the statuses and columns and sort accordingly, not based on config
     // https://prezidoc.atlassian.net/rest/agile/1.0/board/271/configuration
-    return getStatuses().indexOf(status);
+    return readStatuses().indexOf(status);
 };
 
 module.exports = {

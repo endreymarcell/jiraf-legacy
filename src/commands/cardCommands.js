@@ -1,11 +1,11 @@
-const getShortUsername = require("../utils/utils").getShortUsername;
+const {getShortUsername} = require("../utils/utils");
 const {JIRA_CARD_URL, JIRA_TRANSITIONS_URL} = require("../const");
-const {getActiveCardKey} = require("../utils/storageHandler");
+const {readActiveCardKey} = require("../utils/storageHandler");
 const {get, post, put} = require("../utils/jiraApi");
 const {getSlugForStatus} = require("../utils/utils");
 
 const sendAssignRequest = assignee => {
-    put(`${JIRA_CARD_URL}${getActiveCardKey()}/assignee`, {name: assignee});
+    put(`${JIRA_CARD_URL}${readActiveCardKey()}/assignee`, {name: assignee});
 };
 
 const assignCardCommand = ({assignee: assignee}) => {
@@ -17,7 +17,7 @@ const unassignCardCommand = () => {
 };
 
 const moveCommand = ({status: newStatus}) => {
-    const cardKey = getActiveCardKey();
+    const cardKey = readActiveCardKey();
     const transitionsUrl = `${JIRA_CARD_URL}${cardKey}/${JIRA_TRANSITIONS_URL}`;
     get(transitionsUrl)
         .then(transitions => parseTransitions(transitions.data.transitions))

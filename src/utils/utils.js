@@ -1,4 +1,4 @@
-const {getStatuses} = require("./storageHandler");
+const {readStatuses} = require("./storageHandler");
 const rightPad = (str, fullLength) => {
     let paddedStr = str;
     while (paddedStr.length < fullLength) {
@@ -13,7 +13,7 @@ const getShortUsername = () => {
 };
 
 const getStatusForSlug = slug => {
-    const statuses = getStatuses();
+    const statuses = readStatuses();
     for (const status of statuses) {
         if (getSlugForStatus(status).startsWith(slug)) {
             return status;

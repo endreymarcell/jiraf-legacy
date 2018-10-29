@@ -1,4 +1,4 @@
-const {updateInSession, getActiveProjectKey} = require("../utils/storageHandler");
+const {updateInSession, readActiveProjectKey} = require("../utils/storageHandler");
 
 const setProjectCommand = options => {
     const key = options.project;
@@ -17,7 +17,7 @@ const setCardCommand = options => {
         setProjectCommand({project: cardProject});
         fullKey = key;
     } else {
-        fullKey = getActiveProjectKey() + "-" + key;
+        fullKey = readActiveProjectKey() + "-" + key;
     }
     updateInSession("active_card_key", fullKey);
 };
