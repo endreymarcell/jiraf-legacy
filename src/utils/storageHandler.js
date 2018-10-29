@@ -29,11 +29,15 @@ const updateMultipleInSession = keyValuePairs => {
 };
 
 const getActiveProjectKey = () => {
-    return getFromSession("active_project_key");
+    return getFromSession("activeProjectKey");
 };
 
 const getActiveCardKey = () => {
-    return getFromSession("active_card_key");
+    return getFromSession("activeCardKey");
+};
+
+const getActiveCardDetails = () => {
+    return getFromSession("activeCardDetails");
 };
 
 const getStatuses = () => {
@@ -46,5 +50,6 @@ module.exports = {
     updateMultipleInSession,
     getActiveProjectKey,
     getActiveCardKey,
+    getActiveCardDetails,
     getStatuses,
 };

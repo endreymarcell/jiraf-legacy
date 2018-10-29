@@ -2,7 +2,7 @@ const commandLineArgs = require("command-line-args");
 
 const defs = require("./utils/argDefinitions");
 const {branchCommand, checkCommand, prCommand} = require("./commands/gitCommands");
-const {listCardsCommand, currentCardCommand} = require("./commands/listCommands");
+const {listCardsCommand, statusCommand, refreshCardCommand} = require("./commands/listCommands");
 const {setProjectCommand, unsetProjectCommand, setCardCommand, unsetCardCommand} = require("./commands/sessionCommands");
 const {assignCardCommand, unassignCardCommand, moveCommand}= require("./commands/cardCommands");
 const {webCommand} = require("./commands/webCommand");
@@ -29,9 +29,13 @@ const commandMap = {
         argDefinitions: null,
         commandFunction: unsetCardCommand,
     },
-    current: {
+    status: {
+        argDefinitions: defs.statusDefinitions,
+        commandFunction: statusCommand,
+    },
+    refresh: {
         argDefinitions: null,
-        commandFunction: currentCardCommand,
+        commandFunction: refreshCardCommand,
     },
     assign: {
         argDefinitions: defs.assignDefinitions,
