@@ -1,21 +1,13 @@
 const {readActiveCardDetails} = require("../utils/storageHandler");
-const {rightPad, getShortUsername, getStatusForSlug} = require("../utils/utils");
+const {rightPad, getShortUsername, getStatusForSlug, interpolate} = require("../utils/utils");
 const {JIRA_CARD_URL, JIRA_SEARCH_URL, DEFAULT_STATUS_PATTERN} = require("../const");
 const {readActiveCardKey, readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
 
 const statusCommand = ({pattern}) => {
     const activeCardDetails = readActiveCardDetails();
-    const status = getStatus(activeCardDetails, pattern || DEFAULT_STATUS_PATTERN);
+    const status = interpolate(pattern || DEFAULT_STATUS_PATTERN, activeCardDetails);
     console.log(status || "");
-};
-
-const getStatus = (activeCardDetails, pattern) => {
-    let status = pattern;
-    for (let variable in activeCardDetails) {
-        status = status.replace(new RegExp(`{{\\s?${variable}\\s?}}`), String(activeCardDetails[variable]));
-    }
-    return status;
 };
 
 const refreshCardCommand = () => {

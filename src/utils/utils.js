@@ -27,9 +27,18 @@ const getSlugForStatus = status => {
     return status.replace(/\W/g, "").toLowerCase();
 };
 
+const interpolate = (template, dictionary) => {
+    let result = template;
+    for (let key in dictionary) {
+        result = result.replace(new RegExp(`{{\\s?${key}\\s?}}`, "g"), String(dictionary[key]));
+    }
+    return result;
+};
+
 module.exports = {
     rightPad,
     getShortUsername,
     getStatusForSlug,
     getSlugForStatus,
+    interpolate,
 };
