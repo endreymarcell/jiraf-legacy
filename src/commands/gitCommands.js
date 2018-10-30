@@ -16,14 +16,7 @@ if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
 }
 
 const branchCommand = branchOptions => {
-    exec(`git checkout -b ${readActiveCardKey()}-${branchOptions.branchName}`, (error, stdout, stderr) => {
-        if (error != null) {
-            console.error(stderr);
-            throw error.message;
-        } else {
-            console.log(stdout);
-        }
-    });
+    exec(`git checkout -b ${readActiveCardKey()}-${branchOptions.branchName}`);
 };
 
 const checkCommand = () => {
