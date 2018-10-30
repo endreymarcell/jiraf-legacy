@@ -16,8 +16,7 @@ if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
 }
 
 const branchCommand = branchOptions => {
-    const prefix = branchOptions["prefix-with-card-key"] ? `${readActiveCardKey()}-` : "";
-    exec(`git checkout -b ${prefix}${branchOptions.branchName}`, (error, stdout, stderr) => {
+    exec(`git checkout -b ${readActiveCardKey()}-${branchOptions.branchName}`, (error, stdout, stderr) => {
         if (error != null) {
             console.error(stderr);
             throw error.message;

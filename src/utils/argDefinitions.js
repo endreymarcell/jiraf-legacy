@@ -13,10 +13,7 @@ const listCardsDefinitions = [
 
 const assignDefinitions = [{name: "assignee", defaultOption: true, type: String}];
 
-const branchDefinitions = [
-    {name: "prefix-with-card-key", alias: "p", type: Boolean, defaultValue: false},
-    {name: "branchName", defaultOption: true, type: String},
-];
+const branchDefinitions = [{name: "branchName", defaultOption: true, type: String}];
 
 const moveDefinitions = [{name: "status", defaultOption: true, type: String}];
 
