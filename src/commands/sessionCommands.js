@@ -1,16 +1,30 @@
-const {updateInSession, updateMultipleInSession, readActiveProjectKey} = require("../utils/storageHandler");
-const {JIRA_SEARCH_URL, JIRA_BOARD_URL, JIRA_BOARD_CONFIGURATION_URL} = require("../const");
+const {
+    updateInSession,
+    updateMultipleInSession,
+    readActiveProjectKey,
+    readActiveCardKey,
+} = require("../utils/storageHandler");
+const {JIRA_SEARCH_URL, JIRA_BOARD_URL, JIRA_BOARD_CONFIGURATION_URL, JIRA_CARD_URL} = require("../const");
 const {get} = require("../utils/jiraApi");
+const {parseCardResponse} = require("../utils/utils");
 
 const setProjectCommand = options => {
     const projectKey = options.project;
     updateMultipleInSession([{key: "activeProjectKey", value: projectKey}, {key: "statuses", value: []}]);
-    // TODO do this async:
-    loadStatuses();
+    loadStatuses(projectKey);
 };
 
-const loadStatuses = () => {
-    get(`${JIRA_BOARD_URL}?projectKeyOrId=${readActiveProjectKey()}`).then(response => {
+const refreshProjectCommand = () => {
+    const projectKey = readActiveProjectKey();
+    if (projectKey) {
+        loadStatuses(projectKey);
+    } else {
+        console.warn("jiraf WARNING: no project set");
+    }
+};
+
+const loadStatuses = projectKey => {
+    get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`).then(response => {
         const boardId = response.data.values[0].id;
         get(`${JIRA_BOARD_URL}${boardId}${JIRA_BOARD_CONFIGURATION_URL}`).then(response => {
             const columns = response.data.columnConfig.columns;
@@ -49,16 +63,35 @@ const setCardCommand = options => {
     } else {
         fullKey = readActiveProjectKey() + "-" + key;
     }
-    updateInSession("activeCardKey", fullKey);
+    updateMultipleInSession([{key: "activeCardKey", value: fullKey}, {key: "activeCardDetails", value: {}}]);
+    loadSingleCard(fullKey);
+};
+
+const refreshCardCommand = () => {
+    const key = readActiveCardKey();
+    if (key) {
+        loadSingleCard(key);
+    } else {
+        console.warn("jiraf WARNING: no card set");
+    }
+};
+
+const loadSingleCard = key => {
+    get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee,description,priority,estimate,customfield_10005`)
+        .then(response => parseCardResponse(response.data))
+        .then(cardDetails => updateInSession("activeCardDetails", cardDetails))
+        .catch(error => console.error(`jiraf ERROR: ${error.message}`));
 };
 
 const unsetCardCommand = () => {
-    updateInSession("activeCardKey", "");
+    updateMultipleInSession([{key: "activeCardKey", value: ""}, {key: "activeCardDetails", value: {}}]);
 };
 
 module.exports = {
     setProjectCommand,
+    refreshProjectCommand,
     unsetProjectCommand,
     setCardCommand,
+    refreshCardCommand,
     unsetCardCommand,
 };

@@ -36,10 +36,23 @@ const interpolate = (template, dictionary) => {
     return result;
 };
 
+const parseCardResponse = response => {
+    return {
+        key: response.key,
+        summary: response.fields.summary,
+        status: response.fields.status.name,
+        assignee: response.fields.assignee ? response.fields.assignee.name : null,
+        description: response.fields.description,
+        priority: response.fields.priority.name,
+        estimate: response.fields.customfield_10005,
+    };
+};
+
 module.exports = {
     rightPad,
     getShortUsername,
     getStatusForSlug,
     getSlugForStatus,
     interpolate,
+    parseCardResponse,
 };

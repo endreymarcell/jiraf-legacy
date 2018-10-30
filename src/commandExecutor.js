@@ -2,9 +2,16 @@ const commandLineArgs = require("command-line-args");
 
 const defs = require("./utils/argDefinitions");
 const {branchCommand, checkCommand, prCommand} = require("./commands/gitCommands");
-const {listCardsCommand, statusCommand, refreshCardCommand} = require("./commands/listCommands");
-const {setProjectCommand, unsetProjectCommand, setCardCommand, unsetCardCommand} = require("./commands/sessionCommands");
-const {assignCardCommand, unassignCardCommand, moveCommand}= require("./commands/cardCommands");
+const {listCardsCommand} = require("./commands/listCommand");
+const {
+    setProjectCommand,
+    refreshProjectCommand,
+    unsetProjectCommand,
+    setCardCommand,
+    refreshCardCommand,
+    unsetCardCommand,
+} = require("./commands/sessionCommands");
+const {statusCommand, assignCardCommand, unassignCardCommand, moveCommand} = require("./commands/cardCommands");
 const {webCommand} = require("./commands/webCommand");
 const {readFromConfig} = require("./utils/storageHandler");
 
@@ -37,6 +44,10 @@ const commandMap = {
         argDefinitions: null,
         commandFunction: refreshCardCommand,
     },
+    refreshproject: {
+        argDefinitions: null,
+        commandFunction: refreshProjectCommand,
+    },
     assign: {
         argDefinitions: defs.assignDefinitions,
         commandFunction: assignCardCommand,
@@ -65,7 +76,7 @@ const commandMap = {
         argDefinitions: defs.webDefinitions,
         commandFunction: webCommand,
     },
-}
+};
 
 const isKnownCommand = commandName => Object.keys(commandMap).indexOf(commandName) !== -1;
 
@@ -75,12 +86,12 @@ const executeKnownCommand = (commandName, args) => {
         ? commandLineArgs(commandMap[commandName].argDefinitions, {argv: args})
         : null;
     commandFunction(options);
-}
+};
 
 const isShortcut = commandName => {
     const shortcuts = readFromConfig("shortcuts");
     return Object.keys(shortcuts).indexOf(commandName) !== -1;
-}
+};
 
 const executeShortcut = (shortcut, args) => {
     const shortcuts = readFromConfig("shortcuts");
@@ -90,7 +101,7 @@ const executeShortcut = (shortcut, args) => {
         const shortcutArgsSubstituted = getSubstitutedShortcutArgs(shortcutArgs, args);
         executeKnownCommand(command, shortcutArgsSubstituted || []);
     });
-}
+};
 
 const getSubstitutedShortcutArgs = (shortcutArgs, args) => {
     let substitutedArgs;
@@ -105,7 +116,7 @@ const getSubstitutedShortcutArgs = (shortcutArgs, args) => {
         substitutedArgs = shortcutArgs;
     }
     return substitutedArgs;
-}
+};
 
 module.exports = {
     commandMap,
@@ -113,4 +124,4 @@ module.exports = {
     executeKnownCommand,
     isShortcut,
     executeShortcut,
-}
+};

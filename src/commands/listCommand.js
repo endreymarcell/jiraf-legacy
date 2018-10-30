@@ -1,23 +1,7 @@
-const {readActiveCardDetails} = require("../utils/storageHandler");
-const {rightPad, getShortUsername, getStatusForSlug, interpolate} = require("../utils/utils");
-const {JIRA_CARD_URL, JIRA_SEARCH_URL, DEFAULT_STATUS_PATTERN} = require("../const");
-const {readActiveCardKey, readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
+const {rightPad, getShortUsername, getStatusForSlug, parseCardResponse} = require("../utils/utils");
+const {JIRA_SEARCH_URL} = require("../const");
+const {readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
-
-const statusCommand = ({pattern}) => {
-    const activeCardDetails = readActiveCardDetails();
-    const status = interpolate(pattern || DEFAULT_STATUS_PATTERN, activeCardDetails);
-    console.log(status || "");
-};
-
-const refreshCardCommand = () => {
-    const key = readActiveCardKey();
-    if (key) {
-        loadSingleCard(key);
-    } else {
-        console.warn("jiraf WARNING: no card set");
-    }
-};
 
 const listCardsCommand = ({statusSlug, assignee}) => {
     loadCardsOnBoard({statusSlug, assignee}).then(parsedResponse => printCards(parsedResponse));
@@ -32,21 +16,6 @@ const loadCardsOnBoard = ({statusSlug, assignee}) => {
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response))
         .catch(error => console.error(`jiraf ERROR: ${error.message}`));
-};
-
-const loadSingleCard = key => {
-    return get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee`)
-        .then(response => parseCardResponse(response.data))
-        .catch(error => console.error(`jiraf ERROR: ${error.message}`));
-};
-
-const parseCardResponse = response => {
-    return {
-        key: response.key,
-        summary: response.fields.summary,
-        status: response.fields.status.name,
-        assignee: response.fields.assignee ? response.fields.assignee.name : null,
-    };
 };
 
 const generateFiltersUrl = (statusSlug, assignee) => {
@@ -94,7 +63,5 @@ const getIndexForStatus = status => {
 };
 
 module.exports = {
-    statusCommand,
-    refreshCardCommand,
     listCardsCommand,
 };

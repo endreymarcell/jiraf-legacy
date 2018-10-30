@@ -3,7 +3,6 @@ const commandLineArgs = require("command-line-args");
 const {isKnownCommand, executeKnownCommand, isShortcut, executeShortcut} = require("./commandExecutor");
 const defs = require("./utils/argDefinitions");
 
-
 const mainOptions = commandLineArgs(defs.mainDefinitions, {stopAtFirstUnknown: true});
 const command = mainOptions.command;
 const args = mainOptions._unknown || [];

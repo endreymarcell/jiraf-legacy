@@ -1,8 +1,14 @@
 const {getShortUsername} = require("../utils/utils");
-const {JIRA_CARD_URL, JIRA_TRANSITIONS_URL} = require("../const");
-const {readActiveCardKey} = require("../utils/storageHandler");
+const {JIRA_CARD_URL, JIRA_TRANSITIONS_URL, DEFAULT_STATUS_PATTERN} = require("../const");
+const {readActiveCardKey, readActiveCardDetails} = require("../utils/storageHandler");
 const {get, post, put} = require("../utils/jiraApi");
-const {getSlugForStatus} = require("../utils/utils");
+const {getSlugForStatus, interpolate} = require("../utils/utils");
+
+const statusCommand = ({pattern}) => {
+    const activeCardDetails = readActiveCardDetails();
+    const status = interpolate(pattern || DEFAULT_STATUS_PATTERN, activeCardDetails);
+    console.log(status || "");
+};
 
 const sendAssignRequest = assignee => {
     put(`${JIRA_CARD_URL}${readActiveCardKey()}/assignee`, {name: assignee});
@@ -42,6 +48,7 @@ const parseTransitions = transitions => {
 };
 
 module.exports = {
+    statusCommand,
     moveCommand,
     assignCardCommand,
     unassignCardCommand,
