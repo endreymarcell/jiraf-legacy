@@ -28,7 +28,6 @@ const branchCommand = branchOptions => {
 };
 
 const checkCommand = () => {
-    const JIRA_URL_BASE = readFromConfig("jiraUrlBase");
     get(`${JIRA_CARD_URL}${readActiveCardKey()}?fields=''`).then(response => {
         const issueId = response.data.id;
         get(`${JIRA_PULL_REQUEST_URL}${issueId}`).then(response => {

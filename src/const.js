@@ -9,8 +9,9 @@ const JIRA_CARD_URL = "/rest/api/2/issue/";
 const JIRA_SEARCH_URL = "/rest/api/2/search";
 const JIRA_TRANSITIONS_URL = "/rest/api/2/transitions/";
 const JIRA_PULL_REQUEST_URL = "/rest/dev-status/1.0/issue/detail?applicationType=github&dataType=pullrequest&issueId=";
-const JIRA_BOARD_URL = "/rest/agile/1.0/board?projectKeyOrId=";
+const JIRA_BOARD_URL = "/rest/agile/1.0/board/";
 const JIRA_BOARD_HTML_URL = "/secure/RapidBoard.jspa?rapidView=";
+const JIRA_BOARD_CONFIGURATION_URL = "/configuration";
 const JIRA_BACKLOG_URL = "&view=planning.nodetail";
 
 const DEFAULT_STATUS_PATTERN = "{{key}} [{{status}}] {{title}} ({{assignee}})";
@@ -36,6 +37,7 @@ module.exports = {
     JIRA_PULL_REQUEST_URL,
     JIRA_BOARD_URL,
     JIRA_BOARD_HTML_URL,
+    JIRA_BOARD_CONFIGURATION_URL,
     JIRA_BACKLOG_URL,
     DEFAULT_STATUS_PATTERN,
     PULL_REQUEST_TEMPLATE,

@@ -10,14 +10,14 @@ const webCommand = ({target}) => {
     switch (target) {
         case undefined:
         case "board":
-            get(`${JIRA_BOARD_URL}${readActiveProjectKey()}`).then(response => {
+            get(`${JIRA_BOARD_URL}?projectKeyOrId=${readActiveProjectKey()}`).then(response => {
                 const boardId = response.data.values[0].id;
                 url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}`;
                 opn(url, {wait: false});
             });
             break;
         case "backlog":
-            get(`${JIRA_BOARD_URL}${readActiveProjectKey()}`).then(response => {
+            get(`${JIRA_BOARD_URL}?projectKeyOrId=${readActiveProjectKey()}`).then(response => {
                 const boardId = response.data.values[0].id;
                 url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}${JIRA_BACKLOG_URL}`;
                 opn(url, {wait: false});

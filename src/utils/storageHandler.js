@@ -41,7 +41,7 @@ const readActiveCardDetails = () => {
 };
 
 const readStatuses = () => {
-    return readFromConfig("statuses");
+    return readFromSession("statuses");
 };
 
 module.exports = {
