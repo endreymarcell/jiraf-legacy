@@ -58,6 +58,8 @@ const generateFiltersUrl = (statusSlug, assignee) => {
     const isAssigneeSwitchSetButNoAssigneeSpecified = assignee === null;
     if (isAssigneeSwitchSetButNoAssigneeSpecified) {
         filterStrings.push(`assignee = ${getShortUsername()}`);
+    } else if (assignee === "unassigned") {
+        filterStrings.push(`assignee = EMPTY`);
     } else if (assignee) {
         filterStrings.push(`assignee = ${assignee}`);
     }
