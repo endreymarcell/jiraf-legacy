@@ -22,7 +22,7 @@ const updateInSession = (key, value) => {
 
 const updateMultipleInSession = keyValuePairs => {
     const session = JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE));
-    for (const [key, value] of keyValuePairs) {
+    for (const {key, value} of keyValuePairs) {
         session[key] = value;
     }
     fs.writeFileSync(JIRAF_SESSION_FILE, JSON.stringify(session, null, "   "));

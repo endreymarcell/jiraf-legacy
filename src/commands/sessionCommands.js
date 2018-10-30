@@ -3,8 +3,8 @@ const {JIRA_SEARCH_URL, JIRA_BOARD_URL, JIRA_BOARD_CONFIGURATION_URL} = require(
 const {get} = require("../utils/jiraApi");
 
 const setProjectCommand = options => {
-    const key = options.project;
-    updateMultipleInSession([["activeProjectKey", key], ["statuses", []]]);
+    const projectKey = options.project;
+    updateMultipleInSession([{key: "activeProjectKey", value: projectKey}, {key: "statuses", value: []}]);
     // TODO do this async:
     loadStatuses();
 };
@@ -20,6 +20,9 @@ const loadStatuses = () => {
                     `&jql=project = ${readActiveProjectKey()} AND Sprint in openSprints()`
             ).then(response => {
                 const statusMap = {};
+                if (response.data.issues.length === 0) {
+                    throw Error("No cards in the active sprint - bad project key or no open sprint?");
+                }
                 response.data.issues[0].transitions.forEach(status => {
                     statusMap[status.to.id] = status.to.name;
                 });
@@ -36,7 +39,7 @@ const loadStatuses = () => {
 };
 
 const unsetProjectCommand = () => {
-    updateInSession("activeProjectKey", "");
+    updateMultipleInSession([{key: "activeProjectKey", value: ""}, {key: "statuses", value: []}]);
 };
 
 const setCardCommand = options => {
