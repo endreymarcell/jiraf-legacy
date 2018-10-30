@@ -7,7 +7,7 @@ const JIRAF_SESSION_FILE = path.join(JIRAF_HOME_FOLDER, "session.json");
 
 const JIRA_CARD_URL = "/rest/api/2/issue/";
 const JIRA_SEARCH_URL = "/rest/api/2/search";
-const JIRA_TRANSITIONS_URL = "/rest/api/2/transitions/";
+const JIRA_TRANSITIONS_URL = "/transitions/";
 const JIRA_PULL_REQUEST_URL = "/rest/dev-status/1.0/issue/detail?applicationType=github&dataType=pullrequest&issueId=";
 const JIRA_BOARD_URL = "/rest/agile/1.0/board/";
 const JIRA_BOARD_HTML_URL = "/secure/RapidBoard.jspa?rapidView=";

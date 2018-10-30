@@ -94,4 +94,5 @@ module.exports = {
     setCardCommand,
     refreshCardCommand,
     unsetCardCommand,
+    loadSingleCard,
 };

@@ -4,14 +4,19 @@ const {readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
 
 const listCardsCommand = ({statusSlug, assignee}) => {
-    loadCardsOnBoard({statusSlug, assignee}).then(parsedResponse => printCards(parsedResponse));
+    const projectKey = readActiveProjectKey();
+    if (projectKey) {
+        loadCardsOnBoard(projectKey, statusSlug, assignee).then(parsedResponse => printCards(parsedResponse));
+    } else {
+        throw Error("jiraf ERROR can't list cards without setting a proejct");
+    }
 };
 
-const loadCardsOnBoard = ({statusSlug, assignee}) => {
+const loadCardsOnBoard = (projectKey, statusSlug, assignee) => {
     const baseSearchUrl =
         JIRA_SEARCH_URL +
         "?fields=summary,status,issuetype,priority,assignee" +
-        `&jql=project = ${readActiveProjectKey()} AND Sprint in openSprints()`;
+        `&jql=project = ${projectKey} AND Sprint in openSprints()`;
     const filtersUrl = generateFiltersUrl(statusSlug, assignee);
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response))

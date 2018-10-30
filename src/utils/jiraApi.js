@@ -28,7 +28,7 @@ const put = (url, data) => {
         method: "put",
         data: data,
     };
-    makeRequest(url, options);
+    return makeRequest(url, options);
 };
 
 const post = (url, data) => {
@@ -36,7 +36,7 @@ const post = (url, data) => {
         method: "post",
         data: data,
     };
-    makeRequest(url, options);
+    return makeRequest(url, options);
 };
 
 module.exports = {
