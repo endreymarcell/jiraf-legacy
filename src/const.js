@@ -14,7 +14,7 @@ const JIRA_BOARD_HTML_URL = "/secure/RapidBoard.jspa?rapidView=";
 const JIRA_BOARD_CONFIGURATION_URL = "/configuration";
 const JIRA_BACKLOG_URL = "&view=planning.nodetail";
 
-const DEFAULT_STATUS_PATTERN = "{{key}} [{{status}}] {{title}} ({{assignee}})";
+const DEFAULT_STATUS_PATTERN = "{{key}} [{{status}}] {{summary}} ({{assignee}})";
 
 const PULL_REQUEST_TEMPLATE = `[{{key}}] 
 ### What does it do?
