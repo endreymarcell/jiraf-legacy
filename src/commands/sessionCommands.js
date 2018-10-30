@@ -17,12 +17,9 @@ const loadStatuses = () => {
             get(
                 JIRA_SEARCH_URL +
                     "?fields=transitions&expand=transitions&maxResults=1" +
-                    `&jql=project = ${readActiveProjectKey()} AND Sprint in openSprints()`
+                    `&jql=project = ${readActiveProjectKey()}`
             ).then(response => {
                 const statusMap = {};
-                if (response.data.issues.length === 0) {
-                    throw Error("No cards in the active sprint - bad project key or no open sprint?");
-                }
                 response.data.issues[0].transitions.forEach(status => {
                     statusMap[status.to.id] = status.to.name;
                 });
