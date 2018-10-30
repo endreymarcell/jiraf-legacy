@@ -1,53 +1,84 @@
 # jiraf
 
-jiraf is a command-line helper for the Atlassian Jira, git, and GitHub-based workflow.  
+jiraf is a command-line helper for a workflow based in Atlassian Jira and GitHub.  
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![CircleCI](https://circleci.com/gh/endreymarcell/jiraf.svg?style=svg)](https://circleci.com/gh/endreymarcell/jiraf) [![Greenkeeper badge](https://badges.greenkeeper.io/endreymarcell/jiraf.svg)](https://greenkeeper.io/)
 
 
+__Note: jiraf is in beta. Please report any issues.__  
+
 ## Setup
 
-1. Install jiraf with `npm install -g jiraf`  
-2. Create an Atlassian API token yourself as described in https://confluence.atlassian.com/display/Cloud/API+tokens  
-3. Export your Atlassian username and token as environmental variables named `ATLASSIAN_USERNAME` and `ATLASSIAN_API_TOKEN`  
-4. Speficy your project with `jiraf setproject <project_key>`  
-5. Optional: if you want to use the `qa` shortcut, substitute `YOUR_QA_PERSON` with the username of your team's QA person in the `~/.jiraf/config.json` file.  
+### Install
+```npm install -g jiraf```  
 
-Jiraf maintains the key and the summary of the active card in `~/.jiraf/session.json`. You can include either of them in your shell prompt like people do with their git branches. See [prompt.sh](etc/prompt.sh) for an example.  
+### Authorize
+Create an Atlassian API token for jiraf as described in https://confluence.atlassian.com/display/Cloud/API+tokens  
+Then export your Atlassian username and token as environmental variables named `ATLASSIAN_USERNAME` and `ATLASSIAN_API_TOKEN`.    
+
+Create a GitHub API token jiraf as described in https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/  
+Then export your GitHub username and token as environmental variables named `GITHUB_USERNAME` and `GITHUB_API_TOKEN`.  
+
+### Configure
+Edit `~/.jiraf/config.json` to add your Jira URL base, editor (make sure that it waits for closing files before returning), and possibly customize your shortcuts.  
+You will probably want to include some information about the current card in your shell prompt like people do with their git branches. You can either use the `status` command for that (comfortable, but slower) or extract the values manually from `~/.jiraf/session.json` using something like `jq` (more manual work, but quicker).  
 
 ## Usage
 
 ### Base commands
 
 #### Picking a card  
-`jiraf setproject <project_key>` - specify the project by its key so that you can list cards on the board.  
-`jiraf unsetproject` - unset the project.  
-`jiraf ls` - list the cards on the board in the current sprint (key, status, summary, assignee).  
-&nbsp;&nbsp;&nbsp;&nbsp;`-s|--status <status>`: filter for status (lowercase, one word, like: "todo" or "inprogress")  
-&nbsp;&nbsp;&nbsp;&nbsp;`-a|--assignee [<username>]`: filter for assignee (default is yourself)  
-`jiraf set <card>` - set `<card>` as the active card (you can pass the full key, eg. PROJ-123, which then also calls `setproject` with "PROJ", or only pass 123, in which case the currently active project is used)  
-`jiraf current` - print all details of the active card.  
-`jiraf unset` - unset the currently active card.  
+`jiraf setproject <project_key>`  
+Specify the project by its key so that you can list cards on the board.    
+
+`jiraf unsetproject`  
+Unset the project.  
+
+`jiraf ls [-s|--status <status>] [-a|--assignee [<username>]]`  
+List the cards on the board in the current sprint (key, status, summary, assignee).  
+You can filter for status (lowercase, one word, like: "todo" or "inprogress") or assignee (pass the Jira username). If you don't pass any username, the default is yourself; to filter for unassigned cards, pass "unassigned".    
+
+`jiraf set <card>`  
+Set `<card>` as the active card. (Note: you can pass the full key, eg. PROJ-123, which then also calls `setproject` with "PROJ", or only pass 123, in which case the currently active project is used.)  
+
+`jiraf status [<template>]`  
+Print the details of the active card. You can use the values `summary`, `status`, `assignee`, `description`, `priority`, and `estimate` passed to the template in double curly braces. If you don't pass anything, the default template is used, which is `{{key}} [{{status}}] {{summary}} ({{assignee}})`.  
+
+`jiraf refresh`  
+Reload the current card (eg. if you've updated it on the web UI).  
+  
+`jiraf unset`  
+Unset the currently active card.  
 
 #### Updating a card  
-`jiraf move <status>` - update the active card to <status> (one of: blocked, todo, inprogress, review, validation, done).  
-`jiraf assign [<username>]` - assign the active card to <username>, default is assigning to yourself.  
-`jiraf unassign` - remove assignee from the card.  
+`jiraf move <status>`  
+Update the active card to <status> (one of: blocked, todo, inprogress, review, validation, done).    
+
+`jiraf assign [<username>]`  
+Assign the active card to <username>, default is assigning to yourself.  
+
+`jiraf unassign`  
+Remove assignee from the card.  
 
 #### git and GitHub
-`jiraf branch <branchname>` - does `git checkout -b {active-cards-key}-<branchname>`.  
-`jiraf pr` - opens a text editor for you to specify the PR title and contents, based on a template and pre-filled with card details; then opens a PR when the editor is closed.  
-`jiraf web [<target>]` - opens Jira views in the browser, target is one of: board (default), card, backlog.  
+`jiraf branch <branchname>`  
+Performs `git checkout -b {active-cards-key}-<branchname>`.    
+
+`jiraf pr`  
+Opens a text editor for you to specify the PR title and contents, based on a template and pre-filled with card details. The first line is the title, the rest is the description. Upon closing the file, it opens a PR. Note: this command only works properly if you have configured an editor that is blocking until the edited file is closed.  
+
+`jiraf web [<target>]`  
+Opens Jira views in the browser, target is one of: board (default), card, backlog.  
 Note: if you call `jiraf` without arguments, `jiraf web` (and consequently `jiraf web board`) is executed.  
 
 ### Compound commands (shortcuts)
 The following shortcuts are defined for a smoother workflow:  
-`start <card>` == `set <card>` + `assign` + `move inprogress`  
-`review` == `move review` + `pr`  
-`qa` == `move validation` + `assign YOUR_QA_PERSON`
+`start <card> == set <card> + assign + move inprogress`  
+`review == move review + pr`  
+`qa == move validation + assign YOUR_QA_PERSON`
 You could get through the entire workflow of choosing, picking up, and delivering a card with only these three.
 
-You can specify more shortcuts in your `~/.jiraconfig.json` file.  
+You can specify more shortcuts in your `~/.jiraf/config.json` file.  
 
 ## Have fun!
 ![Photo by Rajiv Bajaj on Unsplash](giraffe.jpg)

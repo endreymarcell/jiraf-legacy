@@ -77,7 +77,7 @@ const refreshCardCommand = () => {
 };
 
 const loadSingleCard = key => {
-    get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee,description,priority,estimate,customfield_10005`)
+    get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee,description,priority,customfield_10005`)
         .then(response => parseCardResponse(response.data))
         .then(cardDetails => updateInSession("activeCardDetails", cardDetails))
         .catch(error => console.error(`jiraf ERROR: ${error.message}`));

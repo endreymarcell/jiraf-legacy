@@ -4,7 +4,7 @@ const {isKnownCommand, executeKnownCommand, isShortcut, executeShortcut} = requi
 const defs = require("./utils/argDefinitions");
 
 const mainOptions = commandLineArgs(defs.mainDefinitions, {stopAtFirstUnknown: true});
-const command = mainOptions.command;
+const command = mainOptions.command || "web";
 const args = mainOptions._unknown || [];
 
 if (isShortcut(command)) {
