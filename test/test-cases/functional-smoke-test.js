@@ -2,7 +2,7 @@ const assert = require("assert");
 const fs = require("fs");
 const {exec} = require("child_process");
 
-const {JIRAF} = require("./const");
+const {JIRAF} = require("../const");
 
 describe("Functional tests", () => {
     it("should be running", () => {

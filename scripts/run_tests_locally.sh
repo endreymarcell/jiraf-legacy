@@ -4,4 +4,4 @@ docker run -t \
     -v "$(pwd)/test:/jiraf/test" \
     -e "TERM=xterm-256color" \
     endreymarca/jiraf-testing \
-    npm run functional-test
+    npm test
