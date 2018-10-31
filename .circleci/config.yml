@@ -5,14 +5,22 @@ jobs:
     - image: endreymarca/jiraf-testing
     working_directory: /jiraf
     steps:
-    - checkout
+    - checkout:
+        path: /git_jiraf
+    - run:
+        name: copy the source code from git to the testing folder
+        command: cp -r /git_jiraf/* /jiraf/
     - restore_cache:
         keys:
         - v1-dependencies-{{ checksum "package-lock.json" }}
         - v1-dependencies-
-    - run: npm ci
+    - run:
+        name: install dependencies
+        command: npm ci
     - save_cache:
         paths:
         - node_modules
         key: v1-dependencies-{{ checksum "package-lock.json" }}
-    - run: npm run lint && npm run functional-test
+    - run:
+        name: lint and test
+        command: npm run lint && npm run functional-test
