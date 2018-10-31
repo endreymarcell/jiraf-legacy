@@ -4,6 +4,6 @@
   "shortcuts": {
     "start": ["set {}", "assign", "move inprogress"],
     "review": ["move codereview", "pr"],
-    "qa": ["move validation", "assign YOUR_QA_PERSON"]
+    "qa": ["move validation", "assign qa.person"]
   }
 }

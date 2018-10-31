@@ -4,7 +4,7 @@ const {exec} = require("child_process");
 
 const {JIRAF} = require("../const");
 
-describe("Functional tests", () => {
+describe("Jiraf tests", () => {
     it("should be running", () => {
         assert.equal(1, 1);
     });
@@ -12,10 +12,14 @@ describe("Functional tests", () => {
     it("should only run in Docker", () => {
         assert.ok(fs.existsSync("/.dockerenv"));
     });
+});
 
-    it("should be responsive", () => {
+describe("The jiraf command line tool", () => {
+    it("should be responsive", done => {
         exec(`${JIRAF} debug`, (error, stdout) => {
+            assert.equal(error, null);
             assert.equal(stdout.trim(), "jiraf is responsive");
+            done();
         });
     });
 });

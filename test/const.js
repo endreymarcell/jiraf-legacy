@@ -1,4 +1,4 @@
-const JIRAF = "node /jiraf/src/jiraf.js";
+const JIRAF = "node /jiraf/src/index.js";
 
 module.exports = {
     JIRAF,
