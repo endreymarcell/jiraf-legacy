@@ -1,0 +1,9 @@
+{
+  "jiraUrlBase": "https://jiraf-testing.atlassian.net",
+  "editor": "vim",
+  "shortcuts": {
+    "start": ["set {}", "assign", "move inprogress"],
+    "review": ["move codereview", "pr"],
+    "qa": ["move validation", "assign YOUR_QA_PERSON"]
+  }
+}

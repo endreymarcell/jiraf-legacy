@@ -1,7 +1,7 @@
 const assert = require("assert");
 
-describe("Sanity", () => {
-    it("should be present", () => {
+describe("Tests", () => {
+    it("should be running", () => {
         assert.equal(1, 1);
     });
 });

@@ -1,6 +1,7 @@
 const commandLineArgs = require("command-line-args");
 
 const defs = require("./utils/argDefinitions");
+const {debugCommand} = require("./commands/debugCommand");
 const {branchCommand, checkCommand, prCommand} = require("./commands/gitCommands");
 const {listCardsCommand} = require("./commands/listCommand");
 const {
@@ -75,6 +76,10 @@ const commandMap = {
     web: {
         argDefinitions: defs.webDefinitions,
         commandFunction: webCommand,
+    },
+    debug: {
+        argDefinitions: null,
+        commandFunction: debugCommand,
     },
 };
 
