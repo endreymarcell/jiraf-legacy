@@ -10,12 +10,11 @@ const {get} = require("../utils/jiraApi");
 const {parseCardResponse, die, generateStatus} = require("../utils/utils");
 
 const setProjectCommand = ({projectKey}) => {
-    if (projectKey) {
-        updateMultipleInSession([{key: "activeProjectKey", value: projectKey}, {key: "statuses", value: []}]);
-        loadStatuses(projectKey);
-    } else {
+    if (!projectKey) {
         throw Error("missing argument 'projectKey'");
     }
+    updateMultipleInSession([{key: "activeProjectKey", value: projectKey}, {key: "statuses", value: []}]);
+    loadStatuses(projectKey);
 };
 
 const refreshProjectCommand = () => {
@@ -58,6 +57,9 @@ const unsetProjectCommand = () => {
 };
 
 const setCardCommand = ({cardKey}) => {
+    if (!cardKey) {
+        throw Error("missing argument 'cardKey'");
+    }
     const key = cardKey.split(" ")[0];
     let fullKey;
     if (key.indexOf("-") !== -1) {
@@ -65,7 +67,12 @@ const setCardCommand = ({cardKey}) => {
         setProjectCommand({projectKey});
         fullKey = key;
     } else {
-        fullKey = readActiveProjectKey() + "-" + key;
+        const projectKey = readActiveProjectKey();
+        if (projectKey) {
+            fullKey = readActiveProjectKey() + "-" + key;
+        } else {
+            throw Error("no project set, provide a full card key");
+        }
     }
     updateMultipleInSession([{key: "activeCardKey", value: fullKey}, {key: "activeCardDetails", value: {}}]);
     reloadAndUpdateCardData(key);
