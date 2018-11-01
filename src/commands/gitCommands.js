@@ -8,12 +8,7 @@ const axios = require("axios");
 const {JIRAF_HOME_FOLDER, JIRA_CARD_URL, JIRA_PULL_REQUEST_URL, PULL_REQUEST_TEMPLATE} = require("../const");
 const {get} = require("../utils/jiraApi");
 const {readActiveCardKey, readFromConfig} = require("../utils/storageHandler");
-const {interpolate} = require("../utils/utils");
-
-const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
-if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
-    throw Error("missing Atlassian credentials");
-}
+const {interpolate, readGithubCredentials, print, die} = require("../utils/utils");
 
 const branchCommand = branchOptions => {
     exec(`git checkout -b ${readActiveCardKey()}-${branchOptions.branchName}`);
@@ -60,10 +55,7 @@ const editDescriptionAndCreatePullRequest = ({owner, repo, branchName}) => {
 };
 
 const createPullRequest = ({owner, repo, branchName, descriptionFileName}) => {
-    const {GITHUB_USERNAME, GITHUB_API_TOKEN} = process.env;
-    if (!GITHUB_USERNAME || !GITHUB_API_TOKEN) {
-        throw Error("missing github credentials");
-    }
+    const {GITHUB_USERNAME, GITHUB_API_TOKEN} = readGithubCredentials();
     const description = fs.readFileSync(descriptionFileName).toString();
     const descriptionLines = description.split(/\r?\n/);
     const title = descriptionLines[0];
@@ -82,8 +74,8 @@ const createPullRequest = ({owner, repo, branchName, descriptionFileName}) => {
             body: body,
         },
     })
-        .then(response => console.log(response.data.html_url))
-        .catch(error => console.log(error.response))
+        .then(response => print(response.data.html_url))
+        .catch(error => die(error.response))
         .finally(() => fs.unlink(descriptionFileName, () => {}));
 };
 

@@ -15,13 +15,13 @@ const readFromSession = key => {
 };
 
 const updateInSession = (key, value) => {
-    const session = JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE));
+    const session = JSON.parse(fs.existsSync(JIRAF_SESSION_FILE) ? fs.readFileSync(JIRAF_SESSION_FILE) : {});
     session[key] = value;
     fs.writeFileSync(JIRAF_SESSION_FILE, JSON.stringify(session, null, "   "));
 };
 
 const updateMultipleInSession = keyValuePairs => {
-    const session = JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE));
+    const session = JSON.parse(fs.existsSync(JIRAF_SESSION_FILE) ? fs.readFileSync(JIRAF_SESSION_FILE) : {});
     for (const {key, value} of keyValuePairs) {
         session[key] = value;
     }

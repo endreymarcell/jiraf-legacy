@@ -2,13 +2,13 @@ const {getShortUsername} = require("../utils/utils");
 const {JIRA_CARD_URL, JIRA_TRANSITIONS_URL, DEFAULT_STATUS_PATTERN} = require("../const");
 const {readActiveCardKey, readActiveCardDetails} = require("../utils/storageHandler");
 const {get, post, put} = require("../utils/jiraApi");
-const {getSlugForStatus, interpolate} = require("../utils/utils");
+const {getSlugForStatus, interpolate, print, die} = require("../utils/utils");
 const {loadSingleCard} = require("./sessionCommands");
 
 const statusCommand = ({pattern}) => {
     const activeCardDetails = readActiveCardDetails();
     const status = interpolate(pattern || DEFAULT_STATUS_PATTERN, activeCardDetails);
-    console.log(status || "");
+    print(status || "");
 };
 
 const sendAssignRequest = assignee => {
@@ -32,12 +32,11 @@ const moveCommand = ({status: newStatus}) => {
             const statusId = transitions[newStatus];
             if (statusId === undefined) {
                 const possibleStatuses = Object.keys(transitions).join(", ");
-                console.error(`Unknown status '${newStatus}', please choose from: ${possibleStatuses}.`);
-                throw Error("unknown status");
+                throw Error(`Unknown status '${newStatus}', please choose from: ${possibleStatuses}.`);
             }
             post(transitionsUrl, {transition: {id: statusId}}).then(() => loadSingleCard(readActiveCardKey()));
         })
-        .catch(error => console.error(error));
+        .catch(error => die(`cannot move card to status ${newStatus} (${error.message})`));
 };
 
 const parseTransitions = transitions => {

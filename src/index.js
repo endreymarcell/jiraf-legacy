@@ -8,10 +8,14 @@ const mainOptions = commandLineArgs(defs.mainDefinitions, {stopAtFirstUnknown: t
 const command = mainOptions.command || "web";
 const args = mainOptions._unknown || [];
 
-if (isShortcut(command)) {
-    executeShortcut(command, args);
-} else if (isKnownCommand(command)) {
-    executeKnownCommand(command, args);
-} else {
-    die(`unkonwn command '${command}'`);
+try {
+    if (isShortcut(command)) {
+        executeShortcut(command, args);
+    } else if (isKnownCommand(command)) {
+        executeKnownCommand(command, args);
+    } else {
+        die(`unkonwn command '${command}'`);
+    }
+} catch (error) {
+    die(error.message);
 }

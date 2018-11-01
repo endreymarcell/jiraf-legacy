@@ -11,7 +11,7 @@
     "mock:jira": "node test/mocks/jira.js &",
     "mock:github": "node test/mocks/github.js &",
     "lint": "eslint src test",
-    "fix-lint": "eslint --fix src test"
+    "lint:fix": "eslint --fix src test"
   },
   "author": "Marcell Endrey <endrey.marcell@gmail.com>",
   "license": "ISC",

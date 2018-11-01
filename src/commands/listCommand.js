@@ -1,4 +1,4 @@
-const {rightPad, getShortUsername, getStatusForSlug, parseCardResponse} = require("../utils/utils");
+const {rightPad, getShortUsername, getStatusForSlug, parseCardResponse, print, die} = require("../utils/utils");
 const {JIRA_SEARCH_URL} = require("../const");
 const {readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
@@ -8,7 +8,7 @@ const listCardsCommand = ({statusSlug, assignee}) => {
     if (projectKey) {
         loadCardsOnBoard(projectKey, statusSlug, assignee).then(parsedResponse => printCards(parsedResponse));
     } else {
-        throw Error("jiraf ERROR can't list cards without setting a proejct");
+        throw Error("no project set; please set it with `jiraf setpropject <key>`");
     }
 };
 
@@ -20,7 +20,7 @@ const loadCardsOnBoard = (projectKey, statusSlug, assignee) => {
     const filtersUrl = generateFiltersUrl(statusSlug, assignee);
     return get(baseSearchUrl + filtersUrl)
         .then(response => parseBoardResponse(response))
-        .catch(error => console.error(`jiraf ERROR: ${error.message}`));
+        .catch(error => die(error.message));
 };
 
 const generateFiltersUrl = (statusSlug, assignee) => {
@@ -51,7 +51,7 @@ const printCards = cards => {
 };
 
 const printSingleCard = card => {
-    console.log(formatSingleCardSummary(card));
+    print(formatSingleCardSummary(card));
 };
 
 const formatSingleCardSummary = card => {

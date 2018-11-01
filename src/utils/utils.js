@@ -20,7 +20,7 @@ const getStatusForSlug = slug => {
             return status;
         }
     }
-    throw Error("unknown status slug");
+    throw Error(`unknown status slug ${slug}`);
 };
 
 const getSlugForStatus = status => {
@@ -49,12 +49,30 @@ const parseCardResponse = response => {
 };
 
 const print = console.log;
+
 const warn = message => {
     console.warn(`jiraf WARNING: ${message}`);
 };
+
 const die = message => {
     console.error(`jiraf ERROR: ${message}`);
     process.exitCode = 1;
+};
+
+const readAtlassianCredentials = () => {
+    const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
+    if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
+        die("missing Atlassian credentials");
+    }
+    return {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN};
+};
+
+const readGithubCredentials = () => {
+    const {GITHUB_USERNAME, GITHUB_API_TOKEN} = process.env;
+    if (!GITHUB_USERNAME || !GITHUB_API_TOKEN) {
+        throw Error("missing github credentials");
+    }
+    return {GITHUB_USERNAME, GITHUB_API_TOKEN};
 };
 
 module.exports = {
@@ -67,4 +85,6 @@ module.exports = {
     print,
     warn,
     die,
+    readAtlassianCredentials,
+    readGithubCredentials,
 };

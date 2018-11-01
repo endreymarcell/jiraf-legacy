@@ -6,7 +6,7 @@ const {
 } = require("../utils/storageHandler");
 const {JIRA_SEARCH_URL, JIRA_BOARD_URL, JIRA_BOARD_CONFIGURATION_URL, JIRA_CARD_URL} = require("../const");
 const {get} = require("../utils/jiraApi");
-const {parseCardResponse} = require("../utils/utils");
+const {parseCardResponse, die} = require("../utils/utils");
 
 const setProjectCommand = options => {
     const projectKey = options.project;
@@ -19,7 +19,7 @@ const refreshProjectCommand = () => {
     if (projectKey) {
         loadStatuses(projectKey);
     } else {
-        console.warn("jiraf WARNING: no project set");
+        throw Error("no project set; please set it with `jiraf setpropject <key>`");
     }
 };
 
@@ -72,7 +72,7 @@ const refreshCardCommand = () => {
     if (key) {
         loadSingleCard(key);
     } else {
-        console.warn("jiraf WARNING: no card set");
+        throw Error("no card set; please set it with `jiraf set <key>`");
     }
 };
 
@@ -80,7 +80,7 @@ const loadSingleCard = key => {
     get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee,description,priority,customfield_10005`)
         .then(response => parseCardResponse(response.data))
         .then(cardDetails => updateInSession("activeCardDetails", cardDetails))
-        .catch(error => console.error(`jiraf ERROR: ${error.message}`));
+        .catch(error => die(error.message));
 };
 
 const unsetCardCommand = () => {

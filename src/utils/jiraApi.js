@@ -1,10 +1,8 @@
 const axios = require("axios");
+const {readAtlassianCredentials} = require("./utils");
 const {readFromConfig} = require("./storageHandler");
 
-const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
-if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
-    throw Error("missing Atlassian credentials");
-}
+const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = readAtlassianCredentials();
 
 const makeRequest = (url, options) => {
     const JIRA_URL_BASE = readFromConfig("jiraUrlBase");
