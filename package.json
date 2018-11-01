@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "Command-line helper for Jira-GitHub workflow",
   "main": "src/index.js",
+  "bin": "./src/index.js",
   "scripts": {
     "postinstall": "node src/setup.js",
     "format": "prettier --write src/*.js src/**/*.js test/*.js test/**/*.js",

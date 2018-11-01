@@ -12,4 +12,6 @@ const defaultConfig = {
     },
 };
 
-fs.writeFileSync(JIRAF_CONFIG_FILE, JSON.stringify(defaultConfig, null, "   "));
+if (!fs.existsSync(JIRAF_CONFIG_FILE)) {
+    fs.writeFileSync(JIRAF_CONFIG_FILE, JSON.stringify(defaultConfig, null, "   "));
+}
