@@ -4,7 +4,7 @@ const setProjectDefinitions = [{name: "project", defaultOption: true, type: Stri
 
 const setDefinitions = [{name: "card", defaultOption: true, type: String}];
 
-const statusDefinitions = [{name: "pattern", defaultOption: true, type: String}];
+const detailsDefinitions = [{name: "template", defaultOption: true, type: String}];
 
 const listCardsDefinitions = [
     {name: "statusSlug", alias: "s", type: String},
@@ -23,7 +23,7 @@ module.exports = {
     mainDefinitions,
     setProjectDefinitions,
     setDefinitions,
-    statusDefinitions,
+    detailsDefinitions,
     listCardsDefinitions,
     assignDefinitions,
     branchDefinitions,

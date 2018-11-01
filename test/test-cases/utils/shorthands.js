@@ -1,3 +1,5 @@
+const fs = require("fs");
+const {JIRAF_SESSION_FILE} = require("../../../src/const");
 const {expect} = require("chai");
 const {exec} = require("child_process");
 
@@ -19,8 +21,14 @@ const expectError= (command, errorMessage, done) => {
     });
 }
 
+const expectInSession = (key, value) => {
+    const contents = JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE));
+    expect(contents.key).to.deep.eq(value);
+}
+
 module.exports = {
     expectOutput,
     expectError,
+    expectInSession,
 }
 

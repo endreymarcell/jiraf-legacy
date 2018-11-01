@@ -4,6 +4,7 @@ const path = require("path");
 const JIRAF_HOME_FOLDER = path.join(os.homedir(), ".jiraf");
 const JIRAF_CONFIG_FILE = path.join(JIRAF_HOME_FOLDER, "config.json");
 const JIRAF_SESSION_FILE = path.join(JIRAF_HOME_FOLDER, "session.json");
+const JIRAF_STATUS_FILE = path.join(JIRAF_HOME_FOLDER, "status");
 
 const JIRA_CARD_URL = "/rest/api/2/issue/";
 const JIRA_SEARCH_URL = "/rest/api/2/search";
@@ -14,7 +15,8 @@ const JIRA_BOARD_HTML_URL = "/secure/RapidBoard.jspa?rapidView=";
 const JIRA_BOARD_CONFIGURATION_URL = "/configuration";
 const JIRA_BACKLOG_URL = "&view=planning.nodetail";
 
-const DEFAULT_STATUS_PATTERN = "{{key}} [{{status}}] {{summary}} ({{assignee}})";
+const DEFAULT_STATUS_TEMPLATE = "({{key}}) ";
+const DEFAULT_DETAILS_TEMPLATE = "{{key}} [{{status}}] {{summary}} ({{assignee}}) ";
 
 const PULL_REQUEST_TEMPLATE = `[{{key}}] 
 ### What does it do?
@@ -31,6 +33,7 @@ module.exports = {
     JIRAF_HOME_FOLDER,
     JIRAF_CONFIG_FILE,
     JIRAF_SESSION_FILE,
+    JIRAF_STATUS_FILE,
     JIRA_CARD_URL,
     JIRA_SEARCH_URL,
     JIRA_TRANSITIONS_URL,
@@ -39,6 +42,7 @@ module.exports = {
     JIRA_BOARD_HTML_URL,
     JIRA_BOARD_CONFIGURATION_URL,
     JIRA_BACKLOG_URL,
-    DEFAULT_STATUS_PATTERN,
+    DEFAULT_STATUS_TEMPLATE,
+    DEFAULT_DETAILS_TEMPLATE,
     PULL_REQUEST_TEMPLATE,
 };

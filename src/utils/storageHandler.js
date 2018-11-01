@@ -1,5 +1,5 @@
 const fs = require("fs");
-const {JIRAF_SESSION_FILE, JIRAF_CONFIG_FILE} = require("../const");
+const {JIRAF_STATUS_FILE, JIRAF_SESSION_FILE, JIRAF_CONFIG_FILE} = require("../const");
 
 const readFromFile = (file, key) => {
     const contents = JSON.parse(fs.readFileSync(file));
@@ -44,6 +44,10 @@ const readStatuses = () => {
     return readFromSession("statuses");
 };
 
+const updateStatusFile = status => {
+    fs.writeFile(JIRAF_STATUS_FILE, status, () => {});
+};
+
 module.exports = {
     readFromConfig,
     updateInSession,
@@ -52,4 +56,5 @@ module.exports = {
     readActiveCardKey,
     readActiveCardDetails,
     readStatuses,
+    updateStatusFile,
 };

@@ -12,7 +12,7 @@ const {
     refreshCardCommand,
     unsetCardCommand,
 } = require("./commands/sessionCommands");
-const {statusCommand, assignCardCommand, unassignCardCommand, moveCommand} = require("./commands/cardCommands");
+const {detailsCommand, assignCardCommand, unassignCardCommand, moveCommand} = require("./commands/cardCommands");
 const {webCommand} = require("./commands/webCommand");
 const {readFromConfig} = require("./utils/storageHandler");
 
@@ -37,9 +37,9 @@ const commandMap = {
         argDefinitions: null,
         commandFunction: unsetCardCommand,
     },
-    status: {
-        argDefinitions: defs.statusDefinitions,
-        commandFunction: statusCommand,
+    details: {
+        argDefinitions: defs.detailsDefinitions,
+        commandFunction: detailsCommand,
     },
     refresh: {
         argDefinitions: null,

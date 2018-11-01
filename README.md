@@ -21,7 +21,14 @@ Then export your GitHub username and token as environmental variables named `GIT
 
 ### Configure
 Edit `~/.jiraf/config.json` to add your Jira URL base, editor (make sure that it waits for closing files before returning), and possibly customize your shortcuts.  
-You will probably want to include some information about the current card in your shell prompt like people do with their git branches. You can either use the `status` command for that (comfortable, but slower) or extract the values manually from `~/.jiraf/session.json` using something like `jq` (more manual work, but quicker).  
+
+You will probably want to include some information about the current card in your shell prompt like people do with their git branches. To do that, just cat the contents of the `~/.jiraf/status` file, eg. with a function like this one:  
+```bash
+function jiraf_card() {
+    [ -f ~/.jiraf/status ] && cat ~/.jiraf/status
+}
+```
+The format of this status is configurable by modifying the `statusTemplate` value of the `~/.jiraf/config.json` file. See the `details` command for the format.  
 
 ## Usage
 
@@ -41,8 +48,8 @@ You can filter for status (lowercase, one word, like: "todo" or "inprogress") or
 `jiraf set <card>`  
 Set `<card>` as the active card. (Note: you can pass the full key, eg. PROJ-123, which then also calls `setproject` with "PROJ", or only pass 123, in which case the currently active project is used.)  
 
-`jiraf status [<template>]`  
-Print the details of the active card. You can use the values `summary`, `status`, `assignee`, `description`, `priority`, and `estimate` passed to the template in double curly braces. If you don't pass anything, the default template is used, which is `{{key}} [{{status}}] {{summary}} ({{assignee}})`.  
+`jiraf details [<template>]`  
+Print the details of the active card. The format is specified in your config file (see the `detailsTemplate` value), but you can also override it when calling the command. You can use the values `summary`, `status`, `assignee`, `description`, `priority`, and `estimate` passed to the template in double curly braces. If you don't pass anything and also have no template configured, the default template is used, which is `{{key}} [{{status}}] {{summary}} ({{assignee}})`.  
 
 `jiraf refresh`  
 Reload the current card (eg. if you've updated it on the web UI).  

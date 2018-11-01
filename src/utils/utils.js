@@ -1,4 +1,5 @@
-const {readStatuses} = require("./storageHandler");
+const {DEFAULT_STATUS_TEMPLATE} = require("../const");
+const {readStatuses, readFromConfig, readActiveCardDetails} = require("./storageHandler");
 
 const rightPad = (str, fullLength) => {
     let paddedStr = str;
@@ -75,6 +76,21 @@ const readGithubCredentials = () => {
     return {GITHUB_USERNAME, GITHUB_API_TOKEN};
 };
 
+const generateStatus = template => {
+    let templateToUse;
+    if (template) {
+        templateToUse = template;
+    } else {
+        const templateFromConfig = readFromConfig("statusTemplate");
+        if (templateFromConfig) {
+            templateToUse = templateFromConfig;
+        } else {
+            templateToUse = DEFAULT_STATUS_TEMPLATE;
+        }
+    }
+    return interpolate(templateToUse, readActiveCardDetails());
+};
+
 module.exports = {
     rightPad,
     getShortUsername,
@@ -87,4 +103,5 @@ module.exports = {
     die,
     readAtlassianCredentials,
     readGithubCredentials,
+    generateStatus,
 };
