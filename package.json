@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
+    "chai": "4.2.0",
     "eslint": "5.7.0",
     "express": "4.16.4",
     "mocha": "5.2.0",
@@ -49,34 +50,85 @@
     "extends": "eslint:recommended",
     "rules": {
       "no-console": 0,
-      "curly": ["error", "all"],
+      "curly": [
+        "error",
+        "all"
+      ],
       "default-case": "error",
-      "dot-location": ["error", "property"],
-      "eqeqeq": ["error", "always", {"null": "ignore"}],
+      "dot-location": [
+        "error",
+        "property"
+      ],
+      "eqeqeq": [
+        "error",
+        "always",
+        {
+          "null": "ignore"
+        }
+      ],
       "no-multi-spaces": "error",
       "no-throw-literal": "error",
-      "no-unused-expressions": "error",
       "global-require": "error",
-      "no-mixed-requires": ["error", {"grouping": true}],
-      "array-bracket-spacing": ["error", "never"],
-      "block-spacing": ["error", "always"],
+      "no-mixed-requires": [
+        "error",
+        {
+          "grouping": true
+        }
+      ],
+      "array-bracket-spacing": [
+        "error",
+        "never"
+      ],
+      "block-spacing": [
+        "error",
+        "always"
+      ],
       "brace-style": "error",
       "camelcase": "error",
-      "comma-dangle": ["error", "always-multiline"],
-      "eol-last": ["error", "always"],
-      "indent": ["error", 4, {"SwitchCase": 1}],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "eol-last": [
+        "error",
+        "always"
+      ],
+      "indent": [
+        "error",
+        4,
+        {
+          "SwitchCase": 1
+        }
+      ],
       "newline-per-chained-call": "error",
-      "line-comment-position": ["error", {"position": "above"}],
+      "line-comment-position": [
+        "error",
+        {
+          "position": "above"
+        }
+      ],
       "key-spacing": "error",
       "no-trailing-spaces": "error",
-      "object-curly-spacing": ["error", "never"],
-      "one-var": ["error", "never"],
-      "space-in-parens": ["error", "never"],
+      "object-curly-spacing": [
+        "error",
+        "never"
+      ],
+      "one-var": [
+        "error",
+        "never"
+      ],
+      "space-in-parens": [
+        "error",
+        "never"
+      ],
       "arrow-spacing": "error",
       "no-var": "error",
       "prefer-arrow-callback": "error",
       "prefer-const": "error",
-      "template-curly-spacing": ["error", "never"]
+      "template-curly-spacing": [
+        "error",
+        "never"
+      ]
     }
   }
 }

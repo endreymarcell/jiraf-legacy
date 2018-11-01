@@ -1,4 +1,4 @@
-const assert = require("assert");
+const {expect} = require("chai");
 const fs = require("fs");
 const axios = require("axios");
 const {exec} = require("child_process");
@@ -6,19 +6,19 @@ const {exec} = require("child_process");
 describe("Smoke tests", () => {
     describe("Jiraf tests", () => {
         it("should be running", () => {
-            assert.equal(1, 1);
+            expect(true).to.be.true;
         });
 
         it("should only run in Docker", () => {
-            assert.ok(fs.existsSync("/.dockerenv"));
+            expect(fs.existsSync("/.dockerenv")).to.be.true;
         });
     });
 
     describe("The jiraf command line tool", () => {
         it("should be responsive", done => {
             exec(`jiraf debug`, (error, stdout) => {
-                assert.equal(error, null);
-                assert.equal(stdout.trim(), "jiraf is responsive");
+                expect(error).to.be.null;
+                expect(stdout.trim()).to.eq("jiraf is responsive");
                 done();
             });
         });
@@ -27,15 +27,17 @@ describe("Smoke tests", () => {
     describe("The mock API", () => {
         describe("for JIRA", () => {
             it("should be available as jiraf-testing.atlassian.net", async () => {
-                const response = await axios("http://jiraf-testing.atlassian.net");
-                assert.equal(response.status, 200);
+                const response = await axios("http://jiraf-testing.atlassian.net/debug");
+                expect(response.status).to.eq(200);
+                expect(response.data).to.deep.eq({mock: "JIRA"});
             });
         });
 
         describe("for GitHub", () => {
             it("should be available as github.com", async () => {
-                const response = await axios("http://github.com");
-                assert.equal(response.status, 200);
+                const response = await axios("http://github.com/debug");
+                expect(response.status).to.eq(200);
+                expect(response.data).to.deep.eq({mock: "GitHub"});
             });
         });
     });
