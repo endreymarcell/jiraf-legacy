@@ -24,7 +24,7 @@ const expectError= (command, errorMessage, done) => {
 const expectInSession = (command, key, value, done) => {
     exec(command, () => {
         const contents = JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE));
-        expect(contents.activeProjectKey).to.deep.eq(value);
+        expect(contents[key]).to.deep.eq(value);
         done();
     });
 }
