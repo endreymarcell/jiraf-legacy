@@ -2,8 +2,6 @@ const assert = require("assert");
 const fs = require("fs");
 const {exec} = require("child_process");
 
-const {JIRAF} = require("../const");
-
 describe("Jiraf tests", () => {
     it("should be running", () => {
         assert.equal(1, 1);
@@ -16,7 +14,7 @@ describe("Jiraf tests", () => {
 
 describe("The jiraf command line tool", () => {
     it("should be responsive", done => {
-        exec(`${JIRAF} debug`, (error, stdout) => {
+        exec(`jiraf debug`, (error, stdout) => {
             assert.equal(error, null);
             assert.equal(stdout.trim(), "jiraf is responsive");
             done();
