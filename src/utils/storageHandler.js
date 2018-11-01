@@ -21,7 +21,7 @@ const updateInSession = (key, value) => {
 };
 
 const updateMultipleInSession = keyValuePairs => {
-    const session = JSON.parse(fs.existsSync(JIRAF_SESSION_FILE) ? fs.readFileSync(JIRAF_SESSION_FILE) : {});
+    const session = fs.existsSync(JIRAF_SESSION_FILE) ? JSON.parse(fs.readFileSync(JIRAF_SESSION_FILE)) : {};
     for (const {key, value} of keyValuePairs) {
         session[key] = value;
     }

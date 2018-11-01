@@ -1,8 +1,8 @@
 const mainDefinitions = [{name: "command", defaultOption: true}];
 
-const setProjectDefinitions = [{name: "project", defaultOption: true, type: String}];
+const setProjectDefinitions = [{name: "projectKey", defaultOption: true, type: String}];
 
-const setDefinitions = [{name: "card", defaultOption: true, type: String}];
+const setDefinitions = [{name: "cardKey", defaultOption: true, type: String}];
 
 const detailsDefinitions = [{name: "template", defaultOption: true, type: String}];
 

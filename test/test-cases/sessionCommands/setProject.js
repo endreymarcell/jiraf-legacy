@@ -1,11 +1,11 @@
-const assert = require("assert");
-const {exec} = require("child_process");
+const {expectError, expectInSession} = require("../utils/shorthands");
 
 describe("setProject", () => {
     it("should throw an error when called without arguments", done => {
-        exec(`jiraf setproject`, error => {
-            assert.notEqual(error, null);
-            done();
-        });
+        expectError("jiraf setproject", "missing argument 'projectKey'", done);
+    });
+
+    it("should store the project key in the session", done => {
+        expectInSession("jiraf setproject PROJ", "activeProjectKey", "PROJ", done);
     });
 });
