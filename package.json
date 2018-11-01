@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write src/*.js src/**/*.js test/*.js test/**/*.js",
-    "test": "if [ -f /.dockerenv ]; then mocha --reporter xunit --reporter-options output=test-results/mocha/results.xml test/test-cases/*; else echo 'The functional test suit must be run in a container'; fi",
+    "test": "if [ -f /.dockerenv ]; then npm run test:docker; else npm run test:local; fi",
+    "test:local": "./scripts/run_tests_locally.sh",
+    "test:docker": "mocha test/test-cases/*",
     "lint": "eslint src test",
     "fix-lint": "eslint --fix src test"
   },

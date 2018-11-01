@@ -23,6 +23,4 @@ jobs:
         key: v1-dependencies-{{ checksum "package-lock.json" }}
     - run:
         name: Lint and test
-        command: npm run lint && npm test
-    - store_test_results:
-        path: test-results
+        command: npm run lint && npm run test:docker
