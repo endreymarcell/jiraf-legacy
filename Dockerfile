@@ -5,7 +5,6 @@ COPY package*.json ./
 RUN npm ci
 
 COPY test/assets/config.json /root/.jiraf/config.json
-COPY test/assets/hosts /etc/hosts
 
 ENV ATLASSIAN_USERNAME=mock_atlassian_username \
     ATLASSIAN_API_TOKEN=mock_atlassian_api_token \
@@ -14,3 +13,5 @@ ENV ATLASSIAN_USERNAME=mock_atlassian_username \
 
 RUN echo -e '#!/bin/bash\nnode /jiraf/src/index.js "$@"' > /usr/bin/jiraf && \
     chmod +x /usr/bin/jiraf
+
+ENTRYPOINT ["/bin/sh", "-c" , "echo 127.0.0.1  jiraf-testing.atlassian.net >> /etc/hosts && echo 127.0.0.2  github.com >> /etc/hosts && npm run mock:jira && npm run mock:github && exec bash"]

@@ -8,6 +8,8 @@
     "test": "if [ -f /.dockerenv ]; then npm run test:docker; else npm run test:local; fi",
     "test:local": "./scripts/run_tests_locally.sh",
     "test:docker": "mocha test/test-cases/*",
+    "mock:jira": "node test/mocks/jira.js &",
+    "mock:github": "node test/mocks/github.js &",
     "lint": "eslint src test",
     "fix-lint": "eslint --fix src test"
   },
