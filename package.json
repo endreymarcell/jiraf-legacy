@@ -4,6 +4,7 @@
   "description": "Command-line helper for Jira-GitHub workflow",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node src/setup.js",
     "format": "prettier --write src/*.js src/**/*.js test/*.js test/**/*.js",
     "test": "if [ -f /.dockerenv ]; then npm run test:docker; else npm run test:local; fi",
     "test:local": "./scripts/run_tests_locally.sh",
@@ -19,6 +20,9 @@
     "type": "git",
     "url": "https://github.com/endreymarcell/jiraf.git"
   },
+  "files": [
+    "/src"
+  ],
   "dependencies": {
     "axios": "0.18.0",
     "command-line-args": "5.0.2",

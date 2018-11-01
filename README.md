@@ -20,7 +20,7 @@ Create a GitHub API token jiraf as described in https://help.github.com/articles
 Then export your GitHub username and token as environmental variables named `GITHUB_USERNAME` and `GITHUB_API_TOKEN`.  
 
 ### Configure
-Edit `~/.jiraf/config.json` to add your Jira URL base, editor (make sure that it waits for closing files before returning), and possibly customize your shortcuts.  
+Edit `~/.jiraf/config.json` to add your Jira URL base, editor (make sure that it waits for closing files before returning, eg. `subl -w`), and possibly customize your shortcuts.  
 
 You will probably want to include some information about the current card in your shell prompt like people do with their git branches. To do that, just cat the contents of the `~/.jiraf/status` file, eg. with a function like this one:  
 ```bash
