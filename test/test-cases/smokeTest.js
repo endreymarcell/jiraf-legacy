@@ -1,7 +1,7 @@
 const {expect} = require("chai");
 const fs = require("fs");
 const axios = require("axios");
-const {exec} = require("child_process");
+const {expectOutput, expectError} = require("./utils/shorthands");
 
 describe("Smoke tests", () => {
     describe("Jiraf tests", () => {
@@ -16,11 +16,11 @@ describe("Smoke tests", () => {
 
     describe("The jiraf command line tool", () => {
         it("should be responsive", done => {
-            exec(`jiraf debug`, (error, stdout) => {
-                expect(error).to.be.null;
-                expect(stdout.trim()).to.eq("jiraf is responsive");
-                done();
-            });
+            expectOutput("jiraf debug", "jiraf is responsive", done);
+        });
+
+        it("should not accept unknown commands", done => {
+            expectError("jiraf whatever", "unkonwn command 'whatever'", done);
         });
     });
 

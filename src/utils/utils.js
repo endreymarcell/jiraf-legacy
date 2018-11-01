@@ -48,6 +48,15 @@ const parseCardResponse = response => {
     };
 };
 
+const print = console.log;
+const warn = message => {
+    console.warn(`jiraf WARNING: ${message}`);
+};
+const die = message => {
+    console.error(`jiraf ERROR: ${message}`);
+    process.exitCode = 1;
+};
+
 module.exports = {
     rightPad,
     getShortUsername,
@@ -55,4 +64,7 @@ module.exports = {
     getSlugForStatus,
     interpolate,
     parseCardResponse,
+    print,
+    warn,
+    die,
 };

@@ -1,5 +1,6 @@
 const commandLineArgs = require("command-line-args");
 
+const {die} = require("./utils/utils");
 const {isKnownCommand, executeKnownCommand, isShortcut, executeShortcut} = require("./commandExecutor");
 const defs = require("./utils/argDefinitions");
 
@@ -12,5 +13,5 @@ if (isShortcut(command)) {
 } else if (isKnownCommand(command)) {
     executeKnownCommand(command, args);
 } else {
-    console.error(`jiraf went tits up: unkonwn command '${command}'`);
+    die(`unkonwn command '${command}'`);
 }

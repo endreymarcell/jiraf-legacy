@@ -12,7 +12,7 @@ ENV ATLASSIAN_USERNAME=mock_atlassian_username \
     GITHUB_USERNAME=mock_github_username \
     GITHUB_API_TOKEN=mock_github_api_token
 
-RUN echo -e '#!/bin/bash\nnode /jiraf/src/index.js "$@"' > /usr/bin/jiraf && \
+RUN printf '%s\n%s' '#!/bin/bash' 'node /jiraf/src/index.js "$@"' > /usr/bin/jiraf && \
     chmod +x /usr/bin/jiraf
 
 ENTRYPOINT ["/docker_entrypoint.sh"]
