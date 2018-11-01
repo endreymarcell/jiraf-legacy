@@ -4,6 +4,7 @@ const commandLineArgs = require("command-line-args");
 const {die} = require("./utils/utils");
 const {isKnownCommand, executeKnownCommand, isShortcut, executeShortcut} = require("./commandExecutor");
 const defs = require("./utils/argDefinitions");
+const {errorMessages} = require("./utils/messages");
 
 const mainOptions = commandLineArgs(defs.mainDefinitions, {stopAtFirstUnknown: true});
 const command = mainOptions.command || "web";
@@ -15,7 +16,7 @@ try {
     } else if (isKnownCommand(command)) {
         executeKnownCommand(command, args);
     } else {
-        die(`unkonwn command '${command}'`);
+        die(errorMessages.unknownCommand(command));
     }
 } catch (error) {
     die(error.message);

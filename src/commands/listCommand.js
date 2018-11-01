@@ -2,13 +2,14 @@ const {rightPad, getShortUsername, getStatusForSlug, parseCardResponse, print, d
 const {JIRA_SEARCH_URL} = require("../const");
 const {readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
+const {errorMessages} = require("../utils/messages");
 
 const listCardsCommand = ({statusSlug, assignee}) => {
     const projectKey = readActiveProjectKey();
     if (projectKey) {
         loadCardsOnBoard(projectKey, statusSlug, assignee).then(parsedResponse => printCards(parsedResponse));
     } else {
-        throw Error("no project set; please set it with `jiraf setpropject <key>`");
+        throw Error(errorMessages.noProjectSet);
     }
 };
 

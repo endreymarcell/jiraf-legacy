@@ -8,10 +8,11 @@ const {
 const {JIRA_SEARCH_URL, JIRA_BOARD_URL, JIRA_BOARD_CONFIGURATION_URL, JIRA_CARD_URL} = require("../const");
 const {get} = require("../utils/jiraApi");
 const {parseCardResponse, die, generateStatus} = require("../utils/utils");
+const {errorMessages} = require("../utils/messages");
 
 const setProjectCommand = ({projectKey}) => {
     if (!projectKey) {
-        throw Error("missing argument 'projectKey'");
+        throw Error(errorMessages.missingArgument("projectKey"));
     }
     updateMultipleInSession([{key: "activeProjectKey", value: projectKey}, {key: "statuses", value: []}]);
     loadStatuses(projectKey);
@@ -22,7 +23,7 @@ const refreshProjectCommand = () => {
     if (projectKey) {
         loadStatuses(projectKey);
     } else {
-        throw Error("no project set; please set it with `jiraf setpropject <key>`");
+        throw Error(errorMessages.noProjectSet);
     }
 };
 
@@ -58,7 +59,7 @@ const unsetProjectCommand = () => {
 
 const setCardCommand = ({cardKey}) => {
     if (!cardKey) {
-        throw Error("missing argument 'cardKey'");
+        throw Error(errorMessages.missingArgument("cardKey"));
     }
     const key = cardKey.split(" ")[0];
     let fullKey;
@@ -71,7 +72,7 @@ const setCardCommand = ({cardKey}) => {
         if (projectKey) {
             fullKey = readActiveProjectKey() + "-" + key;
         } else {
-            throw Error("no project set, provide a full card key");
+            throw Error(errorMessages.noProjectForPartialCardKey);
         }
     }
     updateMultipleInSession([{key: "activeCardKey", value: fullKey}, {key: "activeCardDetails", value: {}}]);
@@ -83,7 +84,7 @@ const refreshCardCommand = () => {
     if (key) {
         reloadAndUpdateCardData(key);
     } else {
-        throw Error("no card set; please set it with `jiraf set <key>`");
+        throw Error(errorMessages.noCardSet);
     }
 };
 

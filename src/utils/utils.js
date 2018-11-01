@@ -1,5 +1,6 @@
 const {DEFAULT_STATUS_TEMPLATE} = require("../const");
 const {readStatuses, readFromConfig, readActiveCardDetails} = require("./storageHandler");
+const {errorMessages} = require("./messages");
 
 const rightPad = (str, fullLength) => {
     let paddedStr = str;
@@ -63,7 +64,7 @@ const die = message => {
 const readAtlassianCredentials = () => {
     const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = process.env;
     if (!ATLASSIAN_USERNAME || !ATLASSIAN_API_TOKEN) {
-        die("missing Atlassian credentials");
+        throw Error(errorMessages.noAtlassianCredentials);
     }
     return {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN};
 };
@@ -71,7 +72,7 @@ const readAtlassianCredentials = () => {
 const readGithubCredentials = () => {
     const {GITHUB_USERNAME, GITHUB_API_TOKEN} = process.env;
     if (!GITHUB_USERNAME || !GITHUB_API_TOKEN) {
-        throw Error("missing github credentials");
+        throw Error(errorMessages.noGithubCredentials);
     }
     return {GITHUB_USERNAME, GITHUB_API_TOKEN};
 };

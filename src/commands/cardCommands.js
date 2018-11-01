@@ -4,6 +4,7 @@ const {JIRA_CARD_URL, JIRA_TRANSITIONS_URL, DEFAULT_DETAILS_TEMPLATE} = require(
 const {readActiveCardKey} = require("../utils/storageHandler");
 const {get, post, put} = require("../utils/jiraApi");
 const {getSlugForStatus, print, die, generateStatus} = require("../utils/utils");
+const {errorMessages} = require("../utils/messages");
 
 const detailsCommand = ({template}) => {
     const details = generateStatus(template || DEFAULT_DETAILS_TEMPLATE);
@@ -35,13 +36,13 @@ const moveCommand = ({status: newStatus}) => {
             const statusId = transitions[newStatus];
             if (statusId === undefined) {
                 const possibleStatuses = Object.keys(transitions).join(", ");
-                throw Error(`Unknown status '${newStatus}', please choose from: ${possibleStatuses}.`);
+                throw Error(errorMessages.unknownStatus(newStatus, possibleStatuses));
             }
             post(transitionsUrl, {transition: {id: statusId}}).then(() => {
                 reloadAndUpdateCardData(readActiveCardKey());
             });
         })
-        .catch(error => die(`cannot move card to status ${newStatus} (${error.message})`));
+        .catch(error => die(errorMessages.cannotMoveCard(newStatus, error.message)));
 };
 
 const parseTransitions = transitions => {

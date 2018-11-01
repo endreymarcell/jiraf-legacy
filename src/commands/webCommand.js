@@ -3,6 +3,7 @@ const opn = require("opn");
 const {JIRA_BOARD_URL, JIRA_BOARD_HTML_URL, JIRA_BACKLOG_URL} = require("../const");
 const {readActiveCardKey, readActiveProjectKey, readFromConfig} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
+const {errorMessages} = require("../utils/messages");
 
 const webCommand = ({target}) => {
     const jiraUrlBase = readFromConfig("jiraUrlBase");
@@ -29,7 +30,7 @@ const webCommand = ({target}) => {
             opn(url, {wait: false});
             break;
         default:
-            throw Error("unknown web target");
+            throw Error(errorMessages.unknownWebTarget);
     }
 };
 
