@@ -1,4 +1,4 @@
-const {DEFAULT_STATUS_TEMPLATE} = require("../const");
+const {DEFAULT_STATUS_TEMPLATE, DEFAULT_DETAILS_TEMPLATE} = require("../const");
 const {readStatuses, readFromConfig, readActiveCardDetails} = require("./storageHandler");
 const {errorMessages} = require("./messages");
 
@@ -77,16 +77,24 @@ const readGithubCredentials = () => {
     return {GITHUB_USERNAME, GITHUB_API_TOKEN};
 };
 
-const generateStatus = template => {
+const generateStatus = () => {
+    return generateSummary(null, "statusTemplate", DEFAULT_STATUS_TEMPLATE);
+};
+
+const generateDetails = template => {
+    return generateSummary(template, "detailsTemplate", DEFAULT_DETAILS_TEMPLATE);
+};
+
+const generateSummary = (template, configTemplateName, defaultTemplate) => {
     let templateToUse;
     if (template) {
         templateToUse = template;
     } else {
-        const templateFromConfig = readFromConfig("statusTemplate");
+        const templateFromConfig = readFromConfig(configTemplateName);
         if (templateFromConfig) {
             templateToUse = templateFromConfig;
         } else {
-            templateToUse = DEFAULT_STATUS_TEMPLATE;
+            templateToUse = defaultTemplate;
         }
     }
     return interpolate(templateToUse, readActiveCardDetails());
@@ -105,4 +113,5 @@ module.exports = {
     readAtlassianCredentials,
     readGithubCredentials,
     generateStatus,
+    generateDetails,
 };

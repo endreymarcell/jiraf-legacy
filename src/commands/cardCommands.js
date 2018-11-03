@@ -1,14 +1,13 @@
 const {reloadAndUpdateCardData} = require("./sessionCommands");
-const {getShortUsername} = require("../utils/utils");
-const {JIRA_CARD_URL, JIRA_TRANSITIONS_URL, DEFAULT_DETAILS_TEMPLATE} = require("../const");
+const {JIRA_CARD_URL, JIRA_TRANSITIONS_URL} = require("../const");
 const {readActiveCardKey} = require("../utils/storageHandler");
 const {get, post, put} = require("../utils/jiraApi");
-const {getSlugForStatus, print, die, generateStatus} = require("../utils/utils");
+const {getSlugForStatus, print, die, generateDetails, getShortUsername} = require("../utils/utils");
 const {errorMessages} = require("../utils/messages");
 
 const detailsCommand = ({template}) => {
     if (readActiveCardKey()) {
-        const details = generateStatus(template || DEFAULT_DETAILS_TEMPLATE);
+        const details = generateDetails(template);
         print(details);
     } else {
         throw Error(errorMessages.noCardSet);
