@@ -26,7 +26,7 @@ const checkCommand = () => {
         get(`${JIRA_PULL_REQUEST_URL}${issueId}`).then(response => {
             const pullRequests = response.data.detail[0].pullRequests;
             if (pullRequests.length > 0) {
-                pullRequests.forEach(pullRequest => console.log(pullRequest.url));
+                pullRequests.forEach(pullRequest => print(pullRequest.url));
             }
         });
     });

@@ -1,5 +1,7 @@
+const {print} = require("../utils/utils");
+
 const debugCommand = () => {
-    console.log("jiraf is responsive");
+    print("jiraf is responsive");
 };
 
 module.exports = {

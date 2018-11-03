@@ -10,6 +10,12 @@ const errorMessages = {
         `Unknown status '${newStatus}', please choose from: ${possibleStatuses}.`,
     unknownWebTarget: "unknown web target, please choose from: card, board, backlog",
     cannotMoveCard: (newStatus, errorMessage) => `cannot move card to status ${newStatus} (${errorMessage})`,
+    cannotLoadBoard: (projectKey, errorMessage) =>
+        `cannot load board for project key '${projectKey}' (${errorMessage})`,
+    cannotLoadBoardConfig: (boardId, errorMessage) =>
+        `cannot load configuration for board id '${boardId}' (${errorMessage})`,
+    cannotLoadCardTransitionsForProject: (projectKey, errorMessage) =>
+        `cannot load card transitions for project '${projectKey}' (${errorMessage})`,
 };
 
 module.exports = {

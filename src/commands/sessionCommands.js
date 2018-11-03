@@ -28,29 +28,37 @@ const refreshProjectCommand = () => {
 };
 
 const loadStatuses = projectKey => {
-    get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`).then(response => {
-        const boardId = response.data.values[0].id;
-        get(`${JIRA_BOARD_URL}${boardId}${JIRA_BOARD_CONFIGURATION_URL}`).then(response => {
-            const columns = response.data.columnConfig.columns;
-            get(
-                JIRA_SEARCH_URL +
-                    "?fields=transitions&expand=transitions&maxResults=1" +
-                    `&jql=project = ${readActiveProjectKey()}`
-            ).then(response => {
-                const statusMap = {};
-                response.data.issues[0].transitions.forEach(status => {
-                    statusMap[status.to.id] = status.to.name;
-                });
-                const statusList = [];
-                for (let i = 0; i < columns.length; i++) {
-                    columns[i].statuses.forEach(status => {
-                        statusList.push(statusMap[status.id]);
-                    });
-                }
-                updateInSession("statuses", statusList);
-            });
-        });
-    });
+    get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`)
+        .then(response => {
+            const boardId = response.data.values[0].id;
+            get(`${JIRA_BOARD_URL}${boardId}${JIRA_BOARD_CONFIGURATION_URL}`)
+                .then(response => {
+                    const columns = response.data.columnConfig.columns;
+                    get(
+                        JIRA_SEARCH_URL +
+                            "?fields=transitions&expand=transitions&maxResults=1" +
+                            `&jql=project = ${readActiveProjectKey()}`
+                    )
+                        .then(response => {
+                            const statusMap = {};
+                            response.data.issues[0].transitions.forEach(status => {
+                                statusMap[status.to.id] = status.to.name;
+                            });
+                            const statusList = [];
+                            for (let i = 0; i < columns.length; i++) {
+                                columns[i].statuses.forEach(status => {
+                                    statusList.push(statusMap[status.id]);
+                                });
+                            }
+                            updateInSession("statuses", statusList);
+                        })
+                        .catch(error =>
+                            die(errorMessages.cannotLoadCardTransitionsForProject(projectKey, error.message))
+                        );
+                })
+                .catch(error => die(errorMessages.cannotLoadBoardConfig(boardId, error.message)));
+        })
+        .catch(error => die(errorMessages.cannotLoadBoard(projectKey, error.message)));
 };
 
 const unsetProjectCommand = () => {
@@ -76,7 +84,7 @@ const setCardCommand = ({cardKey}) => {
         }
     }
     updateMultipleInSession([{key: "activeCardKey", value: fullKey}, {key: "activeCardDetails", value: {}}]);
-    reloadAndUpdateCardData(key);
+    reloadAndUpdateCardData(fullKey);
 };
 
 const refreshCardCommand = () => {
