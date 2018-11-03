@@ -23,11 +23,11 @@ jobs:
         key: v1-dependencies-{{ checksum "package-lock.json" }}
     - run:
         name: Start mock JIRA server in the background
-        command: node test/mocks/jira.js
+        command: node test/mocks/jira/jira.js
         background: true
     - run:
         name: Start mock GitHub server in the background
-        command: node test/mocks/github.js
+        command: node test/mocks/github/github.js
         background: true
     - run:
         name: Wait until the mock JIRA service is up
