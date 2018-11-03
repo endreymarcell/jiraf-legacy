@@ -96,7 +96,7 @@ const loadSingleCard = key => {
     return get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee,description,priority,customfield_10005`)
         .then(response => parseCardResponse(response.data))
         .then(cardDetails => updateInSession("activeCardDetails", cardDetails))
-        .catch(error => die(error.message));
+        .catch(error => die(`loading card data from JIRA failed (${error.message})`));
 };
 
 const unsetCardCommand = () => {

@@ -15,7 +15,14 @@ const detailsCommand = ({template}) => {
 };
 
 const sendAssignRequest = assignee => {
-    return put(`${JIRA_CARD_URL}${readActiveCardKey()}/assignee`, {name: assignee});
+    const cardKey = readActiveCardKey();
+    if (cardKey) {
+        return put(`${JIRA_CARD_URL}${cardKey}/assignee`, {name: assignee}).catch(error =>
+            die(`assigning card failed (${error.message})`)
+        );
+    } else {
+        throw Error(errorMessages.noCardSet);
+    }
 };
 
 const assignCardCommand = ({assignee}) => {
@@ -32,6 +39,9 @@ const unassignCardCommand = () => {
 
 const moveCommand = ({status: newStatus}) => {
     const cardKey = readActiveCardKey();
+    if (!cardKey) {
+        throw Error(errorMessages.noCardSet);
+    }
     const transitionsUrl = `${JIRA_CARD_URL}${cardKey}/${JIRA_TRANSITIONS_URL}`;
     get(transitionsUrl)
         .then(transitions => parseTransitions(transitions.data.transitions))

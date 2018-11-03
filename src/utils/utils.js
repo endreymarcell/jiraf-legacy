@@ -97,7 +97,12 @@ const generateSummary = (template, configTemplateName, defaultTemplate) => {
             templateToUse = defaultTemplate;
         }
     }
-    return interpolate(templateToUse, readActiveCardDetails());
+    const interpolated = interpolate(templateToUse, readActiveCardDetails());
+    if (interpolated === templateToUse) {
+        return "";
+    } else {
+        return interpolated;
+    }
 };
 
 module.exports = {
