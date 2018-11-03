@@ -4,10 +4,12 @@ const {readActiveProjectKey, readStatuses} = require("../utils/storageHandler");
 const {get} = require("../utils/jiraApi");
 const {errorMessages} = require("../utils/messages");
 
-const listCardsCommand = ({statusSlug, assignee}) => {
+const listCardsCommand = ({status: statusSlug, assignee}) => {
     const projectKey = readActiveProjectKey();
     if (projectKey) {
-        loadCardsOnBoard(projectKey, statusSlug, assignee).then(parsedResponse => printCards(parsedResponse));
+        loadCardsOnBoard(projectKey, statusSlug, assignee)
+            .then(parsedResponse => printCards(parsedResponse))
+            .catch(error => die(errorMessages.cannotListCardsOnBoard(projectKey, error.message)));
     } else {
         throw Error(errorMessages.noProjectSet);
     }

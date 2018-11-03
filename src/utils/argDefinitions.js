@@ -6,10 +6,7 @@ const setDefinitions = [{name: "cardKey", defaultOption: true, type: String}];
 
 const detailsDefinitions = [{name: "template", defaultOption: true, type: String}];
 
-const listCardsDefinitions = [
-    {name: "statusSlug", alias: "s", type: String},
-    {name: "assignee", alias: "a", type: String},
-];
+const listCardsDefinitions = [{name: "status", alias: "s", type: String}, {name: "assignee", alias: "a", type: String}];
 
 const assignDefinitions = [{name: "assignee", defaultOption: true, type: String}];
 

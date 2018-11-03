@@ -42,23 +42,79 @@ const mockData = {
             ],
         },
     },
-    cardDetails: {
-        key: "PROJ-123",
+    cardDetailsTodo: {
+        key: "GRZ-1",
         fields: {
             // This is the field's name in JIRA, I can't change it
             // eslint-disable-next-line
             customfield_10005: 3,
-            summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            description:
-                " Integer purus mi, interdum eu imperdiet vitae, luctus eu nibh. Pellentesque at venenatis massa, quis ultrices tellus.",
+            summary: "The future is coming on",
+            description: "I ain't happy, I'm feeling glad, I got sunshine in a bag",
             assignee: {
-                name: "marcell.endrey",
+                name: "clint.eastwood",
+            },
+            priority: {
+                name: "Prio3 - Medium",
+            },
+            status: {
+                name: "To Do",
+            },
+        },
+    },
+    cardDetailsInProgress: {
+        key: "GRZ-2",
+        fields: {
+            // This is the field's name in JIRA, I can't change it
+            // eslint-disable-next-line
+            customfield_10005: 1,
+            summary: "19-2000",
+            description: "The world is spinning too fast, I'm buying lead Nike shoes",
+            assignee: {
+                name: "monkey.jungle",
             },
             priority: {
                 name: "Prio3 - Medium",
             },
             status: {
                 name: "In Progress",
+            },
+        },
+    },
+    cardDetailsDone: {
+        key: "GRZ-3",
+        fields: {
+            // This is the field's name in JIRA, I can't change it
+            // eslint-disable-next-line
+            customfield_10005: 2,
+            summary: "Melancholy Hill",
+            description: "If you can't get what you want then you come with me",
+            assignee: {
+                name: "submarine",
+            },
+            priority: {
+                name: "Prio3 - Medium",
+            },
+            status: {
+                name: "Done",
+            },
+        },
+    },
+    cardDetailsWontFix: {
+        key: "GRZ-4",
+        fields: {
+            // This is the field's name in JIRA, I can't change it
+            // eslint-disable-next-line
+            customfield_10005: 5,
+            summary: "Humility",
+            description: "Calling the world from isolation 'cause right now, that's the ball where we be chained",
+            assignee: {
+                name: "george.benson",
+            },
+            priority: {
+                name: "Prio3 - Medium",
+            },
+            status: {
+                name: "Won't Fix",
             },
         },
     },
@@ -94,6 +150,15 @@ const mockData = {
             },
         ],
     },
+};
+
+mockData.cardsOnBoard = {
+    issues: [
+        mockData.cardDetailsTodo,
+        mockData.cardDetailsInProgress,
+        mockData.cardDetailsDone,
+        mockData.cardDetailsWontFix,
+    ],
 };
 
 module.exports = mockData;

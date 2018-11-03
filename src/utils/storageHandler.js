@@ -2,8 +2,12 @@ const fs = require("fs");
 const {JIRAF_STATUS_FILE, JIRAF_SESSION_FILE, JIRAF_CONFIG_FILE} = require("../const");
 
 const readFromFile = (file, key) => {
-    const contents = JSON.parse(fs.readFileSync(file));
-    return contents[key];
+    if (fs.existsSync(file)) {
+        const contents = JSON.parse(fs.readFileSync(file));
+        return contents[key];
+    } else {
+        return undefined;
+    }
 };
 
 const readFromConfig = key => {

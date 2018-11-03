@@ -22,7 +22,8 @@ const getStatusForSlug = slug => {
             return status;
         }
     }
-    throw Error(`unknown status slug ${slug}`);
+    const statusSlugs = statuses.map(status => getSlugForStatus(status));
+    throw Error(errorMessages.unknownStatusSlug(slug, statusSlugs));
 };
 
 const getSlugForStatus = status => {

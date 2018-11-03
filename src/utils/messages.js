@@ -8,6 +8,8 @@ const errorMessages = {
     noProjectForPartialCardKey: "no project set, provide a full card key",
     unknownStatus: (newStatus, possibleStatuses) =>
         `Unknown status '${newStatus}', please choose from: ${possibleStatuses}.`,
+    unknownStatusSlug: (statusSlug, possibleStatusSlugs) =>
+        `Unknown status slug '${statusSlug}', please choose from: ${possibleStatusSlugs.join(", ")}.`,
     unknownWebTarget: "unknown web target, please choose from: card, board, backlog",
     cannotMoveCard: (newStatus, errorMessage) => `cannot move card to status ${newStatus} (${errorMessage})`,
     cannotLoadBoard: (projectKey, errorMessage) =>
@@ -16,6 +18,8 @@ const errorMessages = {
         `cannot load configuration for board id '${boardId}' (${errorMessage})`,
     cannotLoadCardTransitionsForProject: (projectKey, errorMessage) =>
         `cannot load card transitions for project '${projectKey}' (${errorMessage})`,
+    cannotListCardsOnBoard: (projectKey, errorMessage) =>
+        `cannot list cards on the board for project key '${projectKey}' (${errorMessage})`,
 };
 
 module.exports = {
