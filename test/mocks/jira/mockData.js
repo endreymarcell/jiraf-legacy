@@ -43,6 +43,7 @@ const mockData = {
         },
     },
     cardDetails: {
+        key: "PROJ-123",
         fields: {
             // This is the field's name in JIRA, I can't change it
             // eslint-disable-next-line

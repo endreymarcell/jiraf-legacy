@@ -1,5 +1,5 @@
 const fs = require("fs");
-const {JIRAF_SESSION_FILE} = require("../../../src/const");
+const {JIRAF_SESSION_FILE, JIRAF_STATUS_FILE} = require("../../../src/const");
 const {expect} = require("chai");
 const {exec} = require("child_process");
 
@@ -29,8 +29,17 @@ const expectInSession = (command, {key, value}, done) => {
     });
 };
 
+const expectStatus = (command, expectedStatus, done) => {
+    exec(command, () => {
+        const status = String(fs.readFileSync(JIRAF_STATUS_FILE));
+        expect(status.trim()).to.eq(expectedStatus);
+        done();
+    });
+};
+
 module.exports = {
     expectOutput,
     expectError,
     expectInSession,
+    expectStatus,
 };
