@@ -101,6 +101,7 @@ const loadSingleCard = key => {
 
 const unsetCardCommand = () => {
     updateMultipleInSession([{key: "activeCardKey", value: ""}, {key: "activeCardDetails", value: {}}]);
+    updateStatusFile("");
 };
 
 module.exports = {
