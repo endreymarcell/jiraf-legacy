@@ -7,8 +7,12 @@ const {getSlugForStatus, print, die, generateStatus} = require("../utils/utils")
 const {errorMessages} = require("../utils/messages");
 
 const detailsCommand = ({template}) => {
-    const details = generateStatus(template || DEFAULT_DETAILS_TEMPLATE);
-    print(details);
+    if (readActiveCardKey()) {
+        const details = generateStatus(template || DEFAULT_DETAILS_TEMPLATE);
+        print(details);
+    } else {
+        throw Error(errorMessages.noCardSet);
+    }
 };
 
 const sendAssignRequest = assignee => {
