@@ -22,5 +22,36 @@ jobs:
         - node_modules
         key: v1-dependencies-{{ checksum "package-lock.json" }}
     - run:
-        name: Lint and test
-        command: npm run lint && npm run test:docker
+        name: Start mock JIRA server in the background
+        command: node test/mocks/jira.js
+        background: true
+    - run:
+        name: Start mock GitHub server in the background
+        command: node test/mocks/github.js
+        background: true
+    - run:
+        name: Wait until the mock JIRA service is up
+        command: wget -O/dev/null --quiet --retry-connrefused --wait=1 --tries=10 --timeout=15 http://127.0.0.1/healthcheck
+    - run:
+        name: Wait until the mock GitHub service is up
+        command: wget -O/dev/null --quiet --retry-connrefused --wait=1 --tries=10 --timeout=15 http://127.0.0.2/healthcheck
+    - run:
+        name: curl mock JIRA service by IP
+        command: curl 127.0.0.1/debug
+    - run:
+        name: curl mock GitHub service by IP
+        command: curl 127.0.0.2/debug
+    - run:
+        name: Patch the hosts file to mock JIRA
+        command: echo 127.0.0.1  jiraf-testing.atlassian.net >> /etc/hosts
+    - run:
+        name: Patch the hosts file to mock GitHub
+        command: echo 127.0.0.2  github.com >> /etc/hosts
+    - run: cat /etc/hosts
+    - run:
+        name: curl mock JIRA service by domain
+        command: curl jiraf-testing.atlassian.net/debug
+    - run:
+        name: curl mock GitHub service by domain
+        command: curl github.com/debug
+
