@@ -71,6 +71,9 @@ Remove assignee from the card.
 `jiraf branch <branchname>`  
 Performs `git checkout -b {active-cards-key}-<branchname>`.    
 
+`jiraf check`  
+Checks if the active card has one or more Pull Requests associated with it, and if yes, prints their URLs.  
+
 `jiraf pr`  
 Opens a text editor for you to specify the PR title and contents, based on a template and pre-filled with card details. The first line is the title, the rest is the description. Upon closing the file, it opens a PR. Note: this command only works properly if you have configured an editor that is blocking until the edited file is closed.  
 
