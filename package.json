@@ -9,6 +9,7 @@
     "format": "prettier --write 'src/*.js' 'src/**/*.js' 'test/*.js' 'test/**/*.js'",
     "test": "if [ -f /.dockerenv ]; then npm run test:docker; else npm run test:local; fi",
     "test:local": "./scripts/run_tests_locally.sh",
+    "test:local:circleci": "circleci local execute --job test",
     "test:docker": "mocha test/test-cases/*",
     "mock:jira": "node test/mocks/jira.js &",
     "mock:github": "node test/mocks/github.js &",

@@ -24,8 +24,7 @@ describe("Smoke tests", () => {
         });
     });
 
-    // TODO skip until I manage to make these work on CircleCI
-    describe.skip("The mock API", () => {
+    describe("The mock API", () => {
         describe("for JIRA", () => {
             it("should be available as jiraf-testing.atlassian.net", async () => {
                 const response = await axios("http://jiraf-testing.atlassian.net/debug");
