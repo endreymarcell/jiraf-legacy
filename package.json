@@ -11,6 +11,7 @@
     "test:local": "./scripts/run_tests_locally.sh",
     "test:local:circleci": "circleci local execute --job build",
     "test:docker": "mocha test/test-cases/*",
+    "test:docker:grep": "mocha test/test-cases/* --grep",
     "mock:jira": "node test/mocks/jira/jira.js &",
     "mock:github": "node test/mocks/github/github.js &",
     "lint": "eslint src test",

@@ -5,4 +5,4 @@ docker run -t \
     -v "$(pwd)/package.json:/jiraf/package.json" \
     -e "TERM=xterm-256color" \
     endreymarca/jiraf-testing \
-    npm run test:docker
+    npm run test:docker:grep "${1:-}"
