@@ -5,7 +5,13 @@ const {exec} = require("child_process");
 
 const axios = require("axios");
 
-const {JIRAF_HOME_FOLDER, JIRA_CARD_URL, JIRA_PULL_REQUEST_URL, PULL_REQUEST_TEMPLATE} = require("../const");
+const {
+    JIRAF_HOME_FOLDER,
+    JIRA_CARD_URL,
+    JIRA_PULL_REQUEST_URL,
+    GITHUB_URL_BASE,
+    PULL_REQUEST_TEMPLATE,
+} = require("../const");
 const {get} = require("../utils/jiraApi");
 const {readActiveCardKey, readFromConfig} = require("../utils/storageHandler");
 const {interpolate, readGithubCredentials, print, die} = require("../utils/utils");
@@ -56,13 +62,15 @@ const editDescriptionAndCreatePullRequest = ({owner, repo, branchName}) => {
 
 const createPullRequest = ({owner, repo, branchName, descriptionFileName}) => {
     const {GITHUB_USERNAME, GITHUB_API_TOKEN} = readGithubCredentials();
+    // allow overwriting the github url base for testing
+    const githubUrlBase = process.env["GITHUB_URL_BASE"] || GITHUB_URL_BASE;
     const description = fs.readFileSync(descriptionFileName).toString();
     const descriptionLines = description.split(/\r?\n/);
     const title = descriptionLines[0];
     const body = descriptionLines.slice(1, descriptionLines.length - 1).join("\n");
     axios({
         method: "post",
-        url: `https://api.github.com/repos/${owner}/${repo}/pulls`,
+        url: `${githubUrlBase}/repos/${owner}/${repo}/pulls`,
         auth: {
             username: GITHUB_USERNAME,
             password: GITHUB_API_TOKEN,

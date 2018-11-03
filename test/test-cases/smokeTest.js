@@ -26,16 +26,16 @@ describe("Smoke tests", () => {
 
     describe("The mock API", () => {
         describe("for JIRA", () => {
-            it("should be available as jiraf-testing.atlassian.net", async () => {
-                const response = await axios("http://jiraf-testing.atlassian.net/debug");
+            it("should be available as 127.0.0.1", async () => {
+                const response = await axios("http://127.0.0.1/debug");
                 expect(response.status).to.eq(200);
                 expect(response.data).to.deep.eq({mock: "JIRA"});
             });
         });
 
         describe("for GitHub", () => {
-            it("should be available as github.com", async () => {
-                const response = await axios("http://github.com/debug");
+            it("should be available as 127.0.0.2", async () => {
+                const response = await axios("http://127.0.0.2/debug");
                 expect(response.status).to.eq(200);
                 expect(response.data).to.deep.eq({mock: "GitHub"});
             });

@@ -15,6 +15,8 @@ const JIRA_BOARD_HTML_URL = "/secure/RapidBoard.jspa?rapidView=";
 const JIRA_BOARD_CONFIGURATION_URL = "/configuration";
 const JIRA_BACKLOG_URL = "&view=planning.nodetail";
 
+const GITHUB_URL_BASE = "https://api.github.com";
+
 const DEFAULT_STATUS_TEMPLATE = "({{key}}) ";
 const DEFAULT_DETAILS_TEMPLATE = "{{key}} [{{status}}] {{summary}} ({{assignee}}) ";
 
@@ -42,6 +44,7 @@ module.exports = {
     JIRA_BOARD_HTML_URL,
     JIRA_BOARD_CONFIGURATION_URL,
     JIRA_BACKLOG_URL,
+    GITHUB_URL_BASE,
     DEFAULT_STATUS_TEMPLATE,
     DEFAULT_DETAILS_TEMPLATE,
     PULL_REQUEST_TEMPLATE,

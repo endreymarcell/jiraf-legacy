@@ -1,5 +1,5 @@
 {
-  "jiraUrlBase": "https://jiraf-testing.atlassian.net",
+  "jiraUrlBase": "http://127.0.0.1",
   "editor": "vim",
   "statusTemplate": "{{key}} [{{status}}] {{summary}} ({{assignee}})",
   "shortcuts": {

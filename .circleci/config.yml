@@ -41,17 +41,3 @@ jobs:
     - run:
         name: curl mock GitHub service by IP
         command: curl 127.0.0.2/debug
-    - run:
-        name: Patch the hosts file to mock JIRA
-        command: echo 127.0.0.1  jiraf-testing.atlassian.net >> /etc/hosts
-    - run:
-        name: Patch the hosts file to mock GitHub
-        command: echo 127.0.0.2  github.com >> /etc/hosts
-    - run: cat /etc/hosts
-    - run:
-        name: curl mock JIRA service by domain
-        command: curl jiraf-testing.atlassian.net/debug
-    - run:
-        name: curl mock GitHub service by domain
-        command: curl github.com/debug
-
