@@ -12,7 +12,7 @@ const rightPad = (str, fullLength) => {
 
 const getShortUsername = () => {
     const {ATLASSIAN_USERNAME} = process.env;
-    return ATLASSIAN_USERNAME.substring(0, ATLASSIAN_USERNAME.indexOf("@"));
+    return ATLASSIAN_USERNAME.replace(/@.*$/, "");
 };
 
 const getStatusForSlug = slug => {

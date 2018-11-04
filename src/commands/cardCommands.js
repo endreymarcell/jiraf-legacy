@@ -18,7 +18,7 @@ const sendAssignRequest = assignee => {
     const cardKey = readActiveCardKey();
     if (cardKey) {
         return put(`${JIRA_CARD_URL}${cardKey}/assignee`, {name: assignee}).catch(error =>
-            die(`assigning card failed (${error.message})`)
+            die(errorMessages.cannotAssignCard(cardKey, error.message))
         );
     } else {
         throw Error(errorMessages.noCardSet);

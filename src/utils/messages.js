@@ -20,6 +20,7 @@ const errorMessages = {
         `cannot load card transitions for project '${projectKey}' (${errorMessage})`,
     cannotListCardsOnBoard: (projectKey, errorMessage) =>
         `cannot list cards on the board for project key '${projectKey}' (${errorMessage})`,
+    cannotAssignCard: (cardKey, errorMessage) => `assigning card '${cardKey}' failed (${errorMessage})`,
 };
 
 module.exports = {
