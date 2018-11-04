@@ -1,10 +1,12 @@
 const {updateInSession} = require("../../../src/utils/storageHandler");
 const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectInSession} = require("../utils/shorthands");
+const {resetConfig} = require("../utils/utils");
 
 describe("unsetProject", () => {
     beforeEach(() => {
         clearSession();
+        resetConfig();
     });
 
     it("should unset the project", done => {

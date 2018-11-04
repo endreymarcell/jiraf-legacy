@@ -1,27 +1,31 @@
-const {errorMessages} = require("../../../src/utils/messages");
 const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectError} = require("../utils/shorthands");
+const {errorMessages} = require("../../../src/utils/messages");
 const {resetConfig} = require("../utils/utils");
 
-describe("refreshCard", () => {
+describe("moving the card", () => {
     beforeEach(() => {
         clearSession();
         resetConfig();
     });
 
     it("should fail if there's no card set", done => {
-        expectError("jiraf refresh", errorMessages.noCardSet, done);
+        expectError("jiraf move", errorMessages.noCardSet, done);
     });
 
-    it.skip("should throw an error if there's an invalid card key in the session", done => {
+    it.skip("should fail if there's no new status passed", done => {
         done();
     });
 
-    it.skip("should succeed if there's a valid card key in the session", done => {
+    it.skip("should fail if the new status is invalid", done => {
         done();
     });
 
-    it.skip("should load the card's details", done => {
+    it.skip("should succeed for a valid status", done => {
+        done();
+    });
+
+    it.skip("should update the active card's details in the session", done => {
         done();
     });
 

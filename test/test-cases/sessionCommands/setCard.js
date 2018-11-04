@@ -12,6 +12,18 @@ describe("setCard", () => {
         expectError("jiraf set", "missing argument 'cardKey'", done);
     });
 
+    it.skip("should throw an error when called with a non-existent card key", done => {
+        done();
+    });
+
+    it.skip("should succeed when called with a valid card key", done => {
+        done();
+    });
+
+    it.skip("should succeed when called a string that begins with a valid card key", done => {
+        done();
+    });
+
     it("should store the card key in the session", done => {
         expectInSession("jiraf set PROJ-123", {key: "activeCardKey", value: "PROJ-123"}, done);
     });
@@ -27,17 +39,6 @@ describe("setCard", () => {
 
     it("should fail when only given a partial key if there's no project set", done => {
         expectError("jiraf set 123", "no project set, provide a full card key", done);
-    });
-
-    it("should load the project's statuses when given a full key", done => {
-        expectInSession(
-            "jiraf set PROJ-123",
-            {
-                key: "statuses",
-                value: ["To Do", "In Progress", "Done", "Won't Fix"],
-            },
-            done
-        );
     });
 
     it("should load the card's details", done => {
@@ -68,5 +69,16 @@ describe("setCard", () => {
         it("should use the default status template if none is configured", done => {
             expectStatus("jiraf set GRZ-1", "GRZ-1 [To Do] The future is coming on (clint.eastwood)", done);
         });
+    });
+
+    it("should load the project's statuses when given a full key", done => {
+        expectInSession(
+            "jiraf set PROJ-123",
+            {
+                key: "statuses",
+                value: ["To Do", "In Progress", "Done", "Won't Fix"],
+            },
+            done
+        );
     });
 });

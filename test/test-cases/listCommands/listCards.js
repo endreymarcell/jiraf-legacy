@@ -2,10 +2,12 @@ const {errorMessages} = require("../../../src/utils/messages");
 const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectError, expectOutput} = require("../utils/shorthands");
 const {updateInSession} = require("../../../src/utils/storageHandler");
+const {resetConfig} = require("../utils/utils");
 
 describe("listCards", () => {
     beforeEach(() => {
         clearSession();
+        resetConfig();
     });
 
     it("should fail if there's no project set", done => {
@@ -49,5 +51,17 @@ describe("listCards", () => {
             "GRZ-1 [To Do]       The future is coming on (clint.eastwood)",
             done
         );
+    });
+
+    it.skip("should list the cards assigned to the current user when an empty assignee flag is passed", done => {
+        done();
+    });
+
+    it.skip("should list unassigned cards when passing 'unassigned' as the assignee name", done => {
+        done();
+    });
+
+    it.skip("should list cards filtered by status and assignee at the same time", done => {
+        done();
     });
 });
