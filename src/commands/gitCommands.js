@@ -17,8 +17,20 @@ const {get} = require("../utils/jiraApi");
 const {readActiveCardKey, readFromConfig} = require("../utils/storageHandler");
 const {interpolate, readGithubCredentials, print, die} = require("../utils/utils");
 
-const branchCommand = branchOptions => {
-    exec(`git checkout -b ${readActiveCardKey()}-${branchOptions.branchName}`);
+const branchCommand = ({branchName}) => {
+    const cardKey = readActiveCardKey();
+    if (!cardKey) {
+        throw Error(errorMessages.noCardSet);
+    }
+    if (!branchName) {
+        throw Error(errorMessages.missingArgument("branchname"));
+    }
+
+    exec(`git checkout -b ${cardKey}-${branchName}`, error => {
+        if (error) {
+            die(errorMessages.cannotCreateBranch(error.message.split("\n").join(". ")));
+        }
+    });
 };
 
 const checkCommand = () => {

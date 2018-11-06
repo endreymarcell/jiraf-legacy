@@ -22,6 +22,7 @@ const errorMessages = {
         `cannot list cards on the board for project key '${projectKey}' (${errorMessage})`,
     cannotAssignCard: (cardKey, errorMessage) => `assigning card '${cardKey}' failed (${errorMessage})`,
     cannotCreatePR: errorMessage => `couldn't create pull request (${errorMessage})`,
+    cannotCreateBranch: errorMessage => `couldn't create the new branch (${errorMessage})`,
 };
 
 module.exports = {
