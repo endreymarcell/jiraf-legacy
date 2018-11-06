@@ -97,14 +97,16 @@ const refreshCardCommand = () => {
 };
 
 const reloadAndUpdateCardData = key => {
-    loadSingleCard(key).then(() => updateStatusFile(generateStatus()));
+    loadSingleCard(key)
+        .then(() => updateStatusFile(generateStatus()))
+        .catch(error => die(error.message));
 };
 
 const loadSingleCard = key => {
     return get(`${JIRA_CARD_URL}${key}?fields=summary,status,assignee,description,priority,customfield_10005`)
         .then(response => parseCardResponse(response.data))
         .then(cardDetails => updateInSession("activeCardDetails", cardDetails))
-        .catch(error => die(`loading card data from JIRA failed (${error.message})`));
+        .catch(error => die(errorMessages.cannotLoadCard(error.message)));
 };
 
 const unsetCardCommand = () => {

@@ -5,6 +5,7 @@ const errorMessages = {
     noAtlassianCredentials: "missing Atlassian credentials",
     noGithubCredentials: "missing GitHub credentials",
     missingArgument: argument => `missing argument '${argument}'`,
+    cannotLoadCard: errorMessage => `loading card data from JIRA failed (${errorMessage})`,
     noProjectForPartialCardKey: "no project set, provide a full card key",
     unknownStatus: (newStatus, possibleStatuses) =>
         `Unknown status '${newStatus}', please choose from: ${possibleStatuses}.`,

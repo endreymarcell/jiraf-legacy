@@ -27,7 +27,14 @@ addJsonGetEndpoint(app, JIRA_BOARD_URL, mockData.boardId);
 addJsonGetEndpoint(app, `${JIRA_BOARD_URL}:boardId${JIRA_BOARD_CONFIGURATION_URL}`, mockData.boardConfig);
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}ASSIGNSNOOPDOGG-123`, mockData.cardDetails.snoopDogg);
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}UNASSIGN-123`, mockData.cardDetails.unassign);
-addJsonGetEndpoint(app, `${JIRA_CARD_URL}:cardKey`, mockData.cardDetails.todo);
+app.get(`${JIRA_CARD_URL}:cardKey`, (req, res) => {
+    if (req.params.cardKey === "NOSUCHCARD-123") {
+        res.sendStatus(404);
+    } else {
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(mockData.cardDetails.todo));
+    }
+});
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}:cardKey${JIRA_TRANSITIONS_URL}`, mockData.activeCardsTransitions);
 
 app.get(JIRA_SEARCH_URL, (req, res) => {

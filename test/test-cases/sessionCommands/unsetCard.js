@@ -1,5 +1,5 @@
-const {updateInSession} = require("../../../src/utils/storageHandler");
-const {expectInSession} = require("../utils/shorthands");
+const {updateInSession, updateStatusFile} = require("../../../src/utils/storageHandler");
+const {expectInSession, expectStatus} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
 
 describe("unsetCardCommand", () => {
@@ -17,7 +17,8 @@ describe("unsetCardCommand", () => {
         expectInSession("jiraf unset", {key: "activeCardDetails", value: {}}, done);
     });
 
-    it.skip("should clear the status file when unsetting the card", done => {
-        done();
+    it("should clear the status file when unsetting the card", done => {
+        updateStatusFile("random content in the status file");
+        expectStatus("jiraf unset", "", done);
     });
 });

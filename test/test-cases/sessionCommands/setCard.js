@@ -1,6 +1,7 @@
 const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
-const {expectError, expectInSession, expectStatus} = require("../utils/shorthands");
+const {expectError, expectInSession, expectStatus, expectSuccess} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
+const {errorMessages} = require("../../../src/utils/messages");
 
 describe("setCardCommand", () => {
     beforeEach(() => {
@@ -11,16 +12,20 @@ describe("setCardCommand", () => {
         expectError("jiraf set", "missing argument 'cardKey'", done);
     });
 
-    it.skip("should throw an error when called with a non-existent card key", done => {
-        done();
+    it("should throw an error when called with a non-existent card key", done => {
+        expectError(
+            "jiraf set NOSUCHCARD-123",
+            errorMessages.cannotLoadCard("Request failed with status code 404"),
+            done
+        );
     });
 
-    it.skip("should succeed when called with a valid card key", done => {
-        done();
+    it("should succeed when called with a valid card key", done => {
+        expectSuccess("jiraf set PROJ-123", done);
     });
 
-    it.skip("should succeed when called a string that begins with a valid card key", done => {
-        done();
+    it("should succeed when called a string that begins with a valid card key", done => {
+        expectSuccess("jiraf set 'PROJ-123 and lots of more content here'", done);
     });
 
     it("should store the card key in the session", done => {
