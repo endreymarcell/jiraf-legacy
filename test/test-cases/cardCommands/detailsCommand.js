@@ -7,7 +7,7 @@ const {errorMessages} = require("../../../src/utils/messages");
 const {clearBeforeTests} = require("../utils/utils");
 const {JIRAF_CONFIG_FILE} = require("../../../src/const");
 
-describe("the details command", () => {
+describe("detailsCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

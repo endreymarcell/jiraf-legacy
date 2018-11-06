@@ -2,7 +2,7 @@ const {updateInSession} = require("../../../src/utils/storageHandler");
 const {expectInSession} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
 
-describe("unsetProject", () => {
+describe("unsetProjectCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

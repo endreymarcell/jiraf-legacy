@@ -2,7 +2,7 @@ const {expectError} = require("../utils/shorthands");
 const {errorMessages} = require("../../../src/utils/messages");
 const {clearBeforeTests} = require("../utils/utils");
 
-describe("the PR command", () => {
+describe("prCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

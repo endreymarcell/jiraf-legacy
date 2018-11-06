@@ -2,7 +2,7 @@ const {updateInSession, updateInConfig} = require("../../../src/utils/storageHan
 const {expectError, expectInSession, expectStatus} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
 
-describe("setCard", () => {
+describe("setCardCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

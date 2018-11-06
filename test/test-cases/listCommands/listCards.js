@@ -3,7 +3,7 @@ const {expectError, expectOutput} = require("../utils/shorthands");
 const {updateInSession} = require("../../../src/utils/storageHandler");
 const {clearBeforeTests} = require("../utils/utils");
 
-describe("listCards", () => {
+describe("listCardsCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

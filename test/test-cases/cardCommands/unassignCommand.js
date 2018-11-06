@@ -4,7 +4,7 @@ const {clearBeforeTests} = require("../utils/utils");
 const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
 const {expectSuccess, expectInSession, expectStatus} = require("../utils/shorthands");
 
-describe("unassigning", () => {
+describe("unassignCardCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

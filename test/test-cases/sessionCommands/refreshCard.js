@@ -2,7 +2,7 @@ const {errorMessages} = require("../../../src/utils/messages");
 const {expectError} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
 
-describe("refreshCard", () => {
+describe("refreshCardCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

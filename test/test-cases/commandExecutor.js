@@ -1,6 +1,6 @@
 const {clearBeforeTests} = require("./utils/utils");
 
-describe("the command executor logic", () => {
+describe("commandExecutor", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

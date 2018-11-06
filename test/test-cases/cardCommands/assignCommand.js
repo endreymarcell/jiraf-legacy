@@ -7,7 +7,7 @@ const {updateInSession, updateInConfig} = require("../../../src/utils/storageHan
 const {clearBeforeTests} = require("../utils/utils");
 const {JIRA_MOCK_LOGFILE} = require("../../test-cases/const");
 
-describe("assigning", () => {
+describe("assignCardCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

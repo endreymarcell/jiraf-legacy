@@ -3,7 +3,7 @@ const {errorMessages} = require("../../../src/utils/messages");
 const {clearBeforeTests} = require("../utils/utils");
 const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
 
-describe("moving the card", () => {
+describe("moveCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

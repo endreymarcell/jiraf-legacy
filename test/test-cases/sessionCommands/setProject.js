@@ -1,7 +1,7 @@
 const {expectError, expectInSession} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
 
-describe("setProject", () => {
+describe("setProjectCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

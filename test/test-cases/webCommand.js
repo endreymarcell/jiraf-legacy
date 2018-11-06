@@ -1,6 +1,6 @@
 const {clearBeforeTests} = require("./utils/utils");
 
-describe("the web command", () => {
+describe("webCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });

@@ -5,7 +5,7 @@ const {expectError, expectOutput} = require("../utils/shorthands");
 const {errorMessages} = require("../../../src/utils/messages");
 const {clearBeforeTests} = require("../utils/utils");
 
-describe("creating a git branch", () => {
+describe("branchCommand", () => {
     beforeEach(() => {
         clearBeforeTests();
     });
