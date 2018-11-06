@@ -62,8 +62,7 @@ const prCommand = () => {
         const {owner, repo} = getRepoCoordinates(stdout);
         exec("git rev-parse --abbrev-ref HEAD", (error, stdout) => {
             const branchName = stdout.trim();
-            exec(
-                `git push --set-upstream origin ${branchName}`,
+            exec(`git push --set-upstream origin ${branchName}`, () =>
                 editDescriptionAndCreatePullRequest({owner, repo, branchName})
             );
         });
