@@ -7,7 +7,7 @@ describe("prCommand", () => {
         clearBeforeTests();
     });
 
-    it.skip("should fail if there's no card set", done => {
+    it("should fail if there's no card set", done => {
         expectError("jiraf pr", errorMessages.noCardSet, done);
     });
 

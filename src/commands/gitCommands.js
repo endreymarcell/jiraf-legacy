@@ -54,6 +54,10 @@ const checkCommand = () => {
 };
 
 const prCommand = () => {
+    const cardKey = readActiveCardKey();
+    if (!cardKey) {
+        throw Error(errorMessages.noCardSet);
+    }
     exec("git ls-remote --get-url origin", (error, stdout) => {
         const {owner, repo} = getRepoCoordinates(stdout);
         exec("git rev-parse --abbrev-ref HEAD", (error, stdout) => {
