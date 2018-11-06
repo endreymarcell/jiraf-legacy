@@ -43,4 +43,4 @@ jobs:
         command: curl 127.0.0.2/debug
     - run:
         name: Lint and test
-        command: npm run lint && npm run test:docker
+        command: npm run lint && npm run test
