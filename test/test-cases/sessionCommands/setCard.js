@@ -71,7 +71,7 @@ describe("setCardCommand", () => {
         });
 
         it("should use the default status template if none is configured", done => {
-            expectStatus("jiraf set GRZ-1", "GRZ-1 [To Do] The future is coming on (clint.eastwood)", done);
+            expectStatus("jiraf set GRZ-1", "(GRZ-1)", done);
         });
     });
 

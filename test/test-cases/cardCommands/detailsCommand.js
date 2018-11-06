@@ -1,5 +1,4 @@
 const fs = require("fs");
-const {expect} = require("chai");
 
 const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
 const {expectError, expectOutput} = require("../utils/shorthands");
@@ -29,7 +28,8 @@ describe("detailsCommand", () => {
         });
 
         const config = JSON.parse(fs.readFileSync(JIRAF_CONFIG_FILE));
-        expect(config.detailsTemplate).to.be.undefined;
+        delete config.detailsTemplate;
+        fs.writeFileSync(JIRAF_CONFIG_FILE, JSON.stringify(config));
 
         expectOutput("jiraf details", "GRZ-1 [To Do] The future is coming on (clint.eastwood)", done);
     });

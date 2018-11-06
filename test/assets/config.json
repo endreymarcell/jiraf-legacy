@@ -1,7 +1,8 @@
 {
   "jiraUrlBase": "http://127.0.0.1",
   "editor": "vim",
-  "statusTemplate": "{{key}} [{{status}}] {{summary}} ({{assignee}})",
+  "statusTemplate": "({{key}}) ",
+  "detailsTemplate": "{{key}} [{{status}}] {{summary}} <{{estimate}}> ({{assignee}})",
   "shortcuts": {
     "start": ["set {}", "assign", "move inprogress"],
     "review": ["move codereview", "pr"],
