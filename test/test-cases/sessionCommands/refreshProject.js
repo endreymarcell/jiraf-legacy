@@ -23,13 +23,13 @@ describe("refreshProjectCommand", () => {
 
     it("should succeed if there's a valid project key in the session", done => {
         updateInSession("activeProjectKey", "PROJ");
-        expectSuccess("jiraf refreshproject PROJ", done);
+        expectSuccess("jiraf refreshproject", done);
     });
 
     it("should load the statuses for the project", done => {
         updateInSession("activeProjectKey", "PROJ");
         expectInSession(
-            "jiraf refreshproject PROJ",
+            "jiraf refreshproject",
             {
                 key: "statuses",
                 value: ["To Do", "In Progress", "Done", "Won't Fix"],
