@@ -44,7 +44,7 @@ const parseCardResponse = response => {
         key: response.key,
         summary: response.fields.summary,
         status: response.fields.status.name,
-        assignee: response.fields.assignee ? response.fields.assignee.name : null,
+        assignee: response.fields.assignee ? response.fields.assignee.name : "unassigned",
         description: response.fields.description,
         priority: response.fields.priority.name,
         estimate: response.fields.customfield_10005,

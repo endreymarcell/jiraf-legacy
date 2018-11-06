@@ -119,6 +119,41 @@ const mockData = {
                 },
             },
         },
+        snoopDogg: {
+            key: "ASSIGNSNOOPDOGG-123",
+            fields: {
+                // This is the field's name in JIRA, I can't change it
+                // eslint-disable-next-line
+                customfield_10005: 1,
+                summary: "Snoop Dogg",
+                description: "Welcome to the World of the Plastic Beach",
+                assignee: {
+                    name: "snoop.dogg",
+                },
+                priority: {
+                    name: "Prio3 - Medium",
+                },
+                status: {
+                    name: "Done",
+                },
+            },
+        },
+        unassign: {
+            key: "UNASSIGN-123",
+            fields: {
+                // This is the field's name in JIRA, I can't change it
+                // eslint-disable-next-line
+                customfield_10005: 1,
+                summary: "Assigned to no one",
+                description: "All the lonely people - where do they all belong?",
+                priority: {
+                    name: "Prio3 - Medium",
+                },
+                status: {
+                    name: "Done",
+                },
+            },
+        },
     },
     searchForOneCardTransitions: {
         issues: [

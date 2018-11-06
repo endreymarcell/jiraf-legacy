@@ -2,9 +2,9 @@ const fs = require("fs");
 const {expect} = require("chai");
 
 const {clearSession} = require("../../../src/utils/storageHandler");
-const {expectSuccess, expectInSession, expectError} = require("../utils/shorthands");
+const {expectSuccess, expectInSession, expectError, expectStatus} = require("../utils/shorthands");
 const {errorMessages} = require("../../../src/utils/messages");
-const {updateInSession} = require("../../../src/utils/storageHandler");
+const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
 const {resetConfig} = require("../utils/utils");
 const {JIRA_MOCK_LOGFILE} = require("../../test-cases/const");
 
@@ -65,28 +65,29 @@ describe("assigning", () => {
         });
     });
 
-    it.skip("should update the active card's details in the session", done => {
-        updateInSession("activeCardKey", "ASSIGNBIMMBUMM-123");
-        fs.writeFileSync(JIRA_MOCK_LOGFILE, "");
+    it("should update the active card's details in the session", done => {
+        updateInSession("activeCardKey", "ASSIGNSNOOPDOGG-123");
         expectInSession(
-            "jiraf assign bumm.bumm",
+            "jiraf assign snoop.dogg",
             {
                 key: "activeCardDetails",
                 value: {
-                    key: "GRZ-1",
-                    summary: "The future is coming on",
-                    description: "I ain't happy, I'm feeling glad, I got sunshine in a bag",
-                    status: "To Do",
-                    assignee: "bimm.bumm",
+                    key: "ASSIGNSNOOPDOGG-123",
+                    summary: "Snoop Dogg",
+                    description: "Welcome to the World of the Plastic Beach",
+                    status: "Done",
+                    assignee: "snoop.dogg",
                     priority: "Prio3 - Medium",
-                    estimate: 3,
+                    estimate: 1,
                 },
             },
             done
         );
     });
 
-    it.skip("should update the statusfile", done => {
-        done();
+    it("should update the statusfile", done => {
+        updateInSession("activeCardKey", "ASSIGNSNOOPDOGG-123");
+        updateInConfig("statusTemplate", "{{key}} $$${{assignee}}$$$");
+        expectStatus("jiraf assign snoop.dogg", "ASSIGNSNOOPDOGG-123 $$$snoop.dogg$$$", done);
     });
 });

@@ -19,6 +19,8 @@ app.get("/debug", (req, res) => {
 
 addJsonGetEndpoint(app, JIRA_BOARD_URL, mockData.boardId);
 addJsonGetEndpoint(app, `${JIRA_BOARD_URL}:boardId${JIRA_BOARD_CONFIGURATION_URL}`, mockData.boardConfig);
+addJsonGetEndpoint(app, `${JIRA_CARD_URL}ASSIGNSNOOPDOGG-123`, mockData.cardDetails.snoopDogg);
+addJsonGetEndpoint(app, `${JIRA_CARD_URL}UNASSIGN-123`, mockData.cardDetails.unassign);
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}:cardKey`, mockData.cardDetails.todo);
 
 app.get(JIRA_SEARCH_URL, (req, res) => {
@@ -40,6 +42,8 @@ app.get(JIRA_SEARCH_URL, (req, res) => {
 
 addJsonPutEndpoint(app, `${JIRA_CARD_URL}NOASSIGN-123/assignee`, 400);
 addJsonPutEndpoint(app, `${JIRA_CARD_URL}ASSIGN-123/assignee`, 200);
+addJsonPutEndpoint(app, `${JIRA_CARD_URL}ASSIGNSNOOPDOGG-123/assignee`, 200);
+addJsonPutEndpoint(app, `${JIRA_CARD_URL}UNASSIGN-123/assignee`, 200);
 
 app.put(`${JIRA_CARD_URL}ASSIGNWRITE-123/assignee`, (req, res) => {
     fs.writeFile(JIRA_MOCK_LOGFILE, req.body.name, {}, () => res.sendStatus(200));
