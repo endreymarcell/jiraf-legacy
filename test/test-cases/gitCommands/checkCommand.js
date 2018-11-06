@@ -7,7 +7,7 @@ describe("checkCommand", () => {
         clearBeforeTests();
     });
 
-    it.skip("should fail if there's no card set", done => {
+    it("should fail if there's no card set", done => {
         expectError("jiraf check", errorMessages.noCardSet, done);
     });
 

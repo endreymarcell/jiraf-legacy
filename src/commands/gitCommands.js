@@ -34,15 +34,23 @@ const branchCommand = ({branchName}) => {
 };
 
 const checkCommand = () => {
-    get(`${JIRA_CARD_URL}${readActiveCardKey()}?fields=''`).then(response => {
-        const issueId = response.data.id;
-        get(`${JIRA_PULL_REQUEST_URL}${issueId}`).then(response => {
-            const pullRequests = response.data.detail[0].pullRequests;
-            if (pullRequests.length > 0) {
-                pullRequests.forEach(pullRequest => print(pullRequest.url));
-            }
-        });
-    });
+    const cardKey = readActiveCardKey();
+    if (!cardKey) {
+        throw Error(errorMessages.noCardSet);
+    }
+    get(`${JIRA_CARD_URL}${cardKey}?fields=''`)
+        .then(response => {
+            const issueId = response.data.id;
+            get(`${JIRA_PULL_REQUEST_URL}${issueId}`)
+                .then(response => {
+                    const pullRequests = response.data.detail[0].pullRequests;
+                    if (pullRequests.length > 0) {
+                        pullRequests.forEach(pullRequest => print(pullRequest.url));
+                    }
+                })
+                .catch(error => die(errorMessages.cannotLoadPRs(error.message)));
+        })
+        .catch(error => die(errorMessages.cannotLoadCard(error.message)));
 };
 
 const prCommand = () => {
