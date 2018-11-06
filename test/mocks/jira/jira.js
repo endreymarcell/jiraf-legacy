@@ -19,15 +19,15 @@ app.get("/debug", (req, res) => {
 
 addJsonGetEndpoint(app, JIRA_BOARD_URL, mockData.boardId);
 addJsonGetEndpoint(app, `${JIRA_BOARD_URL}:boardId${JIRA_BOARD_CONFIGURATION_URL}`, mockData.boardConfig);
-addJsonGetEndpoint(app, `${JIRA_CARD_URL}:cardKey`, mockData.cardDetailsTodo);
+addJsonGetEndpoint(app, `${JIRA_CARD_URL}:cardKey`, mockData.cardDetails.todo);
 
 app.get(JIRA_SEARCH_URL, (req, res) => {
     let data;
     if (req.query.fields === "summary,status,issuetype,priority,assignee") {
         if (req.query.jql.indexOf('AND status = "Done"') !== -1) {
-            data = {issues: [mockData.cardDetailsDone]};
+            data = {issues: [mockData.cardDetails.done]};
         } else if (req.query.jql.indexOf("AND assignee = clint.eastwood") !== -1) {
-            data = {issues: [mockData.cardDetailsTodo]};
+            data = {issues: [mockData.cardDetails.todo]};
         } else {
             data = mockData.cardsOnBoard;
         }
