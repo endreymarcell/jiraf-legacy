@@ -1,12 +1,10 @@
-const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectError} = require("../utils/shorthands");
 const {errorMessages} = require("../../../src/utils/messages");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 
 describe("moving the card", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it("should fail if there's no card set", done => {

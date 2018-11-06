@@ -1,17 +1,15 @@
 const fs = require("fs");
 const {expect} = require("chai");
 
-const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectSuccess, expectInSession, expectError, expectStatus} = require("../utils/shorthands");
 const {errorMessages} = require("../../../src/utils/messages");
 const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 const {JIRA_MOCK_LOGFILE} = require("../../test-cases/const");
 
 describe("assigning", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it("should fail if there's no card set", done => {

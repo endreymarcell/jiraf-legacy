@@ -1,12 +1,10 @@
 const {updateInSession} = require("../../../src/utils/storageHandler");
-const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectInSession} = require("../utils/shorthands");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 
 describe("unsetCard", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it("should unset the card key", done => {

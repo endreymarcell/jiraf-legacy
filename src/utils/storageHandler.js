@@ -64,6 +64,10 @@ const clearSession = () => {
     fs.writeFileSync(JIRAF_SESSION_FILE, "{}");
 };
 
+const clearStatus = () => {
+    updateStatusFile("");
+};
+
 module.exports = {
     readFromConfig,
     updateInConfig,
@@ -75,4 +79,5 @@ module.exports = {
     readStatuses,
     updateStatusFile,
     clearSession,
+    clearStatus,
 };

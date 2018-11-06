@@ -1,13 +1,11 @@
 const {errorMessages} = require("../../../src/utils/messages");
-const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectError, expectOutput} = require("../utils/shorthands");
 const {updateInSession} = require("../../../src/utils/storageHandler");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 
 describe("listCards", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it("should fail if there's no project set", done => {

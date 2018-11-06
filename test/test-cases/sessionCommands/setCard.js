@@ -1,11 +1,10 @@
-const {clearSession, updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
+const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
 const {expectError, expectInSession, expectStatus} = require("../utils/shorthands");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 
 describe("setCard", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it("should throw an error when called without arguments", done => {

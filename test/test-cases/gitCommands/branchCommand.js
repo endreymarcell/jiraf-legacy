@@ -1,12 +1,10 @@
-const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectError} = require("../utils/shorthands");
 const {errorMessages} = require("../../../src/utils/messages");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 
 describe("creating a git branch", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it.skip("should fail if there's no card set", done => {

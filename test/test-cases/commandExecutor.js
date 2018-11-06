@@ -1,10 +1,8 @@
-const {clearSession} = require("../../src/utils/storageHandler");
-const {resetConfig} = require("./utils/utils");
+const {clearBeforeTests} = require("./utils/utils");
 
 describe("the command executor logic", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it.skip("should open the board if there's no command specified", done => {

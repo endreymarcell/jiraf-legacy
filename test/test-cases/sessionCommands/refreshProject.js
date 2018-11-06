@@ -1,12 +1,10 @@
 const {errorMessages} = require("../../../src/utils/messages");
-const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectError} = require("../utils/shorthands");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 
 describe("refreshProject", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it("should fail if there's no project set", done => {

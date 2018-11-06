@@ -1,11 +1,9 @@
-const {clearSession} = require("../../../src/utils/storageHandler");
 const {expectError, expectInSession} = require("../utils/shorthands");
-const {resetConfig} = require("../utils/utils");
+const {clearBeforeTests} = require("../utils/utils");
 
 describe("setProject", () => {
     beforeEach(() => {
-        clearSession();
-        resetConfig();
+        clearBeforeTests();
     });
 
     it("should throw an error when called without arguments", done => {
