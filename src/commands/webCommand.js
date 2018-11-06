@@ -6,19 +6,29 @@ const {get} = require("../utils/jiraApi");
 const {errorMessages} = require("../utils/messages");
 
 const webCommand = ({target}) => {
+    let projectKey;
+    let cardKey;
     const jiraUrlBase = readFromConfig("jiraUrlBase");
     let url;
     switch (target) {
         case undefined:
         case "board":
-            get(`${JIRA_BOARD_URL}?projectKeyOrId=${readActiveProjectKey()}`).then(response => {
+            projectKey = readActiveProjectKey();
+            if (!projectKey) {
+                throw Error(errorMessages.noProjectSet);
+            }
+            get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`).then(response => {
                 const boardId = response.data.values[0].id;
                 url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}`;
                 opn(url, {wait: false});
             });
             break;
         case "backlog":
-            get(`${JIRA_BOARD_URL}?projectKeyOrId=${readActiveProjectKey()}`).then(response => {
+            projectKey = readActiveProjectKey();
+            if (!projectKey) {
+                throw Error(errorMessages.noProjectSet);
+            }
+            get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`).then(response => {
                 const boardId = response.data.values[0].id;
                 url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}${JIRA_BACKLOG_URL}`;
                 opn(url, {wait: false});
@@ -26,7 +36,11 @@ const webCommand = ({target}) => {
             url = "";
             break;
         case "card":
-            url = `${jiraUrlBase}/browse/${readActiveCardKey()}`;
+            cardKey = readActiveCardKey();
+            if (!cardKey) {
+                throw Error(errorMessages.noCardSet);
+            }
+            url = `${jiraUrlBase}/browse/${cardKey}`;
             opn(url, {wait: false});
             break;
         default:
