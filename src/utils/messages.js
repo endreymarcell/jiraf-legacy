@@ -21,6 +21,7 @@ const errorMessages = {
     cannotListCardsOnBoard: (projectKey, errorMessage) =>
         `cannot list cards on the board for project key '${projectKey}' (${errorMessage})`,
     cannotAssignCard: (cardKey, errorMessage) => `assigning card '${cardKey}' failed (${errorMessage})`,
+    cannotCreatePR: errorMessage => `couldn't create pull request (${errorMessage})`,
 };
 
 module.exports = {

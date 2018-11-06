@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 const {exec} = require("child_process");
+const {errorMessages} = require("../utils/messages");
 
 const axios = require("axios");
 
@@ -83,7 +84,7 @@ const createPullRequest = ({owner, repo, branchName, descriptionFileName}) => {
         },
     })
         .then(response => print(response.data.html_url))
-        .catch(error => die(error.response))
+        .catch(error => die(errorMessages.cannotCreatePR(error.message)))
         .finally(() => fs.unlink(descriptionFileName, () => {}));
 };
 
