@@ -5,6 +5,7 @@ const {readFromConfig} = require("./storageHandler");
 const {ATLASSIAN_USERNAME, ATLASSIAN_API_TOKEN} = readAtlassianCredentials();
 
 const makeRequest = (url, options) => {
+    // console.log(url);
     const JIRA_URL_BASE = readFromConfig("jiraUrlBase");
     const baseOptions = {
         url: `${JIRA_URL_BASE}${url}`,

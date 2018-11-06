@@ -42,7 +42,10 @@ const moveCommand = ({status: newStatus}) => {
     if (!cardKey) {
         throw Error(errorMessages.noCardSet);
     }
-    const transitionsUrl = `${JIRA_CARD_URL}${cardKey}/${JIRA_TRANSITIONS_URL}`;
+    if (!newStatus) {
+        throw Error(errorMessages.missingArgument("status"));
+    }
+    const transitionsUrl = `${JIRA_CARD_URL}${cardKey}${JIRA_TRANSITIONS_URL}`;
     get(transitionsUrl)
         .then(transitions => parseTransitions(transitions.data.transitions))
         .then(transitions => {

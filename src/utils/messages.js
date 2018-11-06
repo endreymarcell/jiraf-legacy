@@ -11,7 +11,7 @@ const errorMessages = {
     unknownStatusSlug: (statusSlug, possibleStatusSlugs) =>
         `Unknown status slug '${statusSlug}', please choose from: ${possibleStatusSlugs.join(", ")}.`,
     unknownWebTarget: "unknown web target, please choose from: card, board, backlog",
-    cannotMoveCard: (newStatus, errorMessage) => `cannot move card to status ${newStatus} (${errorMessage})`,
+    cannotMoveCard: (newStatus, errorMessage) => `cannot move card to status '${newStatus}' (${errorMessage})`,
     cannotLoadBoard: (projectKey, errorMessage) =>
         `cannot load board for project key '${projectKey}' (${errorMessage})`,
     cannotLoadBoardConfig: (boardId, errorMessage) =>

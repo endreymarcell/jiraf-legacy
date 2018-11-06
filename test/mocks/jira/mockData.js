@@ -187,6 +187,26 @@ const mockData = {
             },
         ],
     },
+    activeCardsTransitions: {
+        transitions: [
+            {
+                name: "To Do",
+                id: "1",
+            },
+            {
+                name: "In Progress",
+                id: "2",
+            },
+            {
+                name: "Done",
+                id: "3",
+            },
+            {
+                name: "Won't Fix",
+                id: "4",
+            },
+        ],
+    },
 };
 
 mockData.cardsOnBoard = {

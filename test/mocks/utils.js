@@ -11,7 +11,14 @@ const addJsonPutEndpoint = (app, url, status) => {
     });
 };
 
+const addJsonPostEndpoint = (app, url, status) => {
+    app.post(url, (req, res) => {
+        res.sendStatus(status);
+    });
+};
+
 module.exports = {
     addJsonGetEndpoint,
     addJsonPutEndpoint,
+    addJsonPostEndpoint,
 };
