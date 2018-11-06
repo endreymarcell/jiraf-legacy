@@ -23,7 +23,14 @@ app.get("/debug", (req, res) => {
     res.send(JSON.stringify({mock: "JIRA"}));
 });
 
-addJsonGetEndpoint(app, JIRA_BOARD_URL, mockData.boardId);
+app.get(JIRA_BOARD_URL, (req, res) => {
+    if (req.query.projectKeyOrId === "NOSUCHPROJECT") {
+        res.sendStatus(404);
+    } else {
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(mockData.boardId));
+    }
+});
 addJsonGetEndpoint(app, `${JIRA_BOARD_URL}:boardId${JIRA_BOARD_CONFIGURATION_URL}`, mockData.boardConfig);
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}ASSIGNSNOOPDOGG-123`, mockData.cardDetails.snoopDogg);
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}UNASSIGN-123`, mockData.cardDetails.unassign);

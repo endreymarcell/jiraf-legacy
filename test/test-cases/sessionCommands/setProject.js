@@ -1,5 +1,6 @@
-const {expectError, expectInSession} = require("../utils/shorthands");
+const {expectError, expectInSession, expectSuccess} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
+const {errorMessages} = require("../../../src/utils/messages");
 
 describe("setProjectCommand", () => {
     beforeEach(() => {
@@ -10,12 +11,16 @@ describe("setProjectCommand", () => {
         expectError("jiraf setproject", "missing argument 'projectKey'", done);
     });
 
-    it.skip("should throw an error when called with a non-existent project key", done => {
-        done();
+    it("should throw an error when called with a non-existent project key", done => {
+        expectError(
+            "jiraf setproject NOSUCHPROJECT",
+            errorMessages.cannotLoadBoard("NOSUCHPROJECT", "Request failed with status code 404"),
+            done
+        );
     });
 
-    it.skip("should succeed when called with a valid project key", done => {
-        done();
+    it("should succeed when called with a valid project key", done => {
+        expectSuccess("jiraf setproject PROJ", done);
     });
 
     it("should store the project key in the session", done => {
