@@ -1,19 +1,27 @@
 const fs = require("fs");
 const {expect} = require("chai");
 
-const {clearBeforeTests} = require("./utils/utils");
-const {expectError, expectOutput, expectInSession} = require("./utils/shorthands");
+const {clearBeforeTests, prepareMockBrowser} = require("./utils/utils");
+const {expectSuccess, expectError, expectOutput, expectInSession} = require("./utils/shorthands");
 const {errorMessages} = require("../../src/utils/messages");
-const {updateInConfig} = require("../../src/utils/storageHandler");
+const {updateInConfig, updateInSession} = require("../../src/utils/storageHandler");
 const {JIRAF_SESSION_FILE} = require("../../src/const");
+const {OPN_MOCK_LOGFILE} = require("./const");
 
 describe("commandExecutor", () => {
     beforeEach(() => {
         clearBeforeTests();
     });
 
-    it.skip("should open the board if there's no command specified", done => {
-        done();
+    it("should open the board if there's no command specified", done => {
+        prepareMockBrowser();
+        updateInSession("activeProjectKey", "GRZ");
+        updateInSession("activeCardKey", "GRZ-1");
+        expectSuccess("JIRAF_TESTING=1 jiraf", () => {
+            const url = String(fs.readFileSync(OPN_MOCK_LOGFILE));
+            expect(url.trim()).to.eq("http://127.0.0.1/secure/RapidBoard.jspa?rapidView=987");
+            done();
+        });
     });
 
     it("should fail for an unknown command", done => {

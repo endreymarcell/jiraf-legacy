@@ -1,8 +1,7 @@
 const fs = require("fs");
-const {execSync} = require("child_process");
 const {expect} = require("chai");
 
-const {clearBeforeTests} = require("./utils/utils");
+const {clearBeforeTests, prepareMockBrowser} = require("./utils/utils");
 const {expectSuccess, expectError} = require("./utils/shorthands");
 const {errorMessages} = require("../../src/utils/messages");
 const {OPN_MOCK_LOGFILE} = require("./const");
@@ -10,11 +9,7 @@ const {updateInSession} = require("../../src/utils/storageHandler");
 
 describe("webCommand", () => {
     before(() => {
-        const mockBrowserPath = "/usr/bin/www-browser";
-        const mockBrowserCode = `#!/bin/bash
-        echo "$@" > ${OPN_MOCK_LOGFILE}`;
-        fs.writeFileSync(mockBrowserPath, mockBrowserCode);
-        execSync(`chmod +x ${mockBrowserPath}`);
+        prepareMockBrowser();
     });
 
     beforeEach(() => {
