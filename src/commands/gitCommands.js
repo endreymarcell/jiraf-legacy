@@ -66,9 +66,12 @@ const prCommand = () => {
                 return;
             }
             const branchName = stdout.trim();
-            exec(`git push --set-upstream origin ${branchName}`, () =>
-                editDescriptionAndCreatePullRequest({owner, repo, branchName})
-            );
+            exec(`git push --set-upstream origin ${branchName}`, error => {
+                if (error) {
+                    die(error.message);
+                }
+                editDescriptionAndCreatePullRequest({owner, repo, branchName});
+            });
         });
     });
 };
@@ -119,6 +122,7 @@ const getRepoCoordinates = remote => {
     const [owner, repo] = remote
         .trim()
         .replace("https://github.com/", "")
+        .replace("ssh://git@github.com/", "")
         .replace("git@github.com:", "")
         .replace(".git", "")
         .split("/");

@@ -1,10 +1,12 @@
 FROM node:10
 
+RUN apt-get update && apt-get install -y jq
+
 WORKDIR /jiraf
 COPY package*.json ./
 RUN npm ci
 
-COPY test/assets/config.json /root/.jiraf/config.json
+COPY test/assets/* /root/.jiraf/
 COPY scripts/docker_entrypoint.sh /docker_entrypoint.sh
 
 ENV ATLASSIAN_USERNAME=mock_atlassian_username \

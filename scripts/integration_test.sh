@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-docker run --rm -ti \
+if [ -f /.dockerenv ]; then
+    npm run integration:docker
+else
+    docker run -t \
     -v "$(pwd)/src:/jiraf/src" \
     -v "$(pwd)/test:/jiraf/test" \
     -v "$(pwd)/package.json:/jiraf/package.json" \
@@ -7,4 +10,5 @@ docker run --rm -ti \
     -e GITHUB_USERNAME \
     -e GITHUB_API_TOKEN \
     endreymarca/jiraf-testing \
-    bash
+    npm run integration:docker
+fi

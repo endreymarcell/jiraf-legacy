@@ -10,6 +10,8 @@
     "test": "./scripts/run_tests.sh",
     "test:docker": "mocha test/test-cases/* --grep",
     "test:circleci": "circleci local execute --job build",
+    "integration": "./scripts/integration_test.sh",
+    "integration:docker": "mocha test/integration",
     "debug": "./scripts/debug.sh",
     "mock:jira": "node test/mocks/jira/jira.js &",
     "mock:github": "node test/mocks/github/github.js &",
