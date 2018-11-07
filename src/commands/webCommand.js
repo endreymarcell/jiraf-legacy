@@ -10,6 +10,7 @@ const webCommand = ({target}) => {
     let cardKey;
     const jiraUrlBase = readFromConfig("jiraUrlBase");
     let url;
+    const isTest = process.env["JIRAF_TESTING"] === "1";
     switch (target) {
         case undefined:
         case "board":
@@ -20,7 +21,8 @@ const webCommand = ({target}) => {
             get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`).then(response => {
                 const boardId = response.data.values[0].id;
                 url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}`;
-                opn(url, {wait: false});
+                // console.log(url);
+                opn(url, {wait: isTest});
             });
             break;
         case "backlog":
@@ -31,7 +33,7 @@ const webCommand = ({target}) => {
             get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`).then(response => {
                 const boardId = response.data.values[0].id;
                 url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}${JIRA_BACKLOG_URL}`;
-                opn(url, {wait: false});
+                opn(url, {wait: isTest});
             });
             url = "";
             break;
@@ -41,7 +43,7 @@ const webCommand = ({target}) => {
                 throw Error(errorMessages.noCardSet);
             }
             url = `${jiraUrlBase}/browse/${cardKey}`;
-            opn(url, {wait: false});
+            opn(url, {wait: isTest});
             break;
         default:
             throw Error(errorMessages.unknownWebTarget);
