@@ -55,7 +55,6 @@ describe("webCommand", () => {
     });
 
     it("should open the card if there's an active card", done => {
-        // updateInSession("activeProjectKey", "GRZ");
         updateInSession("activeCardKey", "GRZ-1");
         expectSuccess("JIRAF_TESTING=1 jiraf web card", () => {
             const url = String(fs.readFileSync(OPN_MOCK_LOGFILE));
