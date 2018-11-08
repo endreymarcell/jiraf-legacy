@@ -59,10 +59,10 @@ Unset the currently active card.
 
 #### Updating a card  
 `jiraf move <status>`  
-Update the active card to <status> (one of: blocked, todo, inprogress, review, validation, done).    
+Update the active card to `<status>` (one of: blocked, todo, inprogress, review, validation, done).  
 
 `jiraf assign [<username>]`  
-Assign the active card to <username>, default is assigning to yourself.  
+Assign the active card to `<username>`, default is assigning to yourself.  
 
 `jiraf unassign`  
 Remove assignee from the card.  
