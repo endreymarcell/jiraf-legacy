@@ -1,3 +1,4 @@
+const {updateInSession} = require("../../../src/utils/storageHandler");
 const {expectError} = require("../utils/shorthands");
 const {errorMessages} = require("../../../src/utils/messages");
 const {clearBeforeTests} = require("../utils/utils");
@@ -11,27 +12,12 @@ describe("prCommand", () => {
         expectError("jiraf pr", errorMessages.noCardSet, done);
     });
 
-    it.skip("should fail if the directory is not a git repository", done => {
-        done();
-    });
-
-    it.skip("should fail if there's no origin set", done => {
-        done();
-    });
-
-    it.skip("should open the editor with the correct PR description template", done => {
-        done();
-    });
-
-    it.skip("should fail if the GitHub credentials are not set", done => {
-        done();
-    });
-
-    it.skip("should POST to the correct endpoint", done => {
-        done();
-    });
-
-    it.skip("should print the created PR's URL", done => {
-        done();
+    it("should fail if the directory is not a git repository", done => {
+        updateInSession("activeCardKey", "PROJ-123");
+        expectError(
+            "rm -rf .git && jiraf pr",
+            "Command failed: git rev-parse --abbrev-ref HEAD\nfatal: Not a git repository (or any of the parent directories): .git",
+            done
+        );
     });
 });
