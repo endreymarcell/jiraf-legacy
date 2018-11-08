@@ -21,7 +21,6 @@ const webCommand = ({target}) => {
             get(`${JIRA_BOARD_URL}?projectKeyOrId=${projectKey}`).then(response => {
                 const boardId = response.data.values[0].id;
                 url = `${jiraUrlBase}${JIRA_BOARD_HTML_URL}${boardId}`;
-                // console.log(url);
                 opn(url, {wait: isTest});
             });
             break;

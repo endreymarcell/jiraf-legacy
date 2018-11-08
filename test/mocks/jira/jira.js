@@ -34,13 +34,23 @@ app.get(JIRA_BOARD_URL, (req, res) => {
 addJsonGetEndpoint(app, `${JIRA_BOARD_URL}:boardId${JIRA_BOARD_CONFIGURATION_URL}`, mockData.boardConfig);
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}ASSIGNSNOOPDOGG-123`, mockData.cardDetails.snoopDogg);
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}UNASSIGN-123`, mockData.cardDetails.unassign);
+
 app.get(`${JIRA_CARD_URL}:cardKey`, (req, res) => {
+    let data;
     if (req.params.cardKey === "NOSUCHCARD-123") {
         res.sendStatus(404);
+        return;
+    } else if (req.params.cardKey === "NOPR-1") {
+        data = {id: 1};
+    } else if (req.params.cardKey === "ONEPR-1") {
+        data = {id: 2};
+    } else if (req.params.cardKey === "MOREPRS-1") {
+        data = {id: 3};
     } else {
-        res.setHeader("Content-Type", "application/json");
-        res.send(JSON.stringify(mockData.cardDetails.todo));
+        data = mockData.cardDetails.todo;
     }
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify(data));
 });
 addJsonGetEndpoint(app, `${JIRA_CARD_URL}:cardKey${JIRA_TRANSITIONS_URL}`, mockData.activeCardsTransitions);
 
@@ -71,5 +81,20 @@ app.put(`${JIRA_CARD_URL}ASSIGNWRITE-123/assignee`, (req, res) => {
 });
 
 addJsonPostEndpoint(app, `${JIRA_CARD_URL}:cardKey${JIRA_TRANSITIONS_URL}`, 200);
+
+app.get("/rest/dev-status/1.0/issue/detail", (req, res) => {
+    let data;
+    if (req.query.applicationType === "github" && req.query.dataType === "pullrequest") {
+        if (req.query.issueId === "1") {
+            data = mockData.github.noPR;
+        } else if (req.query.issueId === "2") {
+            data = mockData.github.onePR;
+        } else if (req.query.issueId === "3") {
+            data = mockData.github.morePRs;
+        }
+    }
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify(data));
+});
 
 app.listen(80, "127.0.0.1");

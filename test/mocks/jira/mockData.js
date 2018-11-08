@@ -207,6 +207,43 @@ const mockData = {
             },
         ],
     },
+    github: {
+        noPR: {
+            detail: [
+                {
+                    pullRequests: [],
+                },
+            ],
+        },
+        onePR: {
+            detail: [
+                {
+                    pullRequests: [
+                        {
+                            url: "https://github.com/endreymarca/jiraf/pull/100",
+                        },
+                    ],
+                },
+            ],
+        },
+        morePRs: {
+            detail: [
+                {
+                    pullRequests: [
+                        {
+                            url: "https://github.com/endreymarca/jiraf/pull/100",
+                        },
+                        {
+                            url: "https://github.com/endreymarca/jiraf/pull/200",
+                        },
+                        {
+                            url: "https://github.com/endreymarca/jiraf/pull/300",
+                        },
+                    ],
+                },
+            ],
+        },
+    },
 };
 
 mockData.cardsOnBoard = {
