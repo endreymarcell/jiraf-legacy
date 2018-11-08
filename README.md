@@ -91,10 +91,8 @@ You could get through the entire workflow of choosing, picking up, and deliverin
 You can specify more shortcuts in your `~/.jiraf/config.json` file.  
 
 ### Contributing
-Run tests locally by calling `npm test` (which will cal `npm run test:local`). For selectively running tests, call `npm run test:local <pattern>`. The tests will run in a docker container.    
+Run tests locally by calling `npm test [pattern]`. The tests will run in a docker container.    
 You can also call `npm run debug` which runs the docker container with the code mounted and the mock services for JIRA and GitHub running.  
-
-Note that the CircleCI environment, although based on the same docker image, is different in some aspects and can fail even if your tests pass locally. To debug such problems, install the CircleCI CLI (`brew install circleci`) and call `npm run test:local:circleci`. This will be slower than the previous script, but guarantees that you will get the same results that the CI after pushing. Keep in mind that this command pulls the repository instead of mounting the code from the working directory.  
 
 ## Have fun!
 ![Photo by Rajiv Bajaj on Unsplash](giraffe.jpg)
