@@ -90,7 +90,26 @@ const mockData = {
                 summary: "Melancholy Hill",
                 description: "If you can't get what you want then you come with me",
                 assignee: {
-                    name: "submarine",
+                    name: "clint.eastwood",
+                },
+                priority: {
+                    name: "Prio3 - Medium",
+                },
+                status: {
+                    name: "Done",
+                },
+            },
+        },
+        done2: {
+            key: "GRZ-4",
+            fields: {
+                // This is the field's name in JIRA, I can't change it
+                // eslint-disable-next-line
+                customfield_10005: 2,
+                summary: "Sorcererz",
+                description: "Everybody hold on to your inner visions",
+                assignee: {
+                    name: "hold.on",
                 },
                 priority: {
                     name: "Prio3 - Medium",
@@ -101,16 +120,13 @@ const mockData = {
             },
         },
         wontFix: {
-            key: "GRZ-4",
+            key: "GRZ-5",
             fields: {
                 // This is the field's name in JIRA, I can't change it
                 // eslint-disable-next-line
                 customfield_10005: 5,
                 summary: "Humility",
                 description: "Calling the world from isolation 'cause right now, that's the ball where we be chained",
-                assignee: {
-                    name: "george.benson",
-                },
                 priority: {
                     name: "Prio3 - Medium",
                 },
@@ -250,6 +266,7 @@ mockData.cardsOnBoard = {
     issues: [
         mockData.cardDetails.todo,
         mockData.cardDetails.inProgress,
+        mockData.cardDetails.done2,
         mockData.cardDetails.done,
         mockData.cardDetails.wontFix,
     ],

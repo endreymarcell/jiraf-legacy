@@ -23,6 +23,8 @@ app.get("/debug", (req, res) => {
     res.send(JSON.stringify({mock: "JIRA"}));
 });
 
+// TODO this whole thing is a big hot mess, rewrite it
+
 app.get(JIRA_BOARD_URL, (req, res) => {
     if (req.query.projectKeyOrId === "NOSUCHPROJECT") {
         res.sendStatus(404);
@@ -57,10 +59,18 @@ addJsonGetEndpoint(app, `${JIRA_CARD_URL}:cardKey${JIRA_TRANSITIONS_URL}`, mockD
 app.get(JIRA_SEARCH_URL, (req, res) => {
     let data;
     if (req.query.fields === "summary,status,issuetype,priority,assignee") {
-        if (req.query.jql.indexOf('AND status = "Done"') !== -1) {
+        const isDone = req.query.jql.indexOf('AND status = "Done"') !== -1;
+        const isClintEastwood = req.query.jql.indexOf("AND assignee = clint.eastwood") !== -1;
+        if (isDone && isClintEastwood) {
             data = {issues: [mockData.cardDetails.done]};
-        } else if (req.query.jql.indexOf("AND assignee = clint.eastwood") !== -1) {
-            data = {issues: [mockData.cardDetails.todo]};
+        } else if (isDone) {
+            data = {issues: [mockData.cardDetails.done2, mockData.cardDetails.done]};
+        } else if (isClintEastwood) {
+            data = {issues: [mockData.cardDetails.todo, mockData.cardDetails.done]};
+        } else if (req.query.jql.indexOf("AND assignee = monkey.jungle") !== -1) {
+            data = {issues: [mockData.cardDetails.inProgress]};
+        } else if (req.query.jql.indexOf("AND assignee = EMPTY") !== -1) {
+            data = {issues: [mockData.cardDetails.wontFix]};
         } else {
             data = mockData.cardsOnBoard;
         }
