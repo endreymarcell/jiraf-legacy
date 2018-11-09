@@ -14,14 +14,14 @@ __Note: jiraf is in beta. Please report any issues.__
 ```npm install -g jiraf```  
 
 ### Authorize
-Create an Atlassian API token for jiraf as described in https://confluence.atlassian.com/display/Cloud/API+tokens  
-Then export your Atlassian username and token as environmental variables named `ATLASSIAN_USERNAME` and `ATLASSIAN_API_TOKEN`.    
+Create an Atlassian API token for jiraf as described in https://confluence.atlassian.com/display/Cloud/API+tokens and export it along with your username as environmental variables named `ATLASSIAN_USERNAME` and `ATLASSIAN_API_TOKEN`.  
 
-Create a GitHub API token jiraf as described in https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/  
-Then export your GitHub username and token as environmental variables named `GITHUB_USERNAME` and `GITHUB_API_TOKEN`.  
+Create a GitHub API token jiraf as described in https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/ and export it along with your username as environmental variables named `GITHUB_USERNAME` and `GITHUB_API_TOKEN`.  
+If you'd like jiraf to access org repositories that belong to an SSO-protected organization, don't forget to enable SSO access for the token.  
 
 ### Configure
-Edit `~/.jiraf/config.json` to add your Jira URL base, editor (make sure that it waits for closing files before returning, eg. `subl -w`), and possibly customize your shortcuts.  
+Edit `~/.jiraf/config.json` to add your Jira URL base, editor, and possibly customize your shortcuts.  
+(Make sure that your editor waits for closing files before returning, eg. `vim`, `subl -w`, `atom -w` etc. Hint: check `git config core.editor`.)  
 
 You will probably want to include some information about the current card in your shell prompt like people do with their git branches. To do that, just cat the contents of the `~/.jiraf/status` file, eg. with a function like this one:  
 ```bash
