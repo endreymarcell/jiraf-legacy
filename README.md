@@ -1,6 +1,7 @@
 # jiraf
 
 jiraf is a command-line helper for a workflow based in Atlassian Jira and GitHub.  
+[![jiraf on npmjs](https://img.shields.io/npm/v/jiraf.svg?colorB=blue)](https://www.npmjs.com/package/jiraf)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![CircleCI](https://circleci.com/gh/endreymarcell/jiraf.svg?style=svg)](https://circleci.com/gh/endreymarcell/jiraf) [![Greenkeeper badge](https://badges.greenkeeper.io/endreymarcell/jiraf.svg)](https://greenkeeper.io/)
 
