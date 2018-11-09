@@ -4,6 +4,10 @@
   "description": "Command-line helper for Jira-GitHub workflow",
   "main": "src/index.js",
   "bin": "./src/index.js",
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=5.0.0"
+  },
   "scripts": {
     "postinstall": "node src/setup.js",
     "format": "prettier --write 'src/*.js' 'src/**/*.js' 'test/*.js' 'test/**/*.js'",
