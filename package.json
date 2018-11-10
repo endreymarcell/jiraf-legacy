@@ -41,7 +41,7 @@
     "eslint": "5.7.0",
     "express": "4.16.4",
     "mocha": "5.2.0",
-    "prettier": "1.15.0"
+    "prettier": "1.15.2"
   },
   "prettier": {
     "printWidth": 120,
