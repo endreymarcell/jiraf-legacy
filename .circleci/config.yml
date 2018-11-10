@@ -5,6 +5,9 @@ jobs:
     - image: endreymarca/jiraf-testing
     working_directory: /jiraf
     steps:
+    - add_ssh_keys:
+        fingerprints:
+        - "2e:b5:40:44:d9:21:b4:c5:8f:d1:69:19:4e:14:2d:bb"
     - checkout:
         path: /git_jiraf
     - run:
@@ -42,5 +45,16 @@ jobs:
         name: curl mock GitHub service by IP
         command: curl 127.0.0.2/debug
     - run:
-        name: Lint and test
-        command: npm run lint && npm run test
+        name: Static code checks
+        command: npm run lint
+    - run:
+          name: Functional tests
+          command: npm run test
+    - run:
+        name: Setup environment variables
+        command: |
+            echo 'export GITHUB_USERNAME="$GITHUB_USERNAME"' >> $BASH_ENV
+            echo 'export GITHUB_API_TOKEN="$GITHUB_API_TOKEN"' >> $BASH_ENV
+    - run:
+        name: Integration tests
+        command: npm run integration
