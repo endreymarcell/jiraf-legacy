@@ -1,3 +1,9 @@
+const {JIRAF_CONFIG_FILE} = require("../const");
+
+const infoMessages = {
+    configCreated: `jiraf created a config file at ${JIRAF_CONFIG_FILE} - please fill it out`,
+};
+
 const errorMessages = {
     unknownCommand: command => `unkonwn command '${command}'`,
     noProjectSet: "no project set; please set it with `jiraf setpropject <key>`",
@@ -28,5 +34,6 @@ const errorMessages = {
 };
 
 module.exports = {
+    infoMessages,
     errorMessages,
 };
