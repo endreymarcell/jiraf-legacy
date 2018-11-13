@@ -11,7 +11,10 @@ __Note: jiraf is in beta. Please report any issues.__
 ## Setup
 
 ### Install
-```npm install -g jiraf```  
+```bash
+npm install -g jiraf
+jiraf init
+```  
 
 ### Authorize
 Create an Atlassian API token for jiraf as described in https://confluence.atlassian.com/display/Cloud/API+tokens and export it along with your username as environmental variables named `ATLASSIAN_USERNAME` and `ATLASSIAN_API_TOKEN`.  
