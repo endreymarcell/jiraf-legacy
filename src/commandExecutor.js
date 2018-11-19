@@ -1,7 +1,6 @@
 const commandLineArgs = require("command-line-args");
 
 const defs = require("./utils/argDefinitions");
-const {initCommand} = require("./commands/initCommand");
 const {debugCommand} = require("./commands/debugCommand");
 const {branchCommand, checkCommand, prCommand} = require("./commands/gitCommands");
 const {listCardsCommand} = require("./commands/listCommand");
@@ -18,10 +17,6 @@ const {webCommand} = require("./commands/webCommand");
 const {readFromConfig} = require("./utils/storageHandler");
 
 const commandMap = {
-    init: {
-        argDefinitions: null,
-        commandFunction: initCommand,
-    },
     ls: {
         argDefinitions: defs.listCardsDefinitions,
         commandFunction: listCardsCommand,
@@ -100,7 +95,7 @@ const executeKnownCommand = (commandName, args) => {
 
 const isShortcut = commandName => {
     const shortcuts = readFromConfig("shortcuts");
-    return shortcuts && Object.keys(shortcuts).indexOf(commandName) !== -1;
+    return Object.keys(shortcuts).indexOf(commandName) !== -1;
 };
 
 const executeShortcut = (shortcut, args) => {

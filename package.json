@@ -9,6 +9,7 @@
     "npm": ">=5.0.0"
   },
   "scripts": {
+    "postinstall": "node src/setup.js",
     "format": "prettier --write 'src/*.js' 'src/**/*.js' 'test/*.js' 'test/**/*.js'",
     "test": "./scripts/run_tests.sh",
     "test:docker": "mocha test/test-cases/* --grep",
