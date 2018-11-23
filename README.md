@@ -16,10 +16,18 @@ npm install -g jiraf
 ```  
 
 ### Authorize
-Create an Atlassian API token for jiraf as described in https://confluence.atlassian.com/display/Cloud/API+tokens and export it along with your username as environmental variables named `ATLASSIAN_USERNAME` and `ATLASSIAN_API_TOKEN`.  
+Create an Atlassian API token: navigate to https://id.atlassian.com/ and take note of your username, click API tokens and create a new token for yourself. Then export them:  
+```
+export ATLASSIAN_USERNAME=your.name@email.com
+export ATLASSIAN_API_TOKEN=your_atlassian_token
+```  
 
-Create a GitHub API token jiraf as described in https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/ and export it along with your username as environmental variables named `GITHUB_USERNAME` and `GITHUB_API_TOKEN`.  
-If you'd like jiraf to access org repositories that belong to an SSO-protected organization, don't forget to enable SSO access for the token.  
+If you also want to create pull requests, you need GitHub credentials as well: navigate to https://github.com/settings/tokens and generate a new token - repo access is enough, but you'll also need to enable SSO for it to be able to access your organization.  
+```
+export GITHUB_USERNAME=your.name@email.com
+export GITHUB_API_TOKEN=your_github_token
+```  
+Put these exports into your bash_profile so that they persist between terminal sessions.
 
 ### Configure
 Edit `~/.jiraf/config.json` to add your Jira URL base, editor, and possibly customize your shortcuts.  
