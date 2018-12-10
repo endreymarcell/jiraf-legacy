@@ -6,6 +6,7 @@ else
     -v "$(pwd)/src:/jiraf/src" \
     -v "$(pwd)/test:/jiraf/test" \
     -v "$(pwd)/package.json:/jiraf/package.json" \
+    -v "$(pwd)/.eslintrc.json:/jiraf/.eslintrc.json" \
     -e "TERM=xterm-256color" \
     -e GITHUB_USERNAME \
     -e GITHUB_API_TOKEN \
