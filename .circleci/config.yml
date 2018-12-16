@@ -12,7 +12,7 @@ jobs:
         path: /git_jiraf
     - run:
         name: Copy the source code from git to the testing folder
-        command: cp -r /git_jiraf/* /jiraf/
+        command: cp -r /git_jiraf/. /jiraf/
     - restore_cache:
         keys:
         - v1-dependencies-{{ checksum "package-lock.json" }}
