@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-urlbase="https://api.github.com/repos/endreymarcell/jiraf-integration-test"
+urlbase="https://api.github.com/repos/endreymarcell-testing/jiraf-integration-test"
 credentials="$GITHUB_USERNAME:$GITHUB_API_TOKEN"
 
 close_pull_requests() {

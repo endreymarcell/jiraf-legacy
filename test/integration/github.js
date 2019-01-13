@@ -20,7 +20,7 @@ describe("GitHub integration", () => {
         console.log("[test]");
         this.timeout(10000);
         const output = String(execFileSync("./test/integration/scripts/test.sh", [hash]));
-        expect(output.indexOf("https://github.com/endreymarcell/jiraf-integration-test/pull/")).to.not.eq(-1);
+        expect(output.indexOf("https://github.com/endreymarcell-testing/jiraf-integration-test/pull/")).to.not.eq(-1);
     });
 
     after(function() {

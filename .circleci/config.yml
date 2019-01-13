@@ -53,8 +53,8 @@ jobs:
     - run:
         name: Setup environment variables
         command: |
-            echo 'export GITHUB_USERNAME="$GITHUB_USERNAME"' >> $BASH_ENV
-            echo 'export GITHUB_API_TOKEN="$GITHUB_API_TOKEN"' >> $BASH_ENV
+            echo 'export GITHUB_USERNAME="$NEW_GITHUB_USERNAME"' >> $BASH_ENV
+            echo 'export GITHUB_API_TOKEN="$NEW_GITHUB_API_TOKEN"' >> $BASH_ENV
     - run:
         name: Integration tests
         command: npm run integration

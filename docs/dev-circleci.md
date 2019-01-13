@@ -9,7 +9,7 @@ Simply putting `&` after the command doesn't work on CCI because of the way it h
 The mock services also start slower than locally, introducing a race condition with the tests. This is solved by build steps that wait until the services respond.  
 
 ## GitHub authentiaction
-The integration test creates pull requests in https://github.com/endreymarcell/jiraf-integration-test which is a private repository, therefore CircleCI needs to be authenticated and granted write access.  
+The integration test creates pull requests in https://github.com/endreymarcell-testing/jiraf-integration-test which is a private repository, therefore CircleCI needs to be authenticated and granted write access.  
 #### API token
 _(Required for the HTTP requests made both from the code and from the integration test shell scripts.)_  
 The generated API token is stored in environment variables locally, passed to the container in the relevant shell files issuing the `docker run` commands. On CircleCI, they were added as environment variables to the job configuration, and passed to the container in a rather awkward manner in a separate build step, as CCI doesn't yet have a proper way of doing this.  
