@@ -41,7 +41,7 @@
     "body-parser": "1.18.3",
     "chai": "4.2.0",
     "eslint": "5.15.2",
-    "express": "4.16.4",
+    "express": "4.17.0",
     "mocha": "6.1.4",
     "prettier": "1.17.0"
   },
