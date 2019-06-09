@@ -106,6 +106,8 @@ const generateSummary = (template, configTemplateName, defaultTemplate) => {
     }
 };
 
+const isNumeric = input => !isNaN(parseInt(input));
+
 module.exports = {
     rightPad,
     getShortUsername,
@@ -120,4 +122,5 @@ module.exports = {
     readGithubCredentials,
     generateStatus,
     generateDetails,
+    isNumeric,
 };

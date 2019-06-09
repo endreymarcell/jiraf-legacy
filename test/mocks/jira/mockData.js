@@ -10,6 +10,9 @@ const mockData = {
     boardConfig: {
         id: 987,
         name: "Lorem Ipsum board",
+        location: {
+            key: "PROJ",
+        },
         columnConfig: {
             columns: [
                 {
