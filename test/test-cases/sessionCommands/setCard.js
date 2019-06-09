@@ -1,4 +1,4 @@
-const {updateInSession, updateInConfig} = require("../../../src/utils/storageHandler");
+const {updateInConfig} = require("../../../src/utils/storageHandler");
 const {expectError, expectInSession, expectStatus, expectSuccess} = require("../utils/shorthands");
 const {clearBeforeTests} = require("../utils/utils");
 const {errorMessages} = require("../../../src/utils/messages");
@@ -32,19 +32,6 @@ describe("setCardCommand", () => {
         expectInSession("jiraf set PROJ-123", {key: "activeCardKey", value: "PROJ-123"}, done);
     });
 
-    it("should store the project too when given a full key", done => {
-        expectInSession("jiraf set PROJ-123", {key: "activeProjectKey", value: "PROJ"}, done);
-    });
-
-    it("should should read the project from the session when only given a partial key", done => {
-        updateInSession("activeProjectKey", "PROJ");
-        expectInSession("jiraf set 123", {key: "activeCardKey", value: "PROJ-123"}, done);
-    });
-
-    it("should fail when only given a partial key if there's no project set", done => {
-        expectError("jiraf set 123", "no project set, provide a full card key", done);
-    });
-
     it("should load the card's details", done => {
         expectInSession(
             "jiraf set GRZ-1",
@@ -73,16 +60,5 @@ describe("setCardCommand", () => {
         it("should use the default status template if none is configured", done => {
             expectStatus("jiraf set GRZ-1", "(GRZ-1)", done);
         });
-    });
-
-    it("should load the project's statuses when given a full key", done => {
-        expectInSession(
-            "jiraf set PROJ-123",
-            {
-                key: "statuses",
-                value: ["To Do", "In Progress", "Done", "Won't Fix"],
-            },
-            done
-        );
     });
 });

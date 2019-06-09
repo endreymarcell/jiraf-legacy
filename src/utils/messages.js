@@ -21,6 +21,8 @@ const errorMessages = {
         `cannot load card transitions for project '${projectKey}' (${errorMessage})`,
     cannotListCardsOnBoard: (projectKey, errorMessage) =>
         `cannot list cards on the board for project key '${projectKey}' (${errorMessage})`,
+    cannotListCardsInView: (projectKey, errorMessage) =>
+        `cannot list cards on the board for rapidview id ${projectKey} (${errorMessage})`,
     cannotAssignCard: (cardKey, errorMessage) => `assigning card '${cardKey}' failed (${errorMessage})`,
     cannotCreatePR: errorMessage => `couldn't create pull request (${errorMessage})`,
     cannotCreateBranch: errorMessage => `couldn't create the new branch (${errorMessage})`,

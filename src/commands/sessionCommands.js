@@ -57,7 +57,10 @@ const loadStatusesForBoardId = boardId => {
                     const statusList = [];
                     for (let i = 0; i < columns.length; i++) {
                         columns[i].statuses.forEach(status => {
-                            statusList.push(statusMap[status.id]);
+                            // TODO figure out how can it even be null sometimes
+                            if (statusMap[status.id]) {
+                                statusList.push(statusMap[status.id]);
+                            }
                         });
                     }
                     updateInSession("statuses", statusList);
@@ -76,21 +79,8 @@ const setCardCommand = ({cardKey}) => {
         throw Error(errorMessages.missingArgument("cardKey"));
     }
     const key = cardKey.split(" ")[0];
-    let fullKey;
-    if (key.indexOf("-") !== -1) {
-        const projectKey = key.split("-")[0];
-        setProjectCommand({projectKey});
-        fullKey = key;
-    } else {
-        const projectKey = readActiveProjectKey();
-        if (projectKey) {
-            fullKey = readActiveProjectKey() + "-" + key;
-        } else {
-            throw Error(errorMessages.noProjectForPartialCardKey);
-        }
-    }
-    updateMultipleInSession([{key: "activeCardKey", value: fullKey}, {key: "activeCardDetails", value: {}}]);
-    reloadAndUpdateCardData(fullKey);
+    updateMultipleInSession([{key: "activeCardKey", value: key}, {key: "activeCardDetails", value: {}}]);
+    reloadAndUpdateCardData(key);
 };
 
 const refreshCardCommand = () => {
