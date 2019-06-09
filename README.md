@@ -49,7 +49,7 @@ The format of this status is configurable by modifying the `statusTemplate` valu
 
 #### Picking a card  
 `jiraf setproject <project_key>`  
-Specify the project by its key so that you can list cards on the board.    
+Specify the project by its key so that you can list cards on the board. You can also pass a rapidView number.    
 
 `jiraf unsetproject`  
 Unset the project.  
@@ -59,7 +59,7 @@ List the cards on the board in the current sprint (key, status, summary, assigne
 You can filter for status (lowercase, one word, like: "todo" or "inprogress") or assignee (pass the Jira username). If you don't pass any username, the default is yourself; to filter for unassigned cards, pass "unassigned".    
 
 `jiraf set <card>`  
-Set `<card>` as the active card. (Note: you can pass the full key, eg. PROJ-123, which then also calls `setproject` with "PROJ", or only pass 123, in which case the currently active project is used.)  
+Set `<card>` as the active card. (The card has to be on the currently set board. If you want to pick a card from a different board, you need to call `setproject` first.)  
 
 `jiraf details [<template>]`  
 Print the details of the active card. The format is specified in your config file (see the `detailsTemplate` value), but you can also override it when calling the command. You can use the values `summary`, `status`, `assignee`, `description`, `priority`, and `estimate` passed to the template in double curly braces. If you don't pass anything and also have no template configured, the default template is used, which is `{{key}} [{{status}}] {{summary}} ({{assignee}})`.  
