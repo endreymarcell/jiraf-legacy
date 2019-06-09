@@ -2,7 +2,7 @@ const commandLineArgs = require("command-line-args");
 
 const defs = require("./utils/argDefinitions");
 const {debugCommand} = require("./commands/debugCommand");
-const {branchCommand, checkCommand, prCommand} = require("./commands/gitCommands");
+const {branchCommand, prCommand} = require("./commands/gitCommands");
 const {listCardsCommand} = require("./commands/listCommand");
 const {
     setProjectCommand,
@@ -68,10 +68,6 @@ const commandMap = {
     pr: {
         argDefinitions: null,
         commandFunction: prCommand,
-    },
-    check: {
-        argDefinitions: null,
-        commandFunction: checkCommand,
     },
     web: {
         argDefinitions: defs.webDefinitions,
