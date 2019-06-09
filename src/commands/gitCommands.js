@@ -6,14 +6,7 @@ const {errorMessages} = require("../utils/messages");
 
 const axios = require("axios");
 
-const {
-    JIRAF_HOME_FOLDER,
-    JIRA_CARD_URL,
-    JIRA_PULL_REQUEST_URL,
-    GITHUB_URL_BASE,
-    PULL_REQUEST_TEMPLATE,
-} = require("../const");
-const {get} = require("../utils/jiraApi");
+const {JIRAF_HOME_FOLDER, GITHUB_URL_BASE, PULL_REQUEST_TEMPLATE} = require("../const");
 const {readActiveCardKey, readFromConfig} = require("../utils/storageHandler");
 const {interpolate, readGithubCredentials, print, die} = require("../utils/utils");
 
@@ -31,26 +24,6 @@ const branchCommand = ({branchName}) => {
             die(errorMessages.cannotCreateBranch(error.message.split("\n").join(". ")));
         }
     });
-};
-
-const checkCommand = () => {
-    const cardKey = readActiveCardKey();
-    if (!cardKey) {
-        throw Error(errorMessages.noCardSet);
-    }
-    get(`${JIRA_CARD_URL}${cardKey}?fields=''`)
-        .then(response => {
-            const issueId = response.data.id;
-            get(`${JIRA_PULL_REQUEST_URL}${issueId}`)
-                .then(response => {
-                    const pullRequests = response.data.detail[0].pullRequests;
-                    if (pullRequests.length > 0) {
-                        pullRequests.forEach(pullRequest => print(pullRequest.url));
-                    }
-                })
-                .catch(error => die(errorMessages.cannotLoadPRs(error.message)));
-        })
-        .catch(error => die(errorMessages.cannotLoadCard(error.message)));
 };
 
 const prCommand = () => {
@@ -131,6 +104,5 @@ const getRepoCoordinates = remote => {
 
 module.exports = {
     branchCommand,
-    checkCommand,
     prCommand,
 };
