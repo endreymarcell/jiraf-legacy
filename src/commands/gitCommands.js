@@ -62,7 +62,7 @@ const editDescriptionAndCreatePullRequest = ({owner, repo, branchName}) => {
     fs.writeFileSync(descriptionFileName, preparedTemplate);
 
     spawnSync(`${editor}`, [`${descriptionFileName}`], {
-        stdio: 'inherit'
+        stdio: 'inherit',
     });
     createPullRequest({owner, repo, branchName, descriptionFileName});
 };
