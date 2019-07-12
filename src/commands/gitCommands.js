@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const {exec} = require("child_process");
+const {exec, spawnSync} = require("child_process");
 const {errorMessages} = require("../utils/messages");
 
 const axios = require("axios");
@@ -60,8 +60,11 @@ const editDescriptionAndCreatePullRequest = ({owner, repo, branchName}) => {
         jiraUrlBase: readFromConfig("jiraUrlBase"),
     });
     fs.writeFileSync(descriptionFileName, preparedTemplate);
-    const childProcess = exec(`${editor} ${descriptionFileName}`);
-    childProcess.on("close", () => createPullRequest({owner, repo, branchName, descriptionFileName}));
+
+    spawnSync(`${editor}`, [`${descriptionFileName}`], {
+        stdio: 'inherit'
+    });
+    createPullRequest({owner, repo, branchName, descriptionFileName});
 };
 
 const createPullRequest = ({owner, repo, branchName, descriptionFileName}) => {
